@@ -1,0 +1,4 @@
+
+export const GET_LOTS_REQUEST=' GET_LOTS_REQUEST'
+export const GET_LOTS_SUCCESS=' GET_LOTS_SUCCESS'
+export const GET_LOTS_FAIL=' GET_LOTS_FAIL'
