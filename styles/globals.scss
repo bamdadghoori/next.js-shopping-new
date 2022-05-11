@@ -1,9 +1,12 @@
+@import url('http://fonts.cdnfonts.com/css/roboto');
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'roboto',-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
+    background-color: #f2f2f2;
+    
 }
 
 a {
@@ -16,8 +19,62 @@ a {
 }
 .navbar{
   background-color: blue !important;
-  a{
-  //  color: white !important;
+ 
+}
+.lot{
+  background: gold;
+  margin-bottom: 2vh;
+  padding: 20px;
+  height: 60vh;
+  background: rgb(255, 255, 255);
+  img{
+   width: 100%;
+   height: 30vh;
   }
+}
+.price {
+  .price-title{
+    color: rgb(255, 107, 0);
+  }
+}
+.lot-details{
+  img{
+    width: 100%;
+  }
+  .detail-container{
+    padding-top: 14vh;
+    .title-details{
+      text-align: center;
+      h3{
+        text-align: center;
+      }
+     
+    }
+    .badge{
+      svg{
+        color: yellow !important;
+      }
+      span{
+        color: black;
+      }
+      
+    }
+    .inventory{
+      .count{
+        color:#ff6a00
+  }
+}
+// .price{
+//   color: #ff6a00;
+// }
+.price-number{
+  color: #ff6a00;
+}
+.btn-regist{
+  background-color: #ff6a00;
+  color: #fff;
+}
+  }
+
 }
 

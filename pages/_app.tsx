@@ -13,6 +13,7 @@ import { GetLotsFail,GetLotsRequest,GetLotsSuccess } from '../redux/shopping/sho
 import { RootState,AppDispatch } from '../redux/store'
 import axios from 'axios';
 import { useDispatch,useSelector } from 'react-redux'
+
 function App({ Component, pageProps }: AppProps) {
   //  const dispatch:AppDispatch=useDispatch()
 //   const getLots=()=>{
