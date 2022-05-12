@@ -6,6 +6,8 @@ import { useDispatch,useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { GetLotsFail,GetLotsRequest,GetLotsSuccess } from '../redux/shopping/shoppingActions'
 import { RootState,AppDispatch } from '../redux/store'
+import ReactLoading from 'react-loading';
+import Loading from "./Loading"
 import axios from 'axios'
 import Lots from './lots'
 const Home: NextPage = () => {
@@ -66,7 +68,7 @@ useEffect(()=>{
       <main className={styles.main}>
         <>
       {/* {console.log(lots)} */}
-      {state && <Lots lots={state.lots}/>}
+      {state.isLoading==false ? (<Lots lots={state.lots}/>):( <Loading/>)}
       
      
               
