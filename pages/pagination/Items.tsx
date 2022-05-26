@@ -2,14 +2,17 @@ import React from 'react'
 import Link from "next/link"
  const Items = ({currentItems}:{currentItems:any}) => {
    console.log(currentItems)
+  //  const ids=currentItems.map((el:any)=>el.id)
+  //  const paths=ids.map((el:any)=>{params:{id:el.toString()}})
+  //  console.log(paths)
   return (
     <>
     <div className="container">
       
       <div className="row">
-        {currentItems.map((el:any)=><div className="col-md-3 ">
+        {currentItems.map((el:any)=><div key={el.id} className="col-md-3 ">
          
-          <Link href={{pathname:"lotDetails/[id]",query:{id:el.id,title:el.title,image:el.image,description:el.description,rate:el.rating.rate,count:el.rating.count,price:el.price},}} as={`/lotDetails/${el.id}`}>
+          <Link href={{pathname:`/lotDetails/${el.id.toString()}`,query:{id:el.id.toString(),title:el.title,image:el.image,description:el.description.toString(),rate:el.rating.rate,count:el.rating.count,price:el.price},}} as={`/lotDetails/${el.id.toString()}`}>
           
           <div className="lot">
             

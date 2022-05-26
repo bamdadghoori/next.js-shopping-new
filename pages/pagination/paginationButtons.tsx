@@ -13,7 +13,7 @@ import { useState,useEffect } from 'react'
      
    return(
     
-    <button className={ el==currentPage ? "active btn btn-primary":"btn btn-primary" }  onClick={()=>changePage(el)} >
+    <button key={el.id} className={ el==currentPage ? "active btn btn-primary":"btn btn-primary"  }onClick={()=>changePage(el)} >
     {el}
   </button>
  

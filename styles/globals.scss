@@ -27,6 +27,7 @@ a {
   padding: 20px;
   height: 60vh;
   background: rgb(255, 255, 255);
+  cursor: pointer;
   img{
    width: 100%;
    height: 30vh;
@@ -80,5 +81,23 @@ a {
 .icon-loading{
   margin-top: -30vh;
   // color: #ff6a00;
+}
+.nav-item{
+ 
+}
+.nav-item-shopping-basket{
+  position: absolute;
+  right:2vw;
+  svg{
+    font-size: 3.5vh;
+    
+    position: relative;
+    top: 1.5vh;
+  }
+  .badge{
+    top: 2vh;
+    position: relative;
+    padding: 2px 4px 2px 4px;
+  }
 }
 

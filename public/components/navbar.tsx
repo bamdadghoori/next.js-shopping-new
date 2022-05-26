@@ -2,7 +2,13 @@ import React from 'react'
 import Script from 'next/script';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Link from 'next/link'
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+
 const Navbar = () => {
+  const totalCount=useSelector((state:RootState)=>state.totalCount)
   return (
     <>
      
@@ -39,6 +45,10 @@ const Navbar = () => {
           <div className="dropdown-divider"></div>
           <a className="dropdown-item" href="#">Something else here</a>
         </div>
+      </li>
+     
+      <li className="nav-item nav-item-shopping-basket">
+        <FontAwesomeIcon icon={faShoppingCart}/><span className="badge bg-info text-dark">{totalCount}</span>
       </li>
       {/* <li className="nav-item">
         <a className="nav-link" href="#">Pricing</a>

@@ -10,10 +10,13 @@ import ReactLoading from 'react-loading';
 import Loading from "./Loading"
 import axios from 'axios'
 import Lots from './lots'
+import Categories from './categories'
+import { useRouter } from 'next/router'
 const Home: NextPage = () => {
-  
+   const router=useRouter()
   const dispatch:AppDispatch=useDispatch()
   const state=useSelector((state:RootState)=>state)
+  
   const getLots=()=>{
   //  return async function (dispatch:AppDispatch){
   //     dispatch(GetLotsRequest())
@@ -38,8 +41,8 @@ const Home: NextPage = () => {
         dispatch(GetLotsSuccess(response.data))
       }
       catch(er:any){
-        console.log(er)
-        dispatch(GetLotsFail(er.messege))
+        console.log(er.messege)
+        dispatch(GetLotsFail(er.message))
       }
     
     }
@@ -52,8 +55,13 @@ useEffect(()=>{
   //   // console.log("t")
   // }
 },[])
+
   return (
+    
     <>
+
+   
+
     {console.log(state)}
     {/* {console.log(lots)} */}
     <div className={styles.container}>
@@ -66,13 +74,13 @@ useEffect(()=>{
          salam  dadach!
         </h1>
       <main className={styles.main}>
-        <>
+      {state.isLoading==false ? (<Categories lots={state.lots}/>):( <Loading/>)}
       {/* {console.log(lots)} */}
-      {state.isLoading==false ? (<Lots lots={state.lots}/>):( <Loading/>)}
+      {/* {state.isLoading==false ? (<Lots lots={state.lots}/>):( <Loading/>)} */}
       
-     
-              
-              </>
+         {/* use Router just likes navigate() in react-router */}
+              {/* <button className="btn btn-primary" onClick={()=>{console.log("a"); router.push("/about") }}>test</button>
+               */}
       </main>
 
       {/* <footer className={styles.footer}>
