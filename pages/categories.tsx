@@ -21,7 +21,9 @@ import Category from './category'
      {/* {console.log(a)} */}
         {console.log(categories)}
       {console.log(lots)}
-      <div className="row">
+     
+      <div className="row categories">
+      <h2 className='categories-title'>Categories</h2>
       {
           categories.map((el,i)=>{
              
@@ -29,11 +31,14 @@ import Category from './category'
               
                   
  return(
+   <>
+ 
  <div className='col-md-3'>
 
  
  <Category lots={lots} category={el}/>
  </div>
+ </>
 )
           })
       }

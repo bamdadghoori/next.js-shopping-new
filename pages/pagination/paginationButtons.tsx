@@ -5,7 +5,7 @@ import { useState,useEffect } from 'react'
   
   return (
    <>
-   <div>
+   <div  className='pagination-button'>
      <div className="btn btn-primary btn-prev" onClick={()=>{prevPage(currentPage)}}>
      &#60;
      </div>
