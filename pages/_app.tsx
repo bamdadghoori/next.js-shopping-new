@@ -7,6 +7,7 @@ import Script from 'next/script';
 // import 'jquery/dist/jquery.min.js'
 // import 'bootstrap/dist/js/bootstrap.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import {store,persistor} from '../redux/store'
 
 import { Provider } from 'react-redux';
@@ -46,7 +47,9 @@ function App({ Component, pageProps }: AppProps) {
   return(
     <>
     <Script src="https://code.jquery.com/jquery-3.6.0.min.js"/>
-     <Script src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js'/>
+     {/* <Script src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js' type='script'/> */}
+          <Script src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js' />
+          {/* <Script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"/> */}
      <Script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.5/umd/popper.min.js"/>
      <Provider store={store}>
  

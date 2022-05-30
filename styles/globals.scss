@@ -17,9 +17,16 @@ a {
 * {
   box-sizing: border-box;
 }
+#__next{
+  background: #f2f2f2;
+}
 .navbar{
   background-color: blue !important;
+
  
+}
+.lots{
+  margin-top: 4vh !important;
 }
 .lot{
   background: gold;
@@ -97,6 +104,10 @@ a {
     position: relative;
     padding: 2px 4px 2px 4px;
   }
+  .btn-search{
+    height: fit-content;
+  }
+
 }
 .category{
   background: gold;
@@ -128,4 +139,29 @@ a {
 }
 .pagination-button{
   text-align: center;
+}
+.nav-item{
+  .form-floating>.form-control{
+    padding: 14px  !important;
+    height: fit-content;
+  }
+  .form-floating>label{
+    padding: 8px !important;
+  }
+  .btn-search{
+    background: rgb(255, 107, 0);
+    &:hover{
+      background: #e35300 !important;
+    }
+    &:active{
+      background: #e35300 !important;
+    }
+    &:focus{
+      background: #e35300 !important;
+      border: unset !important;
+      outline: unset !important;
+      box-shadow:  0 0 0 0.25rem rgb(255, 107, 0) !important;
+    }
+
+  }
 }

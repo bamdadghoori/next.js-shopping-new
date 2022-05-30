@@ -9,7 +9,7 @@ import Link from "next/link"
     <>
     <div className="container">
       
-      <div className="row">
+      <div className="row lots">
         {currentItems.map((el:any)=><div key={el.id} className="col-md-3 ">
          
           <Link href={{pathname:`/lotDetails/${el.id.toString()}`,query:{id:el.id.toString(),title:el.title,image:el.image,description:el.description.toString(),rate:el.rating.rate,count:el.rating.count,price:el.price},}} as={`/lotDetails/${el.id.toString()}`}>

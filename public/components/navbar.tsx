@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-
+import SearchBox from './searchBox';
 const Navbar = () => {
   const totalCount=useSelector((state:RootState)=>state.totalCount)
   return (
@@ -46,16 +46,13 @@ const Navbar = () => {
           <a className="dropdown-item" href="#">Something else here</a>
         </div>
       </li>
-     
+      <li className="nav-item search-section">
+      <SearchBox />
+</li>
       <li className="nav-item nav-item-shopping-basket">
         <FontAwesomeIcon icon={faShoppingCart}/><span className="badge bg-info text-dark">{totalCount}</span>
       </li>
-      {/* <li className="nav-item">
-        <a className="nav-link" href="#">Pricing</a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link disabled" href="#">Disabled</a>
-      </li> */}
+   
     </ul>
   </div>
 </nav>
