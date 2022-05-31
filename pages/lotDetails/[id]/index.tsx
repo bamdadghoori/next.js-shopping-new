@@ -145,7 +145,7 @@ let data={};
 
  export const getStaticProps:GetStaticProps=async(context:any)=>{
     try{
-      const response= await axios.get(`https://fakestoreapi.com/products/${context.query.category}`)
+      const response= await axios.get(`https://fakestoreapi.com/products/${context.params.id}`)
       data=response.data
     }
     catch(er:any){

@@ -16,6 +16,9 @@ import NextNProgress from "nextjs-progressbar"
      setLoading(true)
      router.push(`/search/${searchValue}`)
  }
+ const handleKeyUp=()=>{
+   
+ }
   return (
       <>
       {loading==true && (<NextNProgress
@@ -27,7 +30,7 @@ import NextNProgress from "nextjs-progressbar"
 />)}
          <div className="input-group">
   <div className="form-floating form-outline">
-    <input type="text"  id="floatingInput" className="form-control" placeholder='search'value={searchValue} onChange={handleChange} />
+    <input type="text"  id="floatingInput" className="form-control" placeholder='search'value={searchValue} onChange={handleChange} onKeyUp={handleKeyUp}/>
     <label className="form-label" htmlFor="floatingInput">Search</label>
   </div>
   <button type="button" className="btn btn-primary btn-search" onClick={handleClick}>

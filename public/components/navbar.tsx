@@ -5,17 +5,45 @@ import Link from 'next/link'
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingCart,faUser } from '@fortawesome/free-solid-svg-icons'
 import SearchBox from './searchBox';
+import { useRouter } from 'next/router';
+import NextNProgress from "nextjs-progressbar" 
+import { useState } from 'react';
 const Navbar = () => {
+  const [loading,setLoading]=useState(false)
+  const router=useRouter();
   const totalCount=useSelector((state:RootState)=>state.totalCount)
+  let lots=useSelector(((state:RootState)=>state.lots))
+  lots=lots.map((el=>el.category))
+  
+  lots=lots.filter((el,i)=>{
+    return lots.indexOf(el)==i
+  })
+
+   const handleCategoryLink=(e:React.MouseEvent<HTMLElement>,el:string)=>{
+        e.preventDefault();
+        setLoading(true)
+       router.push(`/lotsInCategory/${el}`)
+   }
+  console.log(lots)
   return (
     <>
      
-     
+     {
+       loading && (
+        <NextNProgress
+        color="rgb(255, 107, 0)"
+        startPosition={0.3}
+        stopDelayMs={200}
+        height={3}
+        showOnShallow={true}
+      />
+       )
+     }
    
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-  <a className="navbar-brand" href="#">Navbar</a>
+    <nav className="navbar navbar-expand-lg navbar-light ">
+  <Link  href="/"><a className="navbar-brand">Home</a></Link>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>
@@ -24,7 +52,7 @@ const Navbar = () => {
       {/* <li className="nav-item active">
         <link className="nav-link" href="/">Home <span className="sr-only">(current)</span></link>
       </li> */}
-      <li className="nav-item">
+      {/* <li className="nav-item">
         <Link  href="/about"><a className="nav-link">about</a></Link>
       </li>
       <li className="nav-item">
@@ -45,10 +73,16 @@ const Navbar = () => {
           <div className="dropdown-divider"></div>
           <a className="dropdown-item" href="#">Something else here</a>
         </div>
+      </li> */} <li className="nav-item about-item">
+        <Link  href="/about"><a href="" className="nav-link">About us</a></Link>
       </li>
       <li className="nav-item search-section">
       <SearchBox />
 </li>
+    <li className="nav-item login-item">
+        <Link  href="/"><a href="" className="nav-link">Sign in <FontAwesomeIcon icon={faUser}/></a></Link>
+      </li>
+     
       <li className="nav-item nav-item-shopping-basket">
         <FontAwesomeIcon icon={faShoppingCart}/><span className="badge bg-info text-dark">{totalCount}</span>
       </li>
@@ -56,7 +90,37 @@ const Navbar = () => {
     </ul>
   </div>
 </nav>
+<div className="second-nav navbar">
+ <ul>
+  <li className="nav-item dropdown">
+        <a className="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Categories
+        </a>
+        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+          {lots.map((el:any,i)=>{
+            return(<>
+            
+            <a href="" className="dropdown-item" onClick={(e)=>handleCategoryLink(e,el)}>
+              {el}
+            </a>
+            
+            
 
+           
+            </>)
+            
+          }
+          )}
+          {/* <a className="dropdown-item" href="#">Action</a>
+          <a className="dropdown-item" href="#">Another action</a>
+          <div className="dropdown-divider"></div>
+          <a className="dropdown-item" href="#">Something else here</a> */}
+        </div>
+      </li> 
+      </ul>
+  
+
+</div>
     </>
   )
 }
