@@ -34,11 +34,12 @@ export const getStaticPaths:GetStaticPaths=async()=>{
 
   return{
     paths,
-    fallback:true
+    fallback:false,
   }
 
 }
 export const getStaticProps:GetStaticProps=async(context:any)=>{
+  console.log("ban")
   let data:Array<any> =[]
   try{
     const response= await axios.get(`https://fakestoreapi.com/products/category/${context.params.category}`)

@@ -4,6 +4,7 @@ import https from "https"
 import { constants } from 'http2'
 import Lots from '../../lots'
  const SearchResult = ({data,value}:{data:Array<any>,value:string}) => {
+    console.log("x")
      data=data.filter((el,i)=>{
          return el.title.toUpperCase().includes(value.toUpperCase())||el.category.toUpperCase().includes(value.toUpperCase())||el.description.toUpperCase().includes(value.toUpperCase())
      })
@@ -25,6 +26,7 @@ axios.defaults.httpsAgent=new https.Agent({
     rejectUnauthorized:false,
   })
 export const getServerSideProps=async(context:any)=>{
+    console.log("xxsfdaf")
     let data=[]
     try{
         const response=await axios.get(`https://fakestoreapi.com/products`)

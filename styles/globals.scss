@@ -232,3 +232,31 @@ width: 100%;
  }
 }
 }
+.predict-search{
+  width: 34vw;
+  height: 30vw;
+  position: absolute;
+  background: #fff;
+  z-index: 2;
+  overflow-y: scroll;
+  img{
+    width: 100px;
+  }
+  .row{
+    cursor: pointer;
+    margin-bottom: 5vh;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 10px;
+  }
+ 
+}
+.form-floating{
+    .close-icon{
+      
+      position: absolute;
+      top: 2vh;
+      right: 1vw;
+      cursor: pointer;
+    }
+}
