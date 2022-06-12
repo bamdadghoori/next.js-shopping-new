@@ -10,10 +10,13 @@ import SearchBox from './searchBox';
 import { useRouter } from 'next/router';
 import NextNProgress from "nextjs-progressbar" 
 import { useState } from 'react';
+import ShoppingCardModal from "./shoppingCardModal"
 const Navbar = () => {
   const [loading,setLoading]=useState(false)
+  const [shoppingModal,setShoppingModal]=useState(false)
   const router=useRouter();
   const totalCount=useSelector((state:RootState)=>state.totalCount)
+  const customerLots=useSelector((state:RootState)=>state.customerLots)
   let lots=useSelector(((state:RootState)=>state.lots))
   lots=lots.map((el=>el.category))
   
@@ -25,6 +28,9 @@ const Navbar = () => {
         e.preventDefault();
         setLoading(true)
        router.push(`/lotsInCategory/${el}`)
+   }
+   const handleShoppingCart=()=>{
+     setShoppingModal(true)
    }
   console.log(lots)
   return (
@@ -83,10 +89,10 @@ const Navbar = () => {
         <Link  href="/"><a href="" className="nav-link">Sign in <FontAwesomeIcon icon={faUser}/></a></Link>
       </li>
      
-      <li className="nav-item nav-item-shopping-basket">
+      <li className="nav-item nav-item-shopping-basket" onClick={handleShoppingCart}>
         <FontAwesomeIcon icon={faShoppingCart}/><span className="badge bg-info text-dark">{totalCount}</span>
       </li>
-   
+          <ShoppingCardModal customerLots={customerLots}/>
     </ul>
   </div>
 </nav>

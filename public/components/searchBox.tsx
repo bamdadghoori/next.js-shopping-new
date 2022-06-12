@@ -23,8 +23,12 @@ import { RootState } from '../../redux/store';
    SetPredictDisplay(false)
  }
  const handleClick=()=>{
-     setLoading(true)
-     router.push(`/search/${searchValue}`)
+if(searchValue!=""){
+  setLoading(true)
+  router.push(`search/${searchValue}`)
+}
+  
+ 
      
  }
  const handleKeyUp=()=>{
@@ -63,7 +67,7 @@ searchValue=="" ? (
   
 </div>
 {
-   predictDisplay && <PredictSearch relatedLots={relatedLots}/>
+   predictDisplay && <PredictSearch handleClose={handleClose} relatedLots={relatedLots}/>
  }
  
       </>

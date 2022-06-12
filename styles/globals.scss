@@ -26,6 +26,72 @@ a {
   position: absolute;
   left: 2vw;
 }
+.shopping-card-modal{
+  position: absolute;
+    right: 2vw;
+    top: 10vh;
+    z-index: 2;
+    height: fit-content;
+    background: #fff;
+    overflow-y: scroll;
+    width: 25vw;
+    img{
+      width: 70px;
+    }
+    .price{
+      color: rgb(255, 107, 0);
+      font-size: 2.5vh;
+      margin-top: 2vh;
+    }
+    .lot-count{
+      border: solid 1px;
+      padding: 8px;
+      position: relative;
+      display: flex;
+      border-radius: 5px;
+      width: 6vw;
+      left: 1.5vw;
+      .lotCount-number{
+        text-align: center;
+        padding-left: 2vw;
+      }
+      input{
+        width: 100%;
+        text-align: center;
+        border: unset;
+        &:focus,&:focus-visible,&:focus-within{
+          border: unset;
+          outline: unset;
+        }
+      }
+      .increment{
+         border: unset;
+         background: inherit;
+         font-size: 4vh;
+         position: absolute;
+         top: 0vh;
+         right: 0vw;
+         color: #ff6a00;
+      }
+      .decrement{
+        border: unset;
+        background: inherit;
+        font-size: 5vh;
+        position: absolute;
+        top: -1vh;
+       color: #ff6a00;
+        left: 0;
+      }
+      margin-top: 2vh;
+   
+     
+    }
+    .modal-lot{
+      padding: 15px;
+      font-size: 2.2vh;
+      text-align: center;
+    }
+}
 .about-item
 {
   position: absolute;
@@ -101,6 +167,7 @@ a {
 .nav-item-shopping-basket{
   position: absolute;
   right:2vw;
+ cursor: pointer;
   svg{
     font-size: 3.5vh;
     
