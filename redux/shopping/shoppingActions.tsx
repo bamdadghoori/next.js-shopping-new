@@ -1,4 +1,4 @@
-import {GET_LOTS_SUCCESS,GET_LOTS_REQUEST,GET_LOTS_FAIL,ADD_CUSTOMER_LOT,REMOVE_CUSTOMER_LOT} from './shoppingTypes';
+import {GET_LOTS_SUCCESS,GET_LOTS_REQUEST,GET_LOTS_FAIL,ADD_CUSTOMER_LOT,DECREMENT_COUNT_CUSTOMER_LOT,REMOVE_CUSTOMER_LOT,INCREMENT_COUNT_CUSTOMER_LOT} from './shoppingTypes';
 export const GetLotsRequest=()=>{
     return {
          type:GET_LOTS_REQUEST
@@ -26,7 +26,19 @@ export const AddCustomerLot=(lot:object)=>{
 }
 export const RemoveCustomerLot=(id:number)=>{
     return {
-         type:ADD_CUSTOMER_LOT,
+         type:REMOVE_CUSTOMER_LOT,
          payload:{id:id}
     }
 }
+export const IncrementCountCustomerLot=(id:number)=>{
+return{
+    type:INCREMENT_COUNT_CUSTOMER_LOT,
+    payload:{id:id}
+}
+}
+export const DecrementCountCustomerLot=(id:number)=>{
+    return{
+        type:DECREMENT_COUNT_CUSTOMER_LOT,
+        payload:{id:id}
+    }
+    }

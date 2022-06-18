@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
 import { useDispatch,useSelector } from 'react-redux';
+
 import { AddCustomerLot } from '../../../redux/shopping/shoppingActions';
 import { GetLotsFail,GetLotsRequest,GetLotsSuccess } from '../../../redux/shopping/shoppingActions'
 import { RootState,AppDispatch } from '../../../redux/store'
@@ -13,11 +14,18 @@ import https from "https"
  const LotDetails = ({data,error}:{data:any,error:string}) => {
   //  const [error,setError]=useState("") 
 const dispatch=useDispatch();
+console.log(useSelector((state:RootState)=>state.customerLots))
+const customerLots=useSelector((state:RootState)=>state.customerLots)
 console.log(data)
+
 const lotCount=1;
+console.log({...data,lotCount:lotCount})
 
 const addLots=()=>{
-dispatch(AddCustomerLot({...data,lotCount:lotCount}))
+ if(customerLots.findIndex((el)=>el.id==data.id)==-1){
+  dispatch(AddCustomerLot({...data,lotCount:lotCount}))
+ }
+
 }
   return (
     <>

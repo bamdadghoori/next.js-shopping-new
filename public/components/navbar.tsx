@@ -18,6 +18,7 @@ const Navbar = () => {
   const totalCount=useSelector((state:RootState)=>state.totalCount)
   const customerLots=useSelector((state:RootState)=>state.customerLots)
   let lots=useSelector(((state:RootState)=>state.lots))
+  
   lots=lots.map((el=>el.category))
   
   lots=lots.filter((el,i)=>{
@@ -30,7 +31,10 @@ const Navbar = () => {
        router.push(`/lotsInCategory/${el}`)
    }
    const handleShoppingCart=()=>{
-     setShoppingModal(true)
+     setShoppingModal(!shoppingModal)
+   }
+   const closeModal=()=>{
+    setShoppingModal(false)
    }
   console.log(lots)
   return (
@@ -92,7 +96,10 @@ const Navbar = () => {
       <li className="nav-item nav-item-shopping-basket" onClick={handleShoppingCart}>
         <FontAwesomeIcon icon={faShoppingCart}/><span className="badge bg-info text-dark">{totalCount}</span>
       </li>
-          <ShoppingCardModal customerLots={customerLots}/>
+      {shoppingModal && (
+          <ShoppingCardModal closeModal={closeModal}/>
+      )}
+
     </ul>
   </div>
 </nav>
