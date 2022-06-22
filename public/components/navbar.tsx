@@ -90,7 +90,7 @@ const Navbar = () => {
       <SearchBox />
 </li>
     <li className="nav-item login-item">
-        <Link  href="/"><a href="" className="nav-link">Sign in <FontAwesomeIcon icon={faUser}/></a></Link>
+        <Link  href="/login"><a href="" className="nav-link">Sign in <FontAwesomeIcon icon={faUser}/></a></Link>
       </li>
      
       <li className="nav-item nav-item-shopping-basket" onClick={handleShoppingCart}>

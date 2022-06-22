@@ -33,6 +33,7 @@ const Home: NextPage = () => {
   //   } 
     return async(dispatch:AppDispatch)=>{
     
+     
       dispatch(GetLotsRequest())
       try{
        
@@ -48,7 +49,7 @@ const Home: NextPage = () => {
     }
   }
 useEffect(()=>{
-
+   
   dispatch(getLots());
   
   // return ()=>{

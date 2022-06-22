@@ -35,7 +35,7 @@ export const initailState:LotsState={
                         return{...state,customerLots:[...state.customerLots,action.payload.lot],totalCount:state.totalCount+parseInt(action.payload.lot.lotCount)}
                         break;
                         case REMOVE_CUSTOMER_LOT:
-                            return{...state,customerLots:state.customerLots.filter((el)=>el.id!=action.payload.id)}
+                            return{...state,customerLots:state.customerLots.filter((el)=>el.id!=action.payload.id),totalCount:state.totalCount-1}
                             break;
                             case INCREMENT_COUNT_CUSTOMER_LOT:
                                 {
@@ -49,13 +49,13 @@ export const initailState:LotsState={
                                 {console.log([...state.customerLots.slice(index+1)])}
                                 {console.log([...state.customerLots.slice(0,index)])}
                                 console.log([...state.customerLots.slice(0,index),{...state.customerLots[index],lotCount:state.customerLots[index].lotCount+1},...state.customerLots.slice(index+1)])
-                                return{...state,customerLots:[...state.customerLots.slice(0,index),{...state.customerLots[index],lotCount:state.customerLots[index].lotCount+1},...state.customerLots.slice(index+1)]}
+                                return{...state,customerLots:[...state.customerLots.slice(0,index),{...state.customerLots[index],lotCount:state.customerLots[index].lotCount+1},...state.customerLots.slice(index+1)],totalCount:state.totalCount+1}
                                 break;
                             }
                             case DECREMENT_COUNT_CUSTOMER_LOT:
                                 {console.log("x")
                                 const index=state.customerLots.findIndex((el:any)=>el.id==action.payload.id)
-                                return{...state,customerLots:[...state.customerLots.slice(0,index),{...state.customerLots[index],lotCount:state.customerLots[index].lotCount-1},...state.customerLots.slice(index+1)]}
+                                return{...state,customerLots:[...state.customerLots.slice(0,index),{...state.customerLots[index],lotCount:state.customerLots[index].lotCount-1},...state.customerLots.slice(index+1)],totalCount:state.totalCount-1}
                                 break;
                         }
            default:
