@@ -31,14 +31,14 @@ import Category from './category'
               
                   
  return(
-   <>
  
- <div className='col-md-3'>
+ 
+ <div key={el.id} className='col-md-3'>
 
  
  <Category lots={lots} category={el}/>
  </div>
- </>
+ 
 )
           })
       }

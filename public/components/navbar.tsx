@@ -9,8 +9,10 @@ import { faShoppingCart,faUser } from '@fortawesome/free-solid-svg-icons'
 import SearchBox from './searchBox';
 import { useRouter } from 'next/router';
 import NextNProgress from "nextjs-progressbar" 
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import ShoppingCardModal from "./shoppingCardModal"
+import { useContext } from 'react';
+import AppContext from './context';
 const Navbar = () => {
   const [loading,setLoading]=useState(false)
   const [shoppingModal,setShoppingModal]=useState(false)
@@ -18,9 +20,37 @@ const Navbar = () => {
   const totalCount=useSelector((state:RootState)=>state.totalCount)
   const customerLots=useSelector((state:RootState)=>state.customerLots)
   let lots=useSelector(((state:RootState)=>state.lots))
+  //@ts-ignore
+  const {loggedIn}=useContext(AppContext)
+    //@ts-ignore
+    const {logOut}=useContext(AppContext)
+  // var [loggedIn,setLoggedIn]=useState(false);;
+//   const checkLogin=()=>{
+//     // const token=localStorage.getItem("token")
+//     if(token){
+//       return true
+//     }
+// else{
+//   return false
+// }
+
+
+//   }
+
+  // useEffect(()=>{
+       
+  //        if(!token){
+        
+  //       loggedIn=false
+  //        }
+  //        else{
+  //         loggedIn=true
+  //        }
+  // },[token])
   
   lots=lots.map((el=>el.category))
   
+ 
   lots=lots.filter((el,i)=>{
     return lots.indexOf(el)==i
   })
@@ -33,13 +63,26 @@ const Navbar = () => {
    const handleShoppingCart=()=>{
      setShoppingModal(!shoppingModal)
    }
+   const handleLogOut=(e:React.MouseEvent<HTMLElement>)=>{
+         e.preventDefault();
+         console.log("x")
+         localStorage.removeItem("token")
+         router.push("../../")
+        logOut();
+        //  setLoggedIn(true)
+   }
+  //  const handleLogin=()=>{
+  //   localStorage.removeItem("token")
+   
+  //   // setLoggedIn(true)
+  //  }
    const closeModal=()=>{
     setShoppingModal(false)
    }
   console.log(lots)
   return (
     <>
-     
+ 
      {
        loading && (
         <NextNProgress
@@ -90,7 +133,16 @@ const Navbar = () => {
       <SearchBox />
 </li>
     <li className="nav-item login-item">
-        <Link  href="/login"><a href="" className="nav-link">Sign in <FontAwesomeIcon icon={faUser}/></a></Link>
+      {
+      
+       loggedIn==true ? (
+          <Link href={"#"}><a href="" onClick={handleLogOut} className="nav-link">log out <FontAwesomeIcon icon={faUser}/></a></Link>
+        ):(
+        
+          <Link  href={{pathname:"/login"}}><a href="" className="nav-link">Sign in <FontAwesomeIcon icon={faUser}/></a></Link>
+        )
+      }
+        
       </li>
      
       <li className="nav-item nav-item-shopping-basket" onClick={handleShoppingCart}>

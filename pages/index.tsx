@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.scss'
 import { useDispatch,useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect,ReactElement,useContext  } from 'react'
 import { GetLotsFail,GetLotsRequest,GetLotsSuccess } from '../redux/shopping/shoppingActions'
 import { RootState,AppDispatch } from '../redux/store'
 import ReactLoading from 'react-loading';
@@ -12,7 +12,12 @@ import axios from 'axios'
 import Lots from './lots'
 import Categories from './categories'
 import { useRouter } from 'next/router'
-const Home: NextPage = () => {
+import NestedLayout from '../public/components/nestedLayout'
+import Layout from '../public/components/layout';
+import AppContext from '../public/components/context'
+
+import type { NextPageWithLayout } from './_app'
+const Home: NextPageWithLayout  = () => {
    const router=useRouter()
   const dispatch:AppDispatch=useDispatch()
   const state=useSelector((state:RootState)=>state)
@@ -101,4 +106,7 @@ useEffect(()=>{
   )
 }
 
+
 export default Home
+
+

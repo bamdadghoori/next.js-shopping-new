@@ -5,14 +5,17 @@ import { useSelector } from 'react-redux'
 import {RootState} from "../../redux/store"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose } from '@fortawesome/free-solid-svg-icons'
+import { useContext } from 'react'
+import AppContext from './context'
 import { IncrementCountCustomerLot,DecrementCountCustomerLot,RemoveCustomerLot } from '../../redux/shopping/shoppingActions'
 import { useDispatch } from 'react-redux'
 
 const ShoppingCardModal = ({closeModal}:{closeModal:(...args:any[])=>void}) => {
-
- 
+//@ts-ignore
+ const {loggedIn}=useContext(AppContext);
   const dispatch=useDispatch();
-    
+    const [showError,setShowError]=useState(false)
+    const [showSuccess,setShowSuccess]=useState(false)
     // const [lots,setLots]=useState([])
     let lots=useSelector((state:RootState)=>state.lots)
     let customerLots=useSelector((state:RootState)=>state.customerLots)
@@ -33,6 +36,20 @@ const ShoppingCardModal = ({closeModal}:{closeModal:(...args:any[])=>void}) => {
 const removeLot=(id:number)=>{
   dispatch(RemoveCustomerLot(id))
 }
+const handleRegister=(e:React.MouseEvent<HTMLButtonElement>)=>{
+e.preventDefault();
+if(loggedIn==true){
+  setShowSuccess(true)
+setShowError(false)
+}
+else{
+  setShowError(true)
+  setShowSuccess(false)
+  
+}
+
+}
+
     let totalCost=0;
   return (<>
 {console.log(customerLots)}
@@ -60,6 +77,16 @@ const removeLot=(id:number)=>{
     
           return <ModalCount lot={el} removeLot={removeLot} decrement={decrement} inventory={inventory} increment={increment}/> })}
       </div>
+      {showError==true && (<>
+      <div>
+        You should sign in to do this!
+      </div>
+      </>)}
+      {showSuccess==true && (<>
+      <div>
+     You can't do this because the api is fake :)
+      </div>
+      </>)}
       <div className="container">
       <div className='regist-order row'>
         <div className="col-md-6">
@@ -69,7 +96,8 @@ const removeLot=(id:number)=>{
         </div>
         </div>
         <div className="col-md-6">
-        <button className="btn btn-regist-order">Regsit Order</button>
+       
+        <button className="btn btn-regist-order" onClick={handleRegister}>Regsit Order</button>
 </div>
     
   </div>

@@ -1,8 +1,12 @@
 import '../styles/globals.scss'
 import type { AppProps } from 'next/app'
 import Layout from '../public/components/layout'
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 import Script from 'next/script';
+import type { ReactElement, ReactNode } from 'react'
+import type { NextPage } from 'next'
+import AppContext from '../public/components/context';
+import Navbar from '../public/components/navbar';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'jquery/dist/jquery.min.js'
 // import 'bootstrap/dist/js/bootstrap.js';
@@ -17,7 +21,34 @@ import axios from 'axios';
 import { useDispatch,useSelector } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 
-function App({ Component, pageProps }: AppProps) {
+export type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+
+function App({ Component, pageProps }: AppPropsWithLayout) {
+
+  const getLayout = Component.getLayout ?? ((page) => page)
+  
+  const [loggedIn,setLoggedIn]=useState(false)
+  useEffect(()=>{
+    const token=localStorage.getItem("token")
+    if(token){
+setLoggedIn(true)
+    }
+    else{
+  setLoggedIn(false)
+    }
+   },[])
+const login=()=>{
+  
+  setLoggedIn(true)
+}
+const logOut=()=>{
+  setLoggedIn(false)
+}
   //  const dispatch:AppDispatch=useDispatch()
 //   const getLots=()=>{
     
@@ -52,14 +83,17 @@ function App({ Component, pageProps }: AppProps) {
           {/* <Script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"/> */}
      <Script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.5/umd/popper.min.js"/>
      <Provider store={store}>
- 
+  <AppContext.Provider value={{loggedIn,login,logOut}}>
      <PersistGate loading={null} persistor={persistor}>
-    <Layout>
-     
+    
+    
+  <Layout>
   <Component {...pageProps} />
-
   </Layout>
+
+  
   </PersistGate>
+  </AppContext.Provider>
   </Provider>
   </>
   ) 
