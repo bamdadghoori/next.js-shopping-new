@@ -1,9 +1,17 @@
 import React from 'react'
 import axios from "axios"
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useContext } from 'react';
+import  AppContext  from '../public/components/context';
 import * as yup from "yup"
 
 const Login = () => {
+  //@ts-ignore
+  const{login}=useContext(AppContext);
+   //@ts-ignore
+   const{loggedIn}=useContext(AppContext);
+  const router=useRouter();
     const [user,setUser]=useState({
         email:"",
         password:""
@@ -40,10 +48,15 @@ const validate=async()=>{
         try{
           const response=await axios.post(`https://reqres.in/api/login`,user)
           console.log(response.data)
+          const token=response.data.token;
+          localStorage.setItem("token",token)
+          login()
+        
         }
         catch(er){
           //@ts-ignore
         setErrors(["The username or password is incorrect"])
+        localStorage.setItem("token","")
         }
        
        
@@ -64,7 +77,7 @@ const validate=async()=>{
     password:"cityslicka"
   </h5>
   <div className="wrapper fadeInDown">
-   
+ 
      
     
   <div id="formContent">
@@ -85,7 +98,11 @@ const validate=async()=>{
            })}
             </div>
     )}
- 
+   {loggedIn==true && (
+    <div className='success-login alert alert-success'>
+      Login was successfull!
+      </div>
+   )}
 
  
     <div className="fadeIn first">
@@ -121,4 +138,16 @@ const validate=async()=>{
   </>
   )
 }
+// export const getServerSideProps = async(context:any) => {
+//   console.log(context.query) 
+ 
+  
+
+ 
+//   return {
+//       props: { 
+//          handleLogin: context.query.handleLogin //pass it to the page props
+//       }
+//   }
+// }
 export default Login;
