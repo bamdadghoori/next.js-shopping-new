@@ -38,12 +38,14 @@ searchValue=="" ? (
   SetPredictDisplay(true)
 )
    
-   
+  
     setRelatedLots(lots.filter((el:any,i)=>{
      
       return el.title.toUpperCase().includes(searchValue.toUpperCase())||el.category.toUpperCase().includes(searchValue.toUpperCase())||el.description.toUpperCase().includes(searchValue.toUpperCase())} ))
  }
- 
+ const handleLoading=()=>{
+  setLoading(true)
+ }
   return (
       <>
      
@@ -67,7 +69,7 @@ searchValue=="" ? (
   
 </div>
 {
-   predictDisplay && <PredictSearch handleClose={handleClose} relatedLots={relatedLots}/>
+   predictDisplay && <PredictSearch handleClose={handleClose} handleLoading={handleLoading} relatedLots={relatedLots}/>
  }
  
       </>

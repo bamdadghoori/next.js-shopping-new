@@ -84,7 +84,7 @@ const Navbar = () => {
     <>
  
      {
-       loading && (
+       loading&& (
         <NextNProgress
         color="rgb(255, 107, 0)"
         startPosition={0.3}
