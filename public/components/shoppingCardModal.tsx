@@ -56,14 +56,18 @@ else{
 { console.log("x")}
 {console.log(lots)}
   <div className='shopping-card-modal'>
-      <div className="container lots-list">
+      <div className="container lots-list ">
         <span className="close">
         <FontAwesomeIcon icon={faClose} onClick={closeModal}/>
         </span>
-          
-       
-      {customerLots.map((el,i)=>{
-        totalCost+=el.price;
+          {customerLots.length==0 ? (
+               <div className='empty-basket'>
+                Your basket is empty </div>
+          ):(
+            <>
+            {customerLots.map((el,i)=>{
+              console.log(el.lotCount)
+        totalCost+=(el.price*el.lotCount);
 
           //to find invntory of current lot
           const currentLot:Array<any>=lots.filter((element,index)=>{
@@ -76,7 +80,7 @@ else{
          const inventory=currentLot[0].rating.count
     
           return <ModalCount lot={el} removeLot={removeLot} decrement={decrement} inventory={inventory} increment={increment}/> })}
-      </div>
+     
       {showError==true && (<>
       <div>
         You should sign in to do this!
@@ -86,8 +90,20 @@ else{
       <div>
      You can't do this because the api is fake :)
       </div>
+    
       </>)}
-      <div className="container">
+   
+      </>)}
+     
+
+          
+       
+ 
+  </div>
+  {
+    customerLots.length!=0 && (
+      <>
+<div className="container">
       <div className='regist-order row'>
         <div className="col-md-6">
         <div className="total-cost">
@@ -102,8 +118,11 @@ else{
     
   </div>
   </div>
+  </>
+    )
+  }
+  
   </div>
-
  
   </>
     

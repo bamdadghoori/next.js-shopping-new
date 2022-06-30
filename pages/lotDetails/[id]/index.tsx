@@ -34,7 +34,35 @@ const addLots=()=>{
        <div className='container lot-details'>
 
        <div className="row" >
-       <div className="col-md-6">
+        <div className="col-md-4" >
+          <div className="img-container">
+          <img src={data.image} alt="" />
+          </div>
+       
+        </div>
+        <div className="col-md-4">
+           <div className="detail-container">
+             <div className="title-details"><h3>{data.title}</h3></div>
+         
+            
+             <div className="description-details">{data.description}</div>
+          
+           </div>
+        </div>
+        <div className="col-md-4">
+        <div className="detail-container">
+          <div className="last-container">
+          <div className="badge"><FontAwesomeIcon icon={faStar}/><span>{data.rating.rate}</span></div>
+        <div className="inventory">
+               Inventory: <span className="count">{data.rating.count}</span> 
+             </div>
+             
+             <div className="price">Price: <span className="price-number">{data.price}$</span> </div>
+           <button className="btn btn-regist" onClick={addLots}>Add to shopping basket</button>
+           </div>
+        </div>
+        </div>
+       {/* <div className="col-md-6">
            <div className="detail-container">
              <div className="title-details"><h3>{data.title}</h3></div>
              <div className="badge"><FontAwesomeIcon icon={faStar}/><span>{data.rate}</span></div>
@@ -48,7 +76,7 @@ const addLots=()=>{
            
            
            </div>
-         <div className="col-md-6"><img src={data.image} alt="" /></div>
+         <div className="col-md-6"><img src={data.image} alt="" /></div> */}
         
          
        </div>

@@ -136,7 +136,7 @@ a {
   margin-top: 4vh !important;
 }
 .lot{
-  background: gold;
+
   margin-bottom: 2vh;
   padding: 20px;
   height: 60vh;
@@ -148,16 +148,32 @@ a {
   }
 }
 .price {
+  text-align: center;
   .price-title{
     color: rgb(255, 107, 0);
   }
 }
 .lot-details{
+  .img-container{
+    padding-top: 14vh;
+  }
   img{
     width: 100%;
+    height: 60vh;
+    box-shadow: 0 0 10px 0 #f6f6f6;
+    border-radius: 5px ;
+  }
+  .last-container{
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px 0 #f6f6f6;
+    border-radius: 5px ;
+    height: 60vh;
   }
   .detail-container{
     padding-top: 14vh;
+   
+    }
     .title-details{
       text-align: center;
       h3{
@@ -171,10 +187,12 @@ a {
       }
       span{
         color: black;
+        font-size: 2vh;
       }
       
     }
     .inventory{
+      text-align: center;
       .count{
         color:#ff6a00
   }
@@ -188,10 +206,15 @@ a {
 .btn-regist{
   background-color: #ff6a00;
   color: #fff;
+  margin-top: 37vh;
+  text-align: center;
+    position: relative;
+    left: 5vw;
+    // margin-bottom: 2vh;
 }
   }
 
-}
+
 .icon-loading{
   margin-top: -30vh;
   // color: #ff6a00;
@@ -616,5 +639,11 @@ width: 100%;
     box-shadow: 0px 0px 5px 0px #d1e7dd;
     margin-top: 2vh;
   }
+  
 
+}
+.empty-basket{
+  position: relative;
+  top: 20vh;
+  text-align: center;
 }
