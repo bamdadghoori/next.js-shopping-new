@@ -15,7 +15,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
                 return el.id==lot.id
             }))
           const lotCount=currentLot[0].lotCount
-
+         const totalPriceOfEach=lot.price*lot.lotCount
     // const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
     //  setLotCount(parseInt(e.currentTarget.value)) 
     //  }
@@ -34,7 +34,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
           Inventory: {inventory}
        </div>
         <div className="price">
-           {lot.price}$
+           {totalPriceOfEach}$
        </div>
       
     </div>
