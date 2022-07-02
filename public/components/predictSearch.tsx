@@ -31,9 +31,9 @@ import { useRouter } from 'next/router'
     <div className="predict-search">
     <div className="container">
       <div className="row">
-      {relatedLots.length ==0 ?(<h2>there is nothing matches your search</h2>):(relatedLots.map((el,i)=>{
+      {relatedLots.length ==0 ?(<div className='not-match-search'>There is nothing matches your search!</div>):(relatedLots.map((el,i)=>{
      return   <div className="col-md-6" key={el.id} id={el.id} onClick={handleClick}>
-     
+                    <div className="lot-predict-search">
     
          <div >
            {el.title}
@@ -41,6 +41,7 @@ import { useRouter } from 'next/router'
          <div>
            <img src={el.image}/>
          </div>
+       </div>
        </div>
        
       

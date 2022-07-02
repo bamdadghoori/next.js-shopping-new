@@ -5,12 +5,14 @@ import Link from 'next/link'
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart,faUser } from '@fortawesome/free-solid-svg-icons'
+import {faUser } from '@fortawesome/free-regular-svg-icons'
+import {faShoppingCart} from '@fortawesome/free-solid-svg-icons'
 import SearchBox from './searchBox';
 import { useRouter } from 'next/router';
 import NextNProgress from "nextjs-progressbar" 
 import { useState,useEffect } from 'react';
 import ShoppingCardModal from "./shoppingCardModal"
+// import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro' 
 import { useContext } from 'react';
 import AppContext from './context';
 const Navbar = () => {
@@ -146,7 +148,9 @@ const Navbar = () => {
       </li>
      
       <li className="nav-item nav-item-shopping-basket" onClick={handleShoppingCart}>
-        <FontAwesomeIcon icon={faShoppingCart}/><span className="badge bg-info text-dark">{totalCount}</span>
+        {/* <FontAwesomeIcon icon={faShoppingCart}/> */}
+        <img src="../images/download.png"/>
+        <span className="badge bg-info text-dark">{totalCount}</span>
       </li>
       {shoppingModal && (
           <ShoppingCardModal closeModal={closeModal}/>

@@ -13,7 +13,7 @@ import Lots from '../../lots'
       {console.log(data)}
       {console.log(value)}
     {data.length==0 ? (
-          <h2>there is nothing matches your search</h2>
+          <div className='not-match-search'>There is nothing matches your search!</div>
 
     ):(
         <Lots lots={data}/>
