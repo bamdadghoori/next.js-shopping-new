@@ -4,6 +4,7 @@ import Layout from '../public/components/layout'
 import { useEffect,useState } from 'react'
 import Script from 'next/script';
 import type { ReactElement, ReactNode } from 'react'
+import Head from 'next/head'
 import type { NextPage } from 'next'
 import AppContext from '../public/components/context';
 import Navbar from '../public/components/navbar';
@@ -77,6 +78,11 @@ const logOut=()=>{
 // },[])
   return(
     <>
+    <Head>
+        <title>online shop</title>
+        {/* <meta name="viewport" content="initial-scale=1.0, width=device-width" /> */}
+      </Head>
+
     <Script src="https://code.jquery.com/jquery-3.6.0.min.js"/>
      {/* <Script src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js' type='script'/> */}
           <Script src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js' />

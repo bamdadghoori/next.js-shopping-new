@@ -99,7 +99,7 @@ const Navbar = () => {
    
     <nav className="navbar navbar-expand-lg navbar-light ">
   <Link  href="/"><a className="navbar-brand">Home</a></Link>
-  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>
   <div className="collapse navbar-collapse" id="navbarNav">
@@ -131,10 +131,17 @@ const Navbar = () => {
       </li> */} <li className="nav-item about-item">
         <Link  href="/about"><a href="" className="nav-link">About us</a></Link>
       </li>
-      <li className="nav-item search-section">
-      <SearchBox />
-</li>
-    <li className="nav-item login-item">
+ 
+  
+    </ul>
+    
+      {shoppingModal && (
+          <ShoppingCardModal closeModal={closeModal}/>
+      )}
+
+  </div>
+</nav>
+<div className="nav-item login-item">
       {
       
        loggedIn==true ? (
@@ -145,20 +152,16 @@ const Navbar = () => {
         )
       }
         
-      </li>
+      </div>
      
-      <li className="nav-item nav-item-shopping-basket" onClick={handleShoppingCart}>
+      <div className="nav-item nav-item-shopping-basket" onClick={handleShoppingCart}>
         {/* <FontAwesomeIcon icon={faShoppingCart}/> */}
         <img src="../images/download.png"/>
         <span className="badge bg-info text-dark">{totalCount}</span>
-      </li>
-      {shoppingModal && (
-          <ShoppingCardModal closeModal={closeModal}/>
-      )}
-
-    </ul>
-  </div>
-</nav>
+      </div>
+      <div className="nav-item search-section">
+      <SearchBox />
+</div>
 <div className="second-nav navbar">
  <ul>
   <li className="nav-item dropdown">
