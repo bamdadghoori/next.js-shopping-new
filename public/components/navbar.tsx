@@ -135,12 +135,13 @@ const Navbar = () => {
   
     </ul>
     
-      {shoppingModal && (
-          <ShoppingCardModal closeModal={closeModal}/>
-      )}
+    
 
   </div>
 </nav>
+{shoppingModal && (
+          <ShoppingCardModal closeModal={closeModal}/>
+      )}
 <div className="nav-item login-item">
       {
       

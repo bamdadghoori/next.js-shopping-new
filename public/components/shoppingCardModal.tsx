@@ -81,17 +81,7 @@ else{
     
           return <ModalCount lot={el} removeLot={removeLot} decrement={decrement} inventory={inventory} increment={increment}/> })}
      
-      {showError==true && (<>
-      <div>
-        You should sign in to do this!
-      </div>
-      </>)}
-      {showSuccess==true && (<>
-      <div>
-     You can't do this because the api is fake :)
-      </div>
-    
-      </>)}
+     
    
       </>)}
      
@@ -100,7 +90,18 @@ else{
        
  
   </div>
-  {
+  {showError==true && (<>
+      <div className="error-shopp-regist alert-danger">
+        You should sign in to do this!
+      </div>
+      </>)}
+      {showSuccess==true && (<>
+      <div className="success-shopp-regist alert-success">
+     You can't do this because the api is fake :)
+      </div>
+    
+      </>)}
+  { 
     customerLots.length!=0 && (
       <>
 <div className="container">

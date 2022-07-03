@@ -28,6 +28,10 @@ a {
   position: absolute;
   left: 2vw;
 }
+
+    
+    }
+
 .shopping-card-modal{
   position: absolute;
     right: 2vw;
@@ -41,6 +45,20 @@ a {
       overflow-y: scroll;
       position: relative;
       height: 70vh;
+    }
+    .error-shopp-regist{
+      
+   
+    border-radius: 5px;
+    text-align: center;
+}
+    }
+    .success-shopp-regist{
+      background-color: #ff6a00 !important;
+    color: #fff !important;
+    border-radius: 5px;
+    text-align: center;
+
     }
     img{
       width: 70px;
@@ -125,8 +143,7 @@ a {
         color: #ff6a00;
       }
     }
-    }
-}
+  }
 .about-item
 {
   position: absolute;
@@ -134,7 +151,7 @@ a {
   top: 2vh;
 }
  
-}
+
 .lots{
   margin-top: 4vh !important;
 }
@@ -213,7 +230,7 @@ a {
   text-align: center;
     position: relative;
     left: 5vw;
-    // margin-bottom: 2vh;
+    bottom: 2vh;
 }
   }
 
@@ -430,6 +447,18 @@ a{
       cursor: pointer;
     }
 }
+.login-guide{
+  background: #ff6a00;
+  width: fit-content;
+  text-align: center;
+  padding: 10px;
+  left: 27vw;
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px 0px #e35300;
+  top: 2vh;
+  margin-bottom: 2vh;
+}
 // login form
 .wrapper {
   display: flex;
@@ -480,7 +509,8 @@ a{
   /* FORM TYPOGRAPHY*/
   
   input[type=button], input[type=submit], input[type=reset]  {
-    background-color: #56baed;
+    background: #ff6a00;
+    
     border: none;
     color: white;
     padding: 15px 80px;
@@ -502,7 +532,7 @@ a{
   }
   
   input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
-    background-color: #39ace7;
+    background-color: #e35300;
   }
   
   input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
@@ -668,12 +698,12 @@ a{
 }  
 .vali{
   background: #e35300;
-  width: fit-content;
+  width: 17vw;
   text-align: center;
   position: relative;
   top: 2vh;
     margin-bottom: 3vh;
-    left: 13vw;
+    left: 8vw;
     padding: 8px;
     border-radius: 5px;
     color: #fff;
@@ -682,7 +712,7 @@ a{
 .success-login{
   width: fit-content;
     text-align: center;
-    left: 13vw;
+    left: 10vw;
     box-shadow: 0px 0px 5px 0px #d1e7dd;
     margin-top: 2vh;
   }
@@ -708,11 +738,18 @@ a{
   text-align: center;
   left: 35vw;
 }
+.btn-primary{
+  background-color: #ff6a00 !important;
+  border-color: #e35300 !important;
+  &.active{
+    box-shadow:0px 0px 0px 2px #e35300 !important;
+  }
+}
 // responsive
 @media(max-width:600px)
 {
   .login-item{
-    right:25vw;
+    right:22vw;
     // .nav-link{
 
     // }
@@ -722,6 +759,13 @@ a{
       left:25vw;
     }
     
+  }
+  .second-nav {
+    ul{
+      a{
+        margin-top: 2vh;
+      }
+    }
   }
   .search-section{
     position: absolute;
@@ -763,7 +807,71 @@ a{
     box-shadow: none;
   }
 }
+.shopping-card-modal{
+  width: 60vw;
+  z-index: 4;
 }
+.lot-count{
+  width: 24vw;
+  left: 11.5vw;
+  .lotCount-number{
+    padding-left: 8vw;
+  }
+  .increment{
+    top: -0.5vh;
+  }
+  .decrement{
+    top: -1.5vh;
+  }
+ 
+}
+.login-guide{
+  left: 18vw;
+  width: 68vw;
+}
+.wrapper{
+  .vali{
+    left: 15vw;
+    width: 50vw;
+  }
+}
+.predict-search{
+  width: 60vw;
+  right: 0vw;
+  height: 50vh;
+}
+.form-floating{
+  .close-icon{
+    right: 4vw;
+    right: 4vw;
+    border: 1px solid;
+    padding: 4px;
+    border-radius: 10px;
+    top: 1.5vh;
+
+  }
+  input[type=text]{
+    width: 36vw;
+  }
+}
+.lot-details{
+  .btn-regist{
+    left: 14vw;
+  }
+}
+.not-found{
+  left: 5vw;
+}
+.not-match-search{
+  left: 3vw;
+}
+.pagination-button{
+  .btn-primary{
+padding: 20px;
+  }
+}
+}
+
 
 
 // for tablets

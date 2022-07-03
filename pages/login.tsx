@@ -49,7 +49,9 @@ const validate=async()=>{
           const response=await axios.post(`https://reqres.in/api/login`,user)
           console.log(response.data)
           const token=response.data.token;
+          
           localStorage.setItem("token",token)
+          setErrors([]);
           login()
         
         }
@@ -72,15 +74,22 @@ const validate=async()=>{
 
   return (
   <>
-   <h5>to see the successfull login use:
-    email:eve.holt@reqres.in,
-    password:"cityslicka"
-  </h5>
+  {loggedIn==false && (
+ <div className='login-guide'>To see the successfull login use:
+ email:"eve.holt@reqres.in",
+ password:"cityslicka"
+</div>
+  )}
+  
   <div className="wrapper fadeInDown">
- 
+ { loggedIn==true   && (
+    <div className='success-login alert alert-success'>
+     You are logged in!
+      </div>
+   )}
      
-    
-  <div id="formContent">
+  {loggedIn==false && (
+    <div id="formContent">
     {errors.length!=0 && (
        <div className="vali">
        {errors.map((el:any)=>{
@@ -97,12 +106,10 @@ const validate=async()=>{
              </>
            })}
             </div>
-    )}
-   {loggedIn==true && (
-    <div className='success-login alert alert-success'>
-      Login was successfull!
-      </div>
-   )}
+    )
+   
+   
+   }
 
  
     <div className="fadeIn first">
@@ -125,12 +132,12 @@ const validate=async()=>{
       
     </form>
 
-    
-    <div id="formFooter">
-      <a className="underlineHover" href="#">Forgot Password?</a>
-    </div>
+  
 
   </div>
+
+  )}
+  
 </div>
 
 
