@@ -745,6 +745,11 @@ a{
     box-shadow:0px 0px 0px 2px #e35300 !important;
   }
 }
+.about{
+  text-align: center;
+    position: relative;
+    top: 25vh;
+}
 // responsive
 @media(max-width:600px)
 {
@@ -785,6 +790,7 @@ a{
   .second-nav{
     height: 11vh;
     ul{
+     
       .dropdown{
         top: unset;
       }
@@ -804,7 +810,7 @@ a{
 .navbar-toggler{
   border-color: #ff6a00 !important;
   &:focus{
-    box-shadow: none;
+    box-shadow: none !important;
   }
 }
 .shopping-card-modal{
@@ -870,13 +876,124 @@ a{
 padding: 20px;
   }
 }
+
 }
 
 
 
 // for tablets
 @media screen and (min-width:600px) and (max-width:900px) {
-  
+  .navbar{
+    .navbar-brand{
+      left:14vw;
+    }
+    .navbar-collapse{
+      background: #fff;
+        border: 1px solid #ff6a00;
+        border-radius: 5px;
+        width: 22vw;
+        position: absolute;
+        z-index: 2;
+        height: fit-content;
+        top: 8vh;
+        height: 10vh;
+    }
+  }
+  .about-item{
+    left: 7vw;
+  }
+  .navbar-toggler{
+    border-color: #ff6a00 !important;
+    margin-left: 2vw;
+    &:focus{
+      box-shadow: none !important;
+    }
+  }
+  .login-item{
+    right: 16vw;
+    svg{
+      top: 0.5vh;
+      position: relative;
+    }
+  }
+ .nav-item-shopping-basket{
+  top: 3vh;
+ }
+ .shopping-card-modal{
+  width: 60vw;
+  z-index: 4;
+}
+.lot-count{
+  width: 15vw;
+    left: 4.5vw;
+  .lotCount-number{
+    padding-left: 5.5vw;
+  }
+  .increment{
+    top: -1vh;
+  }
+  .decrement{
+    top: -2vh;
+  }
+ 
+}
+.predict-search{
+  width: 60vw;
+  height: 50vh;
+  left: -10vw;
+}
+.form-floating{
+  .close-icon{
+    right: 4vw;
+    right: 4vw;
+    border: 1px solid;
+    padding: 4px;
+    border-radius: 10px;
+    top: 2vh;
+
+  }
+}
+.pagination-button{
+  .btn-primary{
+padding: 20px;
+  }
+}
+.price{
+  font-size: 2vh;
+}
+.second-nav{
+  height: 11vh;
+  ul{
+    .dropdown{
+      top: unset;
+     
+    }
+    a{
+      margin-top: 2vh;
+    }
+  }
+}
+.not-match-search{
+  left: 2vw;
+  width: 94vw;
+}
+.not-found{
+  left: 3vw;
+  width: 90vw;
+}
+.login-guide{
+  left: 18vw;
+  width: 68vw;
+}
+.wrapper{
+  .success-login{
+    left: unset;
+  }
+  .vali{
+    width: 29vw;
+    left: 15vw;
+  }
+}
 }
 
 // for tablets2
