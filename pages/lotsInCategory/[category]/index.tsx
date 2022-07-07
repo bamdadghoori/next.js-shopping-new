@@ -7,7 +7,7 @@ import { GetStaticPaths,GetStaticProps } from 'next';
    
   return (
     <>
-    {console.log(data)}
+
     <Lots lots={data}/>
     </>
   )
@@ -39,48 +39,20 @@ export const getStaticPaths:GetStaticPaths=async()=>{
 
 }
 export const getStaticProps:GetStaticProps=async(context:any)=>{
-  console.log("ban")
+
   let data:Array<any> =[]
   try{
     const response= await axios.get(`https://fakestoreapi.com/products/category/${context.params.category}`)
     data=response.data
-    alert("x")
+    
   }
   catch(er:any){
-
+console.log(er.message)
   }
   return{
     props:{data},
     revalidate:2
   }
 }
-// export const getServerSideProps=async(context:any)=>{
-//     console.log("x")
-//     const response=await axios.get(`https://fakestoreapi.com/products/category/${context.params.category}`)
-   
-//   let data=response.data
-//   console.log(data)
-   
-//   //   const data={
-//   //     id:context.query.id,
-//   //     title:context.query.title,
-//   //     image:context.query.image,
-//   //     description:context.query.description,
-//   //     rate:context.query.rate,
-//   //     count:context.query.count,
-//   //     price:context.query.price,
-    
-//   // }
-  
-  
-  
-  
-//   // data=JSON.parse(JSON.stringify(data))
-//   return {
-    
-//     props:{data}
-     
-   
-//   }
-//   }
+
 export default LotsInCategory

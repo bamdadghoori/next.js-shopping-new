@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from "axios"
 import { useState } from 'react';
-import { useRouter } from 'next/router';
+
 import { useContext } from 'react';
 import  AppContext  from '../public/components/context';
 import * as yup from "yup"
@@ -11,11 +11,12 @@ const Login = () => {
   const{login}=useContext(AppContext);
    //@ts-ignore
    const{loggedIn}=useContext(AppContext);
-  const router=useRouter();
+
     const [user,setUser]=useState({
         email:"",
         password:""
     })
+    const [loading,setLoading]=useState(false)
     const [errors, setErrors] = useState([])
    const schema= yup.object().shape({
       email:yup.string().required("Please enter your email").email("Email is not correct"),
@@ -31,7 +32,7 @@ const validate=async()=>{
   }
  
   catch(er:any){
-        console.log(er.errors)
+       
          //@ts-ignore
         setErrors(er.errors)
         return false
@@ -42,12 +43,13 @@ const validate=async()=>{
 
     const handleSubmit=async(e:React.SyntheticEvent)=>{
         e.preventDefault();
+        setLoading(true)
         const validateResult=await validate()
        if(validateResult==true){
-        console.log(JSON.stringify(user))
+      
         try{
           const response=await axios.post(`https://reqres.in/api/login`,user)
-          console.log(response.data)
+        
           const token=response.data.token;
           
           localStorage.setItem("token",token)
@@ -64,7 +66,7 @@ const validate=async()=>{
        
        }
     
-        
+        setLoading(false)
      }
 
 
@@ -127,7 +129,10 @@ const validate=async()=>{
       <input type="password"  id="password" className="fadeIn second form-control" placeholder='Password'onChange={handleChange}/>
       <label className="form-label" htmlFor="password">Password</label>
      </div>
-     
+     {
+      loading &&    <div className="wait">Please wait...</div>
+     }
+  
       <input type="submit" className="fadeIn fourth "  value="Log In"/>
       
     </form>
@@ -145,16 +150,5 @@ const validate=async()=>{
   </>
   )
 }
-// export const getServerSideProps = async(context:any) => {
-//   console.log(context.query) 
- 
-  
 
- 
-//   return {
-//       props: { 
-//          handleLogin: context.query.handleLogin //pass it to the page props
-//       }
-//   }
-// }
 export default Login;

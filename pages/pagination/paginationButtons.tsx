@@ -1,7 +1,6 @@
 import React from 'react'
-import { useState,useEffect } from 'react'
  const PaginationButtons = ({paginationButtons,currentPage,changePage,prevPage,nextPage}:{paginationButtons:any,currentPage:any,changePage:(...args: any[]) => void,prevPage:(...args:any[])=>void,nextPage:(...args:any[])=>void}) => {
-   console.log(paginationButtons)
+ 
   
   return (
    <>

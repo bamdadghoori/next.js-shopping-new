@@ -2,10 +2,10 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch,faClose } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import { useRouter,withRouter  } from 'next/router';
+import { useRouter  } from 'next/router';
 import NextNProgress from "nextjs-progressbar"
 import PredictSearch from './predictSearch';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
  const SearchBox = () => {
     const lots=useSelector((state:RootState)=>state.lots)
@@ -13,7 +13,7 @@ import { RootState } from '../../redux/store';
      const [loading,setLoading]=useState(false)
      const[predictDisplay,SetPredictDisplay]=useState(false)
      const router=useRouter();
-    //  const wr=withRouter();
+  
      const [relatedLots,setRelatedLots]=useState<any[]>([])
      const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
         setSearchValue(e.target.value) 
@@ -23,6 +23,8 @@ import { RootState } from '../../redux/store';
    setSearchValue("")
    SetPredictDisplay(false)
  }
+
+
  const handleClick=(e:React.MouseEvent<HTMLButtonElement>)=>{
   e.preventDefault();
   handleClose();
@@ -34,6 +36,8 @@ if(searchValue!=""){
  
      
  }
+
+
  const handleKeyUp=()=>{
 searchValue=="" ? (
   SetPredictDisplay(false)
@@ -46,13 +50,17 @@ searchValue=="" ? (
      
       return el.title.toUpperCase().includes(searchValue.toUpperCase())||el.category.toUpperCase().includes(searchValue.toUpperCase())||el.description.toUpperCase().includes(searchValue.toUpperCase())} ))
  }
+
+
  const handleLoading=()=>{
   setLoading(true)
  }
+
+
   return (
       <>
      
-      {/* {console.log(lots)} */}
+    
       {loading==true && (<NextNProgress
   color="rgb(255, 107, 0)"
   startPosition={0.3}

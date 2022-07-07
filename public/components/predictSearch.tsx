@@ -1,11 +1,13 @@
 import React from 'react'
-import LotDetails from '../../pages/lotDetails/[id]'
+
 import NextNProgress from 'nextjs-progressbar'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
  const PredictSearch = ({relatedLots,handleClose,handleLoading}:{relatedLots:Array<any>,handleClose:(...args:any[])=>any,handleLoading:(...args:any[])=>void}) => {
    const [loading,setLoading]=useState(false)
    const router=useRouter()
+
+
    const handleClick=(e:React.MouseEvent<HTMLElement>)=>{
     e.preventDefault();
      setLoading(true)
@@ -14,9 +16,11 @@ import { useRouter } from 'next/router'
     const id= e.currentTarget.id;
      router.push(`/lotDetails/${id}`)
    }
+
+   
   return (
     <>
-    {console.log(loading)}
+   
     {loading==true && (
       <NextNProgress
       color="rgb(255, 107, 0)"
@@ -26,7 +30,7 @@ import { useRouter } from 'next/router'
       showOnShallow={true}
     />
     )}
-    {console.log(relatedLots)}
+  
    
     <div className="predict-search">
     <div className="container">

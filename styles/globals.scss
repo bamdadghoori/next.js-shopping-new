@@ -148,7 +148,7 @@ a {
 {
   position: absolute;
   left: 9vw;
-  top: 2vh;
+  top: 1.7vh;
 }
  
 
@@ -712,7 +712,7 @@ a{
 .success-login{
   width: fit-content;
     text-align: center;
-    left: 10vw;
+    left: unset;
     box-shadow: 0px 0px 5px 0px #d1e7dd;
     margin-top: 2vh;
   }
@@ -1007,7 +1007,7 @@ padding: 20px;
   }
   .vali{
     width: 29vw;
-    left: 15vw;
+    left: 8vw;
   }
 }
 .not-match-search{
@@ -1033,5 +1033,23 @@ padding: 20px;
 .about-item{
   top: 2.5vh;
   left: 11vw;
+}
+.shopping-card-modal{
+  width: 60vw;
+  z-index: 4;
+}
+.lot-count{
+  width: 15vw;
+    left: 4.5vw;
+  .lotCount-number{
+    padding-left: 5.5vw;
+  }
+  .decrement{
+    top: -2vh;
+
+  }
+  .increment{
+    top:-1vh;
+  }
 }
 }

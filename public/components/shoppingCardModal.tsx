@@ -16,16 +16,15 @@ const ShoppingCardModal = ({closeModal}:{closeModal:(...args:any[])=>void}) => {
   const dispatch=useDispatch();
     const [showError,setShowError]=useState(false)
     const [showSuccess,setShowSuccess]=useState(false)
-    // const [lots,setLots]=useState([])
+   
     let lots=useSelector((state:RootState)=>state.lots)
     let customerLots=useSelector((state:RootState)=>state.customerLots)
-  // const [changedRedux,setChangedRedux]=useState(false)
+ 
     
     const increment=(lotCount:number,inventory:number,lotId:number)=>{
       if(lotCount<=inventory){
           dispatch(IncrementCountCustomerLot(lotId))
-          // setChangedRedux(!changedRedux)
-          // setLots(useSelector((state:RootState)=>state.lots))
+       
       }
   }
   const decrement=(lotCount:number,inventory:number,lotId:number)=>{
@@ -52,9 +51,7 @@ else{
 
     let totalCost=0;
   return (<>
-{console.log(customerLots)}
-{ console.log("x")}
-{console.log(lots)}
+
   <div className='shopping-card-modal'>
       <div className="container lots-list ">
         <span className="close">
@@ -66,7 +63,7 @@ else{
           ):(
             <>
             {customerLots.map((el,i)=>{
-              console.log(el.lotCount)
+            
         totalCost+=(el.price*el.lotCount);
 
           //to find invntory of current lot
@@ -75,7 +72,7 @@ else{
                 
               
           })
-          console.log(currentLot)
+         
          
          const inventory=currentLot[0].rating.count
     

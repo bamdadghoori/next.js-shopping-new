@@ -1,18 +1,18 @@
 import React from 'react'
-import Script from 'next/script';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Link from 'next/link'
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUser } from '@fortawesome/free-regular-svg-icons'
-import {faShoppingCart} from '@fortawesome/free-solid-svg-icons'
+
 import SearchBox from './searchBox';
 import { useRouter } from 'next/router';
 import NextNProgress from "nextjs-progressbar" 
-import { useState,useEffect } from 'react';
+import { useState } from 'react';
 import ShoppingCardModal from "./shoppingCardModal"
-// import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro' 
+
 import { useContext } from 'react';
 import AppContext from './context';
 const Navbar = () => {
@@ -26,29 +26,8 @@ const Navbar = () => {
   const {loggedIn}=useContext(AppContext)
     //@ts-ignore
     const {logOut}=useContext(AppContext)
-  // var [loggedIn,setLoggedIn]=useState(false);;
-//   const checkLogin=()=>{
-//     // const token=localStorage.getItem("token")
-//     if(token){
-//       return true
-//     }
-// else{
-//   return false
-// }
+  
 
-
-//   }
-
-  // useEffect(()=>{
-       
-  //        if(!token){
-        
-  //       loggedIn=false
-  //        }
-  //        else{
-  //         loggedIn=true
-  //        }
-  // },[token])
   
   lots=lots.map((el=>el.category))
   
@@ -62,26 +41,28 @@ const Navbar = () => {
         setLoading(true)
        router.push(`/lotsInCategory/${el}`)
    }
+
+
    const handleShoppingCart=()=>{
      setShoppingModal(!shoppingModal)
    }
+
+
    const handleLogOut=(e:React.MouseEvent<HTMLElement>)=>{
          e.preventDefault();
          console.log("x")
          localStorage.removeItem("token")
          router.push("../../")
         logOut();
-        //  setLoggedIn(true)
+       
    }
-  //  const handleLogin=()=>{
-  //   localStorage.removeItem("token")
-   
-  //   // setLoggedIn(true)
-  //  }
+  
    const closeModal=()=>{
     setShoppingModal(false)
    }
-  console.log(lots)
+
+
+ 
   return (
     <>
  
@@ -104,31 +85,7 @@ const Navbar = () => {
   </button>
   <div className="collapse navbar-collapse" id="navbarNav">
     <ul className="navbar-nav">
-      {/* <li className="nav-item active">
-        <link className="nav-link" href="/">Home <span className="sr-only">(current)</span></link>
-      </li> */}
-      {/* <li className="nav-item">
-        <Link  href="/about"><a className="nav-link">about</a></Link>
-      </li>
-      <li className="nav-item">
-        <Link href="/contact"><a className='nav-link'>contact</a></Link>
-      </li>   <li className="nav-item">
-        <Link href="/contact"><a className='nav-link'>contact</a></Link>
-      </li>
-      <li className="nav-item">
-        <Link href="/countDownTimer"><a className='nav-link'>countDownTimer</a></Link>
-      </li>
-      <li className="nav-item dropdown">
-        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a className="dropdown-item" href="#">Action</a>
-          <a className="dropdown-item" href="#">Another action</a>
-          <div className="dropdown-divider"></div>
-          <a className="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li> */} <li className="nav-item about-item">
+       <li className="nav-item about-item">
         <Link  href="/about"><a href="" className="nav-link">About us</a></Link>
       </li>
  
@@ -156,7 +113,7 @@ const Navbar = () => {
       </div>
      
       <div className="nav-item nav-item-shopping-basket" onClick={handleShoppingCart}>
-        {/* <FontAwesomeIcon icon={faShoppingCart}/> */}
+       
         <img src="../images/download.png"/>
         <span className="badge bg-info text-dark">{totalCount}</span>
       </div>
@@ -184,10 +141,7 @@ const Navbar = () => {
             
           }
           )}
-          {/* <a className="dropdown-item" href="#">Action</a>
-          <a className="dropdown-item" href="#">Another action</a>
-          <div className="dropdown-divider"></div>
-          <a className="dropdown-item" href="#">Something else here</a> */}
+         
         </div>
       </li> 
       </ul>
