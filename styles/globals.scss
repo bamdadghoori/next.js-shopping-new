@@ -997,6 +997,41 @@ padding: 20px;
 }
 
 // for tablets2
-@media screen and (min-width:900x) and (max-width:1100px) {
-  
+@media screen and (min-width:900px) and (max-width:1100px) {
+  .login-item {
+    right: 16vw;
+}
+.wrapper{
+  .success-login{
+    left: unset;
+  }
+  .vali{
+    width: 29vw;
+    left: 15vw;
+  }
+}
+.not-match-search{
+  left: 2vw;
+  width: 94vw;
+}
+.not-found{
+  left: 3vw;
+  width: 90vw;
+}
+.second-nav{
+  height: 11vh;
+  ul{
+    .dropdown{
+      top: unset;
+     
+    }
+    a{
+      margin-top: 2vh;
+    }
+  }
+}
+.about-item{
+  top: 2.5vh;
+  left: 11vw;
+}
 }
