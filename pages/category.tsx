@@ -20,7 +20,7 @@ const Category = ({lots,category}:{lots:Array<any>,category:string}) => {
   return (
     
     <>
-    {console.log(loading)}
+   
    
    {
 loading==true && (

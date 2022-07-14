@@ -50,7 +50,7 @@ const Navbar = () => {
 
    const handleLogOut=(e:React.MouseEvent<HTMLElement>)=>{
          e.preventDefault();
-         console.log("x")
+        
          localStorage.removeItem("token")
          router.push("../../")
         logOut();
@@ -128,16 +128,16 @@ const Navbar = () => {
         </a>
         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
           {lots.map((el:any,i)=>{
-            return(<>
+            return(
             
-            <a href="" className="dropdown-item" onClick={(e)=>handleCategoryLink(e,el)}>
+            <a key={i} href="" className="dropdown-item" onClick={(e)=>handleCategoryLink(e,el)}>
               {el}
             </a>
             
             
 
            
-            </>)
+            )
             
           }
           )}

@@ -5,7 +5,7 @@ export const GetLotsRequest=()=>{
     }
 }
 export const GetLotsSuccess=(lots:Array<any>)=>{
-    console.log("g")
+   
     return {
          type:GET_LOTS_SUCCESS,
          payload:{lots:lots},

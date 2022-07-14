@@ -52,6 +52,7 @@ useEffect(()=>{
 
   
     <div className={styles.container}>
+      <div className="source-code">To see the source code: <a href='https://github.com/bamdadghoori/nextjs-shopping'>https://github.com/bamdadghoori/nextjs-shopping</a></div>
     
       <main className={styles.main}>
       {state.isLoading==false ? (<Categories lots={state.lots}/>):( <Loading/>)}

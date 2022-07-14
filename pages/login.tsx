@@ -51,15 +51,18 @@ const validate=async()=>{
           const response=await axios.post(`https://reqres.in/api/login`,user)
         
           const token=response.data.token;
-          
+         
           localStorage.setItem("token",token)
           setErrors([]);
           login()
-        
+
+          
         }
         catch(er){
           //@ts-ignore
+         
         setErrors(["The username or password is incorrect"])
+       
         localStorage.setItem("token","")
         }
        
@@ -78,8 +81,7 @@ const validate=async()=>{
   <>
   {loggedIn==false && (
  <div className='login-guide'>To see the successfull login use:
- email:"eve.holt@reqres.in",
- password:"cityslicka"
+ email:"eve.holt@reqres.in" and any password you want
 </div>
   )}
   
