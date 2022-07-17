@@ -2,14 +2,20 @@ import '../styles/globals.scss'
 import type { AppProps } from 'next/app'
 import Layout from '../public/components/layout'
 import { useEffect,useState } from 'react'
+
 import Script from 'next/script';
 import type { ReactElement, ReactNode } from 'react'
+import React from 'react';
 import Head from 'next/head'
 import type { NextPage } from 'next'
 import AppContext from '../public/components/context';
-
+import DashboardLayout from './dashboard/layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import '../styles/style.css'
+import '../styles/demo1.css'
+import '../styles/skin-01.css'
+import '../styles/rtl.css'
+import "../styles/ecicons.min.css"
 import {store,persistor} from '../redux/store'
 
 import { Provider } from 'react-redux';
@@ -23,9 +29,10 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
-function App({ Component, pageProps }: AppPropsWithLayout) {
+//@ts-ignore
+function App({ Component, pageProps }) {
 
-
+  const NewLayout=Component.Layout||Layout
   
   const [loggedIn,setLoggedIn]=useState(false)
 
@@ -67,9 +74,9 @@ const logOut=()=>{
      <PersistGate loading={null} persistor={persistor}>
     
     
-  <Layout>
+  <NewLayout>
   <Component {...pageProps} />
-  </Layout>
+  </NewLayout>
 
   
   </PersistGate>

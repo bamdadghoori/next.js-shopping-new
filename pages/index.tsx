@@ -7,7 +7,7 @@ import { RootState,AppDispatch } from '../redux/store'
 
 import Loading from "./Loading"
 import axios from 'axios'
-
+import Premiers from '../public/components/premiers'
 import Categories from './categories'
 
 
@@ -49,9 +49,9 @@ useEffect(()=>{
     <>
 
    
-
+<Premiers/>
   
-    <div className={styles.container}>
+    {/* <div className={styles.container}>
       <div className="source-code">To see the source code: <a href='https://github.com/bamdadghoori/nextjs-shopping'>https://github.com/bamdadghoori/nextjs-shopping</a></div>
     
       <main className={styles.main}>
@@ -60,7 +60,7 @@ useEffect(()=>{
       </main>
 
      
-    </div>
+    </div> */}
     </>
   )
 }
