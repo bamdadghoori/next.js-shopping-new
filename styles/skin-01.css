@@ -15302,7 +15302,7 @@ h6,
     z-index: 9999;
     text-align: center;
     border-radius: 30px;
-    background-image: url("../images/email-template/newsletter-bg.png");
+    background-image: url("../public/images/email-template/newsletter-bg.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -15401,7 +15401,7 @@ h6,
     left: 0;
     bottom: 0;
     z-index: 999999999999;
-    background: #ffffff url("../images/common/loader.gif") no-repeat scroll 50% 49%;
+    background: #ffffff url("../public/images/common/loader.gif") no-repeat scroll 50% 49%;
     background-size: 65px;
     pointer-events: none;
     overflow: hidden;
@@ -15679,19 +15679,19 @@ h6,
 }
 
 .bg-panel .bg .back-bg-4 {
-    background-image: url("../images/bg/display-bg-0.png");
+    background-image: url("../public/images/bg/display-bg-0.png");
 }
 
 .bg-panel .bg .back-bg-1 {
-    background-image: url("../images/bg/display-bg-1.png");
+    background-image: url("../public/images/bg/display-bg-1.png");
 }
 
 .bg-panel .bg .back-bg-2 {
-    background-image: url("../images/bg/display-bg-2.png");
+    background-image: url("../public/images/bg/display-bg-2.png");
 }
 
 .bg-panel .bg .back-bg-3 {
-    background-image: url("../images/bg/display-bg-3.png");
+    background-image: url("../public/images/bg/display-bg-3.png");
 }
 
 
@@ -15851,7 +15851,7 @@ h6,
 .ec-style .ec-button .whatsapp {
     width: 23px;
     height: 23px;
-    background-image: url(../images/common/whatsapp.png);
+    background-image: url(../public/images/common/whatsapp.png);
     background-repeat: no-repeat;
     background-size: 100%;
     display: table;
@@ -16309,7 +16309,7 @@ h6,
     -webkit-appearance: none;
     -moz-appearance: none;
     padding-right: 10px;
-    background: url(../images/common/arrow-down-light.png);
+    background: url(../public/images/common/arrow-down-light.png);
     background-position-x: 0%;
     background-position-y: 0%;
     background-repeat: repeat;
@@ -18737,7 +18737,7 @@ body.ec-open:before {
 
 .ec-slide-1 {
     width: 100%;
-    background-image: url("../images/main-slider-banner/1.jpg");
+    background-image: url("../public/images/main-slider-banner/1.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -18745,14 +18745,14 @@ body.ec-open:before {
 }
 
 .ec-slide-2 {
-    background-image: url("../images/main-slider-banner/2.jpg");
+    background-image: url("../public/images/main-slider-banner/2.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
 
 .ec-slide-3 {
-    background-image: url("../images/main-slider-banner/5.jpg");
+    background-image: url("../public/images/main-slider-banner/5.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -19741,7 +19741,7 @@ a.wishlist .svg_img.pro_svg {
     margin: auto;
     opacity: 0;
     display: none;
-    background: url(../images/common/pro-loader.gif) no-repeat scroll 50% 50%;
+    background: url(../public/images/common/pro-loader.gif) no-repeat scroll 50% 50%;
     background-color: rgba(255, 255, 255, 0.9);
     background-size: 75px;
 }
@@ -20583,7 +20583,7 @@ i.ecicon.eci-star.fill {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    background-image: url("../images/offer-image/offer_bg.jpg");
+    background-image: url("../public/images/offer-image/offer_bg.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -21564,7 +21564,7 @@ select::-ms-expand {
     width: 100%;
     height: 250px;
     display: block;
-    background-image: url(../images/banner/5.png);
+    background-image: url(../public/images/banner/5.png);
     background-size: cover;
     background-position: left center;
     background-repeat: no-repeat;
@@ -24316,7 +24316,7 @@ i.ecicon.eci-star-o {
 }
 
 .ec-product-360 .ec-circlr .ec-img-loader {
-    background: url(../images/common/loader.gif) center center no-repeat;
+    background: url(../public/images/common/loader.gif) center center no-repeat;
     bottom: 0;
     display: none;
     left: 0;
@@ -31325,7 +31325,7 @@ select:-webkit-autofill:focus {
     justify-content: center;
     z-index: 2;
     text-align: center;
-    background: url(../images/offer-image/1.jpg);
+    background: url(../public/images/offer-image/1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -31802,20 +31802,20 @@ input[type=email]:focus::-webkit-input-placeholder {
 }
 
 .ec-card-grid-space .media-1 {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.7))), url(../images/blog-image/11.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../images/blog-image/11.jpg);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.7))), url(../public/images/blog-image/11.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../public/images/blog-image/11.jpg);
     background-position: center;
 }
 
 .ec-card-grid-space .media-2 {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.7))), url(../images/blog-image/12.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../images/blog-image/12.jpg);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.7))), url(../public/images/blog-image/12.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../public/images/blog-image/12.jpg);
     background-position: center;
 }
 
 .ec-card-grid-space .media-3 {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.7))), url(../images/blog-image/13.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../images/blog-image/13.jpg);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.7)), to(rgba(0, 0, 0, 0.7))), url(../public/images/blog-image/13.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../public/images/blog-image/13.jpg);
     background-position: center;
 }
 
@@ -31898,20 +31898,20 @@ input[type=email]:focus::-webkit-input-placeholder {
 }
 
 .ec-full-blog .ec-card-bg .bg-img-1 {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../images/blog-image/14.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/blog-image/14.jpg);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../public/images/blog-image/14.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../public/images/blog-image/14.jpg);
     background-position: center;
 }
 
 .ec-full-blog .ec-card-bg .bg-img-2 {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../images/blog-image/15.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/blog-image/15.jpg);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../public/images/blog-image/15.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../public/images/blog-image/15.jpg);
     background-position: center;
 }
 
 .ec-full-blog .ec-card-bg .bg-img-3 {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../images/blog-image/16.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/blog-image/16.jpg);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../public/images/blog-image/16.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../public/images/blog-image/16.jpg);
     background-position: center;
 }
 
@@ -32246,7 +32246,7 @@ input[type=email]:focus::-webkit-input-placeholder {
 
 .ec-blog-card .ec-utility-info .ec-utility-list li .licon:before {
     content: "";
-    background: url(../images/icons/licons.svg) -2px -6px no-repeat;
+    background: url(../public/images/icons/licons.svg) -2px -6px no-repeat;
     background-size: 250px;
     width: 26px;
     height: 20px;
@@ -32322,20 +32322,20 @@ input[type=email]:focus::-webkit-input-placeholder {
 }
 
 .ec-blog-card.media-1 {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../images/blog-image/11.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/blog-image/11.jpg);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../public/images/blog-image/11.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../public/images/blog-image/11.jpg);
     background-position: center;
 }
 
 .ec-blog-card.media-2 {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../images/blog-image/12.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/blog-image/12.jpg);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../public/images/blog-image/12.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../public/images/blog-image/12.jpg);
     background-position: center;
 }
 
 .ec-blog-card.media-3 {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../images/blog-image/13.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/blog-image/13.jpg);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../public/images/blog-image/13.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../public/images/blog-image/13.jpg);
     background-position: center;
 }
 
@@ -32500,20 +32500,20 @@ input[type=email]:focus::-webkit-input-placeholder {
 }
 
 .ec-box-card .ec-wrapper.wrp-img-1 {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../images/blog-image/11.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/blog-image/11.jpg);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../public/images/blog-image/11.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../public/images/blog-image/11.jpg);
     background-position: center;
 }
 
 .ec-box-card .ec-wrapper.wrp-img-2 {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../images/blog-image/12.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/blog-image/12.jpg);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../public/images/blog-image/12.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../public/images/blog-image/12.jpg);
     background-position: center;
 }
 
 .ec-box-card .ec-wrapper.wrp-img-3 {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../images/blog-image/13.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/blog-image/13.jpg);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../public/images/blog-image/13.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../public/images/blog-image/13.jpg);
     background-position: center;
 }
 
@@ -32643,20 +32643,20 @@ input[type=email]:focus::-webkit-input-placeholder {
 }
 
 .ec-up-card .ec-wrapper.wrp-img-1 {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.2)), to(rgba(0, 0, 0, 0.2))), url(../images/blog-image/14.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../images/blog-image/14.jpg);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.2)), to(rgba(0, 0, 0, 0.2))), url(../public/images/blog-image/14.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../public/images/blog-image/14.jpg);
     background-position: center;
 }
 
 .ec-up-card .ec-wrapper.wrp-img-2 {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.2)), to(rgba(0, 0, 0, 0.2))), url(../images/blog-image/15.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../images/blog-image/15.jpg);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.2)), to(rgba(0, 0, 0, 0.2))), url(../public/images/blog-image/15.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../public/images/blog-image/15.jpg);
     background-position: center;
 }
 
 .ec-up-card .ec-wrapper.wrp-img-3 {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.2)), to(rgba(0, 0, 0, 0.2))), url(../images/blog-image/16.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../images/blog-image/16.jpg);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.2)), to(rgba(0, 0, 0, 0.2))), url(../public/images/blog-image/16.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../public/images/blog-image/16.jpg);
     background-position: center;
 }
 
@@ -32857,7 +32857,7 @@ input[type=email]:focus::-webkit-input-placeholder {
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
     flex-direction: row;
-    background-image: url(../images/banner/7.jpg);
+    background-image: url(../public/images/banner/7.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -33182,7 +33182,7 @@ input[type=email]:focus::-webkit-input-placeholder {
 .ec-vendor-uploads .ec-vendor-sidebar .ec-sidebar-block .ec-vendor-block .ec-vendor-block-bg {
     width: 100%;
     height: 200px;
-    background-image: url(../images/banner/7.jpg);
+    background-image: url(../public/images/banner/7.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -33867,7 +33867,7 @@ input[type=email]:focus::-webkit-input-placeholder {
 .ec-vendor-profile-card .ec-vendor-block-profile .ec-vendor-block-img .ec-vendor-block-bg {
     width: 100%;
     height: 200px;
-    background-image: url(../images/banner/7.jpg);
+    background-image: url(../public/images/banner/7.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -33944,7 +33944,7 @@ input[type=email]:focus::-webkit-input-placeholder {
 .ec-vendor-setting-card .ec-vendor-block-bg {
     width: 100%;
     height: 200px;
-    background-image: url(../images/banner/7.jpg);
+    background-image: url(../public/images/banner/7.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -34230,7 +34230,7 @@ input[type=email]:focus::-webkit-input-placeholder {
 .ec-user-account .ec-vendor-block-bg {
     width: 100%;
     height: 200px;
-    background-image: url(../images/banner/8.jpg) !important;
+    background-image: url(../public/images/banner/8.jpg) !important;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -34357,7 +34357,7 @@ input[type=email]:focus::-webkit-input-placeholder {
     position: relative;
     margin: auto;
     overflow: hidden;
-    background-image: url("../images/offer-image/1.jpg");
+    background-image: url("../public/images/offer-image/1.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

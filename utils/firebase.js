@@ -4,9 +4,11 @@
 //   import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { collection, getDocs } from 'firebase/firestore/lite';
 
 import { getFirestore } from "firebase/firestore/lite";
-
+// const { getDatabase } = require('firebase-admin/database');
+// import {getDatabase} from 'firebase-admin/database/lite'
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -28,5 +30,49 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 const firestore=getFirestore(app);
+const usersCol=collection(firestore,'users')
+const getUsers=async()=>{
+  // const [users,SetUse]=useState()
+ 
+  try{
+ 
+  const response=await getDocs(usersCol)
+     
+      console.log(response)
+      const usersList=response.docs.map(doc=>doc.data())
+      
+     
+     
+      console.log(usersList)
+        return usersList;
+
+
+
+      
+  }
+ catch(er){
+  console.log(er)
+  return er
+ }
+ 
+}
+// const db = getDatabase();
+// const ref = db.ref('server/saving-data/fireblog');
+// const usersRef = ref.child('users');
+// const postUsers=()=>{
+//   const usersRef = ref.child('users');
+//   try{
+//       usersRef.set({id:1})
+//   }
+//   catch(er){
+
+//   }
+// }
+// Import Admin SDK
+
+
+// Get a database reference to our blog
+
 
 export {firestore}
+export {getUsers}

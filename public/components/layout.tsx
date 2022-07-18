@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from './navbar';
-
+import Footer from './footer';
 import {RootState} from '../../redux/store';
 import {useSelector } from 'react-redux'
 import { useState,useEffect } from 'react';
@@ -30,6 +30,7 @@ setLoggedIn(true)
   <Navbar />
   
   {children}
+  <Footer/>
     </>
   )
 }
