@@ -17149,7 +17149,8 @@ h6,
 }
 
 [data-animation] {
-    opacity: 0;
+    /* opacity: 0; */
+    opacity: 1;
     -webkit-animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     -webkit-animation-fill-mode: both;
@@ -19288,6 +19289,7 @@ button.btn-close.qty_close {
     -webkit-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
     width: 100%;
+    height:46.5vh;
 }
 
 .ec-product-inner .ec-pro-image .image img.hover-image {
@@ -19766,6 +19768,8 @@ i.ecicon.eci-star.fill {
 }
 
 .ec-pro-option {
+    height: 2vh;
+    padding-bottom: 3Vh;
     width: 100%;
     margin-top: 5px;
     display: -webkit-box;
@@ -20065,9 +20069,9 @@ i.ecicon.eci-star.fill {
 }
 
 .banner-block:hover .banner-content {
-    -webkit-transform: scale(1);
+    /* -webkit-transform: scale(1);
     transform: scale(1);
-    opacity: 1;
+    opacity: 1; */
 }
 
 .ec-banner-block-1 .banner-block .banner-text {
@@ -34945,3 +34949,11 @@ input[type=email]:focus::-webkit-input-placeholder {
 
 
 /*# sourceMappingURL=skin-01.css.map */
+.comming-soon-title{
+    
+    text-align: center;
+    margin-bottom: unset;
+}
+.comming-soon-title h4{
+    font-size: 22px !important;
+}

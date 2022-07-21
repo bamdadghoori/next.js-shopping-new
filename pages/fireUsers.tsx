@@ -1,11 +1,14 @@
 import {firestore} from "../utils/firebase"
 import React,{useState,useEffect} from 'react'
 import { collection, getDocs } from 'firebase/firestore/lite';
-import { getUsers } from "../utils/firebase";
+import {getDatabase,ref, set} from 'firebase/database'
+import { getUsers,getLots } from "../utils/firebase";
 import axios from "axios";
+
  const FireUsers = () => {
    const [users,setUsers]:any=useState()
-  // const usersCol=collection(firestore,'users')
+   const [lots,setLots]:any=useState()
+;  // const usersCol=collection(firestore,'users')
   // var [imgUrl,setImgUrl]=useState("")
   // const getUsers=async()=>{
   //   // const [users,SetUse]=useState()
@@ -40,6 +43,39 @@ import axios from "axios";
       console.log(er)
     }
   }
+  const getLotsList=async()=>{
+    try{
+      const lots=await getLots();
+      {console.log(lots)}
+      setLots(lots)
+    }
+    catch(er){
+      console.log(er)
+    }
+  }
+
+  // const update=async()=>{
+  // const db=getDatabase();
+  //   // const lotsCol=collection(firestore,'lots')
+  //   try{
+
+       
+          
+          
+         
+     
+  //         // console.log(lotsList)
+  //         //   return lotsList;
+    
+    
+    
+          
+  //     }
+  //    catch(er){
+  //     console.log(er)
+  //     return er
+  //    }
+  // }
  
 const  postUser=async()=>{
      try{
@@ -55,7 +91,9 @@ const  postUser=async()=>{
 }
 useEffect(()=>{
   getUserList();
-  postUser();
+  getLotsList();
+  
+
 },[])
     
   return (

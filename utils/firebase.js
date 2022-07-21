@@ -31,6 +31,7 @@ const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 const firestore=getFirestore(app);
 const usersCol=collection(firestore,'users')
+const lotsCol=collection(firestore,'lots')
 const getUsers=async()=>{
   // const [users,SetUse]=useState()
  
@@ -54,7 +55,30 @@ const getUsers=async()=>{
   console.log(er)
   return er
  }
+
  
+}
+const getLots=async()=>{
+  try{
+ 
+    const response=await getDocs(lotsCol)
+      
+        const lotsList=response.docs.map(doc=>doc.data())
+        
+       
+       
+        console.log(lotsList)
+          return lotsList;
+  
+  
+  
+        
+    }
+   catch(er){
+    console.log(er)
+    return er
+   }
+  
 }
 // const db = getDatabase();
 // const ref = db.ref('server/saving-data/fireblog');
@@ -75,4 +99,4 @@ const getUsers=async()=>{
 
 
 export {firestore}
-export {getUsers}
+export {getUsers,getLots}

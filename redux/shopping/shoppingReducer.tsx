@@ -1,6 +1,20 @@
 
 import {GET_LOTS_FAIL,GET_LOTS_REQUEST,GET_LOTS_SUCCESS,ADD_CUSTOMER_LOT,REMOVE_CUSTOMER_LOT,INCREMENT_COUNT_CUSTOMER_LOT,DECREMENT_COUNT_CUSTOMER_LOT} from "./shoppingTypes"
 
+// interface LotsState {
+//     lots: any[];
+//     isLoading: boolean;
+//     error: string;
+//     customerLots:any[],
+//     totalCount:number,
+//   }
+// export const initailState:LotsState={
+//     lots:[],
+//     isLoading:false,
+//     error:"",
+//     customerLots:[],
+//     totalCount:0
+// }
 interface LotsState {
     lots: any[];
     isLoading: boolean;
