@@ -1,5 +1,5 @@
 
-import {GET_LOTS_FAIL,GET_LOTS_REQUEST,GET_LOTS_SUCCESS,ADD_CUSTOMER_LOT,REMOVE_CUSTOMER_LOT,INCREMENT_COUNT_CUSTOMER_LOT,DECREMENT_COUNT_CUSTOMER_LOT} from "./shoppingTypes"
+import {GET_LOTS_FAIL,GET_LOTS_REQUEST,GET_LOTS_SUCCESS,ADD_CUSTOMER_LOT,REMOVE_CUSTOMER_LOT,INCREMENT_COUNT_CUSTOMER_LOT,DECREMENT_COUNT_CUSTOMER_LOT,GET_CATEGORIES_FAIL,GET_CATEGORIES_SUCCESS,GET_CATEGORIES_REQUEST} from "./shoppingTypes"
 
 // interface LotsState {
 //     lots: any[];
@@ -18,16 +18,20 @@ import {GET_LOTS_FAIL,GET_LOTS_REQUEST,GET_LOTS_SUCCESS,ADD_CUSTOMER_LOT,REMOVE_
 interface LotsState {
     lots: any[];
     isLoading: boolean;
+    isLoadingCategory: boolean;
     error: string;
     customerLots:any[],
     totalCount:number,
+    categories:any[],
   }
 export const initailState:LotsState={
     lots:[],
     isLoading:false,
+    isLoadingCategory:false,
     error:"",
     customerLots:[],
-    totalCount:0
+    totalCount:0,
+    categories:[]
 }
 
  export const shoppingReducers=(state:LotsState=initailState,action:any):LotsState=>{
@@ -44,6 +48,15 @@ export const initailState:LotsState={
                 case GET_LOTS_FAIL:
                     return{...state,error:action.payload.error,isLoading:false}
                     break;
+                    case GET_CATEGORIES_REQUEST:
+                        return{...state,isLoadingCategory:true}
+                        break;
+                        case GET_CATEGORIES_SUCCESS:
+                            return{...state,categories:action.payload.categories,isLoadingCategory:false}
+                            break;
+                            case GET_CATEGORIES_FAIL:
+                                return{...state,error:action.payload.error,isLoading:false}
+                                break;
                     case ADD_CUSTOMER_LOT:
                        
                         return{...state,customerLots:[...state.customerLots,action.payload.lot],totalCount:state.totalCount+parseInt(action.payload.lot.lotCount)}

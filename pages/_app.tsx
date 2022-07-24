@@ -14,6 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/style.css'
 import '../styles/demo1.css'
 import '../styles/skin-01.css'
+import '../styles/responsive.css'
 import '../styles/rtl.css'
 import "../styles/ecicons.min.css"
 import {store,persistor} from '../redux/store'
