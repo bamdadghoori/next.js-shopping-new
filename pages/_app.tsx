@@ -2,7 +2,7 @@ import '../styles/globals.scss'
 import type { AppProps } from 'next/app'
 import Layout from '../public/components/layout'
 import { useEffect,useState } from 'react'
-
+import "../styles/swiper-bundle.min.css"
 import Script from 'next/script';
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react';
