@@ -48,7 +48,7 @@ import  Items  from './items'
                            </div>
                 </div>
                 </section>
-   y
+   
    </>
 
      )  

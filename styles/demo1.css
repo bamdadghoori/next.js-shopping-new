@@ -19016,13 +19016,13 @@ body.ec-open:before {
     position: relative;
 }
 
-.main-slider-nav .swiper-button-next {
+.slider .swiper-button-next {
     outline: 0;
     left: auto;
     right: -20px;
 }
 
-.main-slider-nav .swiper-button-next:after {
+ .swiper-button-next:after {
     content: "";
     font-family: "EcIcons";
     font-size: 30px;
@@ -19030,13 +19030,13 @@ body.ec-open:before {
     outline: 0;
 }
 
-.main-slider-nav .swiper-button-prev {
+.slider .swiper-button-prev {
     outline: 0;
     right: auto;
     left: -20px;
 }
 
-.main-slider-nav .swiper-button-prev:after {
+.swiper-button-prev:after {
     content: "";
     font-family: "EcIcons";
     font-size: 30px;
@@ -19044,7 +19044,7 @@ body.ec-open:before {
     outline: 0;
 }
 
-.main-slider-nav .swiper-buttons .swiper-button-next {
+ .swiper-button-next {
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -19053,8 +19053,7 @@ body.ec-open:before {
     width: 40px;
     height: 40px;
     line-height: 40px;
-    opacity: 0;
-    visibility: hidden;
+   visibility: hidden;
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
     margin: auto;
@@ -19064,12 +19063,12 @@ body.ec-open:before {
     background-color: #3474d4;
 }
 
-.main-slider-nav .swiper-buttons .swiper-button-next:hover {
+ .swiper-button-next:hover {
     background-color: #555;
     color: #ffffff;
 }
 
-.main-slider-nav .swiper-buttons .swiper-button-prev {
+ .swiper-button-prev {
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -19078,8 +19077,8 @@ body.ec-open:before {
     width: 40px;
     height: 40px;
     line-height: 40px;
-    opacity: 0;
-    visibility: hidden;
+visibility: hidden;
+opacity: 0;
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
     margin: auto;
@@ -19089,18 +19088,18 @@ body.ec-open:before {
     background-color: #3474d4;
 }
 
-.main-slider-nav .swiper-buttons .swiper-button-prev:hover {
+.swiper-button-prev:hover {
     background-color: #555;
     color: #ffffff;
 }
 
-.main-slider-nav:hover .swiper-button-next {
+.slider:hover .swiper-button-next {
     opacity: 1;
     visibility: visible;
     right: 10px;
 }
 
-.main-slider-nav:hover .swiper-button-prev {
+.slider:hover .swiper-button-prev {
     opacity: 1;
     visibility: visible;
     left: 10px;

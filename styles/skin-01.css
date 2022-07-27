@@ -17821,7 +17821,8 @@ h6,
     margin-bottom: 0;
     padding-left: 0;
     list-style: none;
-    width: 100%;
+    width:fit-content;
+    
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
@@ -17926,6 +17927,7 @@ h6,
 }
 
 .ec-main-menu ul li .mega-menu {
+    float: right;
     position: absolute;
     -webkit-box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
@@ -17933,7 +17935,7 @@ h6,
     padding: 20px 0px 30px 30px;
     opacity: 0;
     visibility: hidden;
-    left: 0;
+    right: 0;
     width: 100%;
     z-index: 2;
     -o-transition: -o-transform 0.3s, opacity 0.3s;
@@ -18739,7 +18741,7 @@ body.ec-open:before {
 .ec-slide-1 {
    
     width: 100%;
-    background-image: url("../public/images/main-slider-banner/fresh-colourful-ingredients-mexican-cuisine.jpg");
+    background-image: url("../public/images/main-slider-banner/1.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -18747,19 +18749,24 @@ body.ec-open:before {
 }
 
 .ec-slide-2 {
-    background-image: url("../public/images/main-slider-banner/2.jpg");
+    background-image: url("../public/images/main-slider-banner/fresh-colourful-ingredients-mexican-cuisine.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
 
 .ec-slide-3 {
-    background-image: url("../public/images/main-slider-banner/5.jpg");
+    background-image: url("../public/images/main-slider-banner/furniture-slider.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
-
+.ec-slide-4 {
+    background-image: url("../public/images/main-slider-banner/electronic-slider.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
 
 /*----  Main Slider Style  ----*/
 

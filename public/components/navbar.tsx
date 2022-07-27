@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 import NextNProgress from "nextjs-progressbar" 
 import { useState } from 'react';
 import ShoppingCardModal from "./shoppingCardModal"
-
+import NavbarCategory from './navbarCategory';
 import { useContext } from 'react';
 import AppContext from './context';
 const Navbar = () => {
@@ -22,6 +22,7 @@ const Navbar = () => {
   const totalCount=useSelector((state:RootState)=>state.totalCount)
   const customerLots=useSelector((state:RootState)=>state.customerLots)
   let lots=useSelector(((state:RootState)=>state.lots))
+  const categories=useSelector(((state:RootState)=>state.categories))
   //@ts-ignore
   const {loggedIn}=useContext(AppContext)
     //@ts-ignore
@@ -96,7 +97,7 @@ const Navbar = () => {
                         </div>
                     </div>
               
-                    <div className="col text-center header-top-center">
+                    {/* <div className="col text-center header-top-center">
                         <div className="header-top-message text-upper">
                             <span> ارسال رایگان </span>این هفته برای سفارشات بالای 200 تومان
                         </div>
@@ -123,7 +124,7 @@ const Navbar = () => {
                           
 
                         </div>
-                    </div>
+                    </div> */}
                    
                     <div className="col d-lg-none ">
                         <div className="ec-header-bottons">
@@ -240,11 +241,16 @@ const Navbar = () => {
                             <ul>
                                 <li><a href="index.html">خانه</a></li>
                                 <li className="dropdown position-static"><a href="javascript:void(0)">دسته بندی ها</a>
-                                    <ul className="mega-menu d-block">
-                                        <li className="d-flex">
-                                            <ul className="d-block">
-                                                <li className="menu_title"><a href="javascript:void(0)">ورژن کلاسیک</a></li>
-                                                <li><a href="shop-left-sidebar-col-3.html">سایدبار چپ 3 ستونه</a>
+                                    <ul className="sub-menu">
+                                      
+                                          
+                                               
+                                                {categories.map((el,i)=>{
+                                                 return   <NavbarCategory key={i} category={el}/>
+                                                 
+                                             
+                                                })}
+                                                {/* <li><a href="shop-left-sidebar-col-3.html">سایدبار چپ 3 ستونه</a>
                                                 </li>
                                                 <li><a href="shop-left-sidebar-col-4.html">سایدبار چپ 4 ستونه</a>
                                                 </li>
@@ -252,9 +258,9 @@ const Navbar = () => {
                                                 </li>
                                                 <li><a href="shop-right-sidebar-col-4.html">سایدبار راست 4 ستونه</a>
                                                 </li>
-                                                <li><a href="shop-full-width.html">تمام عرض 4 ستونه</a></li>
-                                            </ul>
-                                            <ul className="d-block">
+                                                <li><a href="shop-full-width.html">تمام عرض 4 ستونه</a></li> */}
+                                            
+                                            {/* <ul className="d-block">
                                                 <li className="menu_title"><a href="javascript:void(0)">ورژن کلاسیک</a></li>
                                                 <li><a href="shop-banner-left-sidebar-col-3.html"> بنر سایدبار چپ 3 ستونه</a></li>
                                                 <li><a href="shop-banner-left-sidebar-col-4.html"> بنر سایدبار چپ 4 ستونه</a></li>
@@ -281,24 +287,9 @@ const Navbar = () => {
                                                 </li>
                                                 <li><a href="shop-list-banner-right-sidebar.html">بنر سایدبار راست</a></li>
                                                 <li><a href="shop-list-full-col-2.html">تمام عرض 2 ستونه</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <ul className="ec-main-banner w-100">
-                                                <li>
-                                                    <a className="p-0" href="shop-left-sidebar-col-3.html"><img className="img-responsive" src="../images/menu-banner/1.jpg" alt=""/></a>
-                                                </li>
-                                                <li>
-                                                    <a className="p-0" href="shop-left-sidebar-col-4.html"><img className="img-responsive" src="../images/menu-banner/2.jpg" alt=""/></a>
-                                                </li>
-                                                <li>
-                                                    <a className="p-0" href="shop-right-sidebar-col-3.html"><img className="img-responsive" src="../images/menu-banner/3.jpg" alt=""/></a>
-                                                </li>
-                                                <li>
-                                                    <a className="p-0" href="shop-right-sidebar-col-4.html"><img className="img-responsive" src="../images/menu-banner/4.jpg" alt=""/></a>
-                                                </li>
-                                            </ul>
-                                        </li>
+                                            </ul> */}
+                                        
+                                        
                                     </ul>
                                 </li>
                                 <li className="dropdown"><a href="javascript:void(0)">محصولات</a>
