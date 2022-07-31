@@ -1,7 +1,13 @@
+
+
 const NavbarCategory=({category}:{category:any})=>{
     return(
         <>
-        <li className="dropdown position-static"><a href="shop-left-sidebar-col-3.html">{category.categoryTitle}
+        <li className="dropdown position-static">
+        <img className="category-img" src={category.imgUrl}/>
+            <a href="shop-left-sidebar-col-3.html">
+        
+            {category.categoryTitle}
         {category.subCategories && ( <i className="ecicon eci-angle-left"></i>)}
        
         </a>
@@ -17,7 +23,7 @@ const NavbarCategory=({category}:{category:any})=>{
                            )
                         })
                     }
-                                                >
+                                                
                                             </ul>
                 </>
             )

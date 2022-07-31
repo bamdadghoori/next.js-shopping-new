@@ -1,15 +1,32 @@
 import React from 'react'
 import  Items  from './items'
- const Premiers = ({lots}:{lots:Array<any>}) => {
+import AppContext from './context'
+import { useRef,useEffect } from 'react'
+import { useContext } from 'react';
+ const Premiers = ({lots,setOffset}:{lots:Array<any>,setOffset:(...args:any)=>void}) => {
+    //@ts-ignore
+   
     {console.log(lots)}
+    const myRef=useRef(null);
     const offProducts:any[]=lots.filter((el:any)=>{
       return  el.off==true
     })
+    let offset;
+     useEffect(()=>{
+       
+        if (myRef.current){
+            //@ts-ignore
+          offset  = myRef.current.offsetTop
+          setOffset(offset)
 
+        }
+        
+
+     },[])
     
   return (
    <>
-   <section className="section ec-product-tab section-space-p">
+   <section  id="premiers" className="section ec-product-tab section-space-p">
             <div className="container">
          <div className="row">
                     <div className="col-md-12 text-center">
@@ -32,14 +49,14 @@ import  Items  from './items'
                    
                 
                 </div>
-                <div className="row">
+                <div className="row" >
                     <div className="col">
                         <div className="tab-content">
                           
                             <div className="tab-pane fade show active" id="tab-pro-for-all">
-                                <div className="row">
+                                <div   className="row" >
                                     <Items lots={offProducts}/>
-                               <div className="col-sm-12 shop-all-btn"><a href="shop-left-sidebar-col-3.html">تمامی کالکشن‌های فروشگاه</a>
+                               <div  ref={myRef} className="col-sm-12 shop-all-btn"><a href="shop-left-sidebar-col-3.html">تمامی کالکشن‌های فروشگاه</a>
                 </div>
                            </div>
                            </div>

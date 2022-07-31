@@ -103485,3 +103485,6 @@ opacity:1;
     height: 100px  !important;
     margin-right: 15vw !important;
     } */
+    li .category-img{
+    max-width:40px;
+    }

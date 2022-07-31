@@ -2,7 +2,7 @@
 import styles from '../styles/Home.module.scss'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect,Suspense } from 'react'
+import { useEffect,Suspense,useState } from 'react'
 import { GetLotsFail, GetLotsRequest, GetLotsSuccess,GetCategoriesFail,GetCategoriesRequest,GetCategoriesSuccess } from '../redux/shopping/shoppingActions'
 import { RootState, AppDispatch } from '../redux/store'
 import NewLots from '../public/components/newLots'
@@ -17,13 +17,29 @@ import type { NextPageWithLayout } from './_app'
 import MainSlider from '../public/components/mainSlider'
 
 import LazyLoad from 'react-lazyload';
+//@ts-ignore
 const Home: NextPageWithLayout = () => {
+  
+const [scrolled,setScrolled]=useState(false)
 const MainCategories=React.lazy(()=>import("../public/components/mainCategories"))
 const CommingSoon=React.lazy(()=>import("../public/components/commingSoon"))
 const Premiers=React.lazy(()=>import('../public/components/premiers'))
   const dispatch: AppDispatch = useDispatch()
   const state = useSelector((state: RootState) => state)
       
+  
+  //@ts-ignore
+  const handleScroll=(e)=>{
+   if(window.innerHeight+e.target.documentElement.scrollTop>=e.target.documentElement.scrollHeight){
+    console.log()
+   }
+    // console.log(primaryOffset)
+    //    if(window.scrollY>=primaryOffset && primaryOffset!=0){
+    //      console.log("scroll")
+    //    }
+       
+     }
+
   const getLotsList = () => {
 
     return async (dispatch: AppDispatch) => {
@@ -59,13 +75,18 @@ const Premiers=React.lazy(()=>import('../public/components/premiers'))
          
        }
   }
-
-
+  const setOffset=(offset:number)=>{
+    // console.log(offset)
+    // primaryOffset=offset;
+    // setScrolled(true)
+  }
+ //@ts-ignore
+ 
   useEffect(() => {
-
+    
     dispatch(getLotsList());
     dispatch(getCategoryList());
-
+window.addEventListener("scroll",handleScroll)
   }, [])
 
   return (
@@ -74,7 +95,8 @@ const Premiers=React.lazy(()=>import('../public/components/premiers'))
 
      <MainSlider/>
       <Suspense fallback={<h1>is loading</h1>}>
-      <Premiers lots={state.lots} />
+      <Premiers lots={state.lots} setOffset={setOffset}
+        />
       </Suspense>
       <Suspense fallback={<h1>is loading</h1>}>
       <CommingSoon/>

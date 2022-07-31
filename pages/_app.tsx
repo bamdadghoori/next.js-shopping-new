@@ -33,9 +33,16 @@ type AppPropsWithLayout = AppProps & {
 //@ts-ignore
 function App({ Component, pageProps }) {
 
+let rect:any
+// if(elem){
+//   rect=elem.getBoundingClientRect();
+// }
+
   const NewLayout=Component.Layout||Layout
   
   const [loggedIn,setLoggedIn]=useState(false)
+
+
 
   useEffect(()=>{
     const token=localStorage.getItem("token")
@@ -45,6 +52,7 @@ setLoggedIn(true)
     else{
   setLoggedIn(false)
     }
+    
    },[])
 
 

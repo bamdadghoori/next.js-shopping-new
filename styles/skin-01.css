@@ -17843,7 +17843,7 @@ h6,
     text-transform: uppercase;
     color: #444444;
     display: block;
-    position: relative;
+    position: static;
     font-family: iranyekan, "Poppins, sans-serif";
 }
 
@@ -18097,11 +18097,14 @@ h6,
 
 .ec-main-menu ul li.dropdown li.position-static {
     position: relative !important;
+    display: flex;
+    margin-right: 1vw;
 }
 
 .ec-main-menu ul li.dropdown li.position-static:hover .sub-menu.sub-menu-child {
     opacity: 1;
     visibility: visible;
+   
 }
 
 .ec-main-menu ul li.dropdown ul.sub-menu.sub-menu-child {
@@ -18315,7 +18318,7 @@ body.ec-open:before {
 }
 
 .ec-side-cart .ec-cart-inner .ec-cart-title .ec-close {
-    position: relative;
+    position: static;
     border: 0;
     font-size: 30px;
     line-height: 1;
@@ -34964,4 +34967,8 @@ input[type=email]:focus::-webkit-input-placeholder {
 }
 .comming-soon-title h4{
     font-size: 22px !important;
+}
+.dropdown .ecicon{
+    position: absolute;
+    left: 1vw;
 }

@@ -240,7 +240,7 @@ const Navbar = () => {
                         <div className="ec-main-menu">
                             <ul>
                                 <li><a href="index.html">خانه</a></li>
-                                <li className="dropdown position-static"><a href="javascript:void(0)">دسته بندی ها</a>
+                                <li className="dropdown "><a href="javascript:void(0)">دسته بندی ها</a>
                                     <ul className="sub-menu">
                                       
                                           
