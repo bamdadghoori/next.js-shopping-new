@@ -15,7 +15,9 @@ import ShoppingCardModal from "./shoppingCardModal"
 import NavbarCategory from './navbarCategory';
 import { useContext } from 'react';
 import AppContext from './context';
+
 const Navbar = () => {
+  
   const [loading,setLoading]=useState(false)
   const [shoppingModal,setShoppingModal]=useState(false)
   const router=useRouter();
@@ -37,10 +39,14 @@ const Navbar = () => {
     return lots.indexOf(el)==i
   })
 
-   const handleCategoryLink=(e:React.MouseEvent<HTMLElement>,el:string)=>{
-        e.preventDefault();
-        setLoading(true)
-       router.push(`/lotsInCategory/${el}`)
+//    const handleCategoryLink=(e:React.MouseEvent<HTMLElement>,el:string)=>{
+//         e.preventDefault();
+//         setLoading(true)
+//        router.push(`/lotsInCategory/${el}`)
+//    }
+   const changeLoading=(flag:boolean)=>{
+   console.log("cl")
+    setLoading(flag)
    }
 
 
@@ -130,7 +136,7 @@ const Navbar = () => {
                         <div className="ec-header-bottons">
                           
                             <div className="ec-header-user dropdown">
-                                <button className="dropdown-toggle" data-bs-toggle="dropdown"><img src="../images/icons/user.svg" className="svg_img header_svg" alt=""/></button>
+                                <button className="dropdown-toggle" data-bs-toggle="dropdown"><img src="/images/icons/user.svg" className="svg_img header_svg" alt=""/></button>
                                 <ul className="dropdown-menu dropdown-menu-right">
                                     <li><a className="dropdown-item" href="register.html">ثبت نام</a></li>
                                     <li><a className="dropdown-item" href="checkout.html">ادامه خرید</a></li>
@@ -139,17 +145,17 @@ const Navbar = () => {
                             </div>
                           
                             <a href="wishlist.html" className="ec-header-btn ec-header-wishlist">
-                                <div className="header-icon"><img src="../images/icons/wishlist.svg" className="svg_img header_svg" alt="" /></div>
+                                <div className="header-icon"><img src="/images/icons/wishlist.svg" className="svg_img header_svg" alt="" /></div>
                                 <span className="ec-header-count">4</span>
                             </a>
                             
                             <a href="#ec-side-cart" className="ec-header-btn ec-side-toggle">
-                                <div className="header-icon"><img src="../images/icons/cart.svg" className="svg_img header_svg" alt="" /></div>
+                                <div className="header-icon"><img src="/images/icons/cart.svg" className="svg_img header_svg" alt="" /></div>
                                 <span className="ec-header-count cart-count-lable">3</span>
                             </a>
                         
                             <a href="#ec-mobile-menu" className="ec-header-btn ec-side-toggle d-lg-none">
-                                <img src="../images/icons/menu.svg" className="svg_img header_svg" alt="icon" />
+                                <img src="/images/icons/menu.svg" className="svg_img header_svg" alt="icon" />
                             </a>
                            
                         </div>
@@ -166,7 +172,7 @@ const Navbar = () => {
                        
                         <div className="align-self-center">
                             <div className="header-logo">
-                                <a href="index.html"><img src="../images/logo/logo.png" alt="لوگو سایت"/><img className="dark-logo" src="../images/logo/dark-logo.png" alt="لوگو سایت" style={{"display": "none" }}/></a>
+                                <a href="index.html"><img src="/images/logo/logo.png" alt="لوگو سایت"/><img className="dark-logo" src="/images/logo/dark-logo.png" alt="لوگو سایت" style={{"display": "none" }}/></a>
                             </div>
                         </div>
                     
@@ -174,7 +180,7 @@ const Navbar = () => {
                             <div className="header-search">
                                 <form className="ec-btn-group-form" action="#">
                                     <input className="form-control" placeholder="نام محصول خود را وارد کنید ..." type="text" />
-                                    <button className="submit" type="submit"><img src="../images/icons/search.svg" className="svg_img header_svg" alt="" /></button>
+                                    <button className="submit" type="submit"><img src="/images/icons/search.svg" className="svg_img header_svg" alt="" /></button>
                                 </form>
                             </div>
                         </div>
@@ -184,7 +190,7 @@ const Navbar = () => {
 
                               
                                 <div className="ec-header-user dropdown">
-                                    <button className="dropdown-toggle" data-bs-toggle="dropdown"><img src="../images/icons/user.svg" className="svg_img header_svg" alt=""/></button>
+                                    <button className="dropdown-toggle" data-bs-toggle="dropdown"><img src="/images/icons/user.svg" className="svg_img header_svg" alt=""/></button>
                                     <ul className="dropdown-menu dropdown-menu-right">
                                         <li><a className="dropdown-item" href="register.html">ثبت نام</a></li>
                                         <li><a className="dropdown-item" href="checkout.html">ادامه خرید</a></li>
@@ -193,12 +199,12 @@ const Navbar = () => {
                                 </div>
                               
                                 <a href="wishlist.html" className="ec-header-btn ec-header-wishlist">
-                                    <div className="header-icon"><img src="../images/icons/wishlist.svg" className="svg_img header_svg" alt="" /></div>
+                                    <div className="header-icon"><img src="/images/icons/wishlist.svg" className="svg_img header_svg" alt="" /></div>
                                     <span className="ec-header-count">4</span>
                                 </a>
                               
                                 <a href="#ec-side-cart" className="ec-header-btn ec-side-toggle">
-                                    <div className="header-icon"><img src="../images/icons/cart.svg" className="svg_img header_svg" alt="" /></div>
+                                    <div className="header-icon"><img src="/images/icons/cart.svg" className="svg_img header_svg" alt="" /></div>
                                     <span className="ec-header-count cart-count-lable">3</span>
                                 </a>
                                 
@@ -216,7 +222,7 @@ const Navbar = () => {
                     
                     <div className="col">
                         <div className="header-logo">
-                            <a href="index.html"><img src="../images/logo/logo.png" alt="لوگو سایت"/><img className="dark-logo" src="../images/logo/dark-logo.png" alt="لوگو سایت" style={{"display": "none;"}}/></a>
+                            <a href="index.html"><img src="/images/logo/logo.png" alt="لوگو سایت"/><img className="dark-logo" src="/images/logo/dark-logo.png" alt="لوگو سایت" style={{"display": "none;"}}/></a>
                         </div>
                     </div>
                     
@@ -224,7 +230,7 @@ const Navbar = () => {
                         <div className="header-search">
                             <form className="ec-btn-group-form" action="#">
                                 <input className="form-control" placeholder="نام محصول خود را وارد کنید ..." type="text" />
-                                <button className="submit" type="submit"><img src="../images/icons/search.svg" className="svg_img header_svg" alt="icon"/></button>
+                                <button className="submit" type="submit"><img src="/images/icons/search.svg" className="svg_img header_svg" alt="icon"/></button>
                             </form>
                         </div>
                     </div>
@@ -239,14 +245,14 @@ const Navbar = () => {
                     <div className="col-md-12 align-self-center">
                         <div className="ec-main-menu">
                             <ul>
-                                <li><a href="index.html">خانه</a></li>
+                                <li className="dropdown "><Link href={`/`}>خانه</Link></li>
                                 <li className="dropdown "><a href="javascript:void(0)">دسته بندی ها</a>
                                     <ul className="sub-menu">
                                       
                                           
                                                
                                                 {categories.map((el,i)=>{
-                                                 return   <NavbarCategory key={i} category={el}/>
+                                                 return   <NavbarCategory changeLoading={changeLoading} key={i} category={el}/>
                                                  
                                              
                                                 })}
@@ -292,46 +298,10 @@ const Navbar = () => {
                                         
                                     </ul>
                                 </li>
-                                <li className="dropdown"><a href="javascript:void(0)">محصولات</a>
-                                    <ul className="sub-menu">
-                                        <li className="dropdown position-static"><a href="javascript:void(0)">صفحه محصولات
-                                                <i className="ecicon eci-angle-left"></i></a>
-                                            <ul className="sub-menu sub-menu-child">
-                                                <li><a href="product-left-sidebar.html">محصول سایدبار چپ</a></li>
-                                                <li><a href="product-right-sidebar.html">محصول سایدبار راست</a></li>
-                                            </ul>
-                                        </li>
-                                        <li className="dropdown position-static"><a href="javascript:void(0)">محصول 360 درجه
-                                                <i className="ecicon eci-angle-left"></i></a>
-                                            <ul className="sub-menu sub-menu-child">
-                                                <li><a href="product-360-left-sidebar.html">360 ساید بار چپ</a></li>
-                                                <li><a href="product-360-right-sidebar.html">360 ساید بار راست</a></li>
-                                            </ul>
-                                        </li>
-                                        <li className="dropdown position-static"><a href="javascript:void(0)">محصول ویدئویی
-                                                <i className="ecicon eci-angle-left"></i></a>
-                                            <ul className="sub-menu sub-menu-child">
-                                                <li><a href="product-video-left-sidebar.html">سایدبار چپ ویدئویی</a>
-                                                </li>
-                                                <li><a href="product-video-right-sidebar.html">سایدبار راست ویدئویی</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li className="dropdown position-static"><a href="javascript:void(0)">گالری محصول
-                                                <i className="ecicon eci-angle-left"></i></a>
-                                            <ul className="sub-menu sub-menu-child">
-                                                <li><a href="product-gallery-left-sidebar.html">سایدبار چپ گالری</a>
-                                                </li>
-                                                <li><a href="product-gallery-right-sidebar.html">سایدبار راست گالری</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="product-full-width.html">محصول تمام عرض</a></li>
-                                        <li><a href="product-360-full-width.html">360 تمام عرض</a></li>
-                                        <li><a href="product-video-full-width.html">تمام عرض ویدئو </a></li>
-                                        <li><a href="product-gallery-full-width.html">تمام عرض گالری</a></li>
-                                    </ul>
+                                <li className="dropdown"><Link href={`#newLots`} >جدید</Link>
+                                    
                                 </li>
-                                <li className="dropdown"><a href="javascript:void(0)">صفحات</a>
+                                {/* <li className="dropdown"><a href="javascript:void(0)">صفحات</a>
                                     <ul className="sub-menu">
                                         <li><a href="about-us.html">درباره ما</a></li>
                                         <li><a href="contact-us.html">ارتباط با ما</a></li>
@@ -449,8 +419,8 @@ const Navbar = () => {
                                         <li><a href="elemets-accordions.html">آکاردیون</a></li>
                                         <li><a href="elemets-blog.html">بلاگ</a></li>
                                     </ul>
-                                </li>
-                                <li><a href="offer.html">پیشنهادات داغ</a></li>
+                                </li> */}
+                                <li className="dropdown "><a href="#premiers">پیشنهادات داغ</a></li>
                             </ul>
                         </div>
                     </div>
@@ -466,7 +436,7 @@ const Navbar = () => {
             <div className="ec-menu-inner">
                 <div className="ec-menu-content">
                     <ul>
-                        <li><a href="index.html">خانه</a></li>
+                        <li className='dropdown'><Link href="/home">خانه</Link></li>
                         <li><a href="javascript:void(0)">دسته بندی ها</a>
                             <ul className="sub-menu">
                                 <li>
@@ -514,41 +484,12 @@ const Navbar = () => {
                                     </ul>
                                 </li>
                                 <li>
-                                    <a className="p-0" href="shop-left-sidebar-col-3.html"><img className="img-responsive" src="../images/menu-banner/1.jpg" alt=""/></a>
+                                    <a className="p-0" href="shop-left-sidebar-col-3.html"><img className="img-responsive" src="/images/menu-banner/1.jpg" alt=""/></a>
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="javascript:void(0)">محصولات</a>
-                            <ul className="sub-menu">
-                                <li><a href="javascript:void(0)">صفحه محصولات</a>
-                                    <ul className="sub-menu">
-                                        <li><a href="product-left-sidebar.html">محصول سایدبار چپ</a></li>
-                                        <li><a href="product-right-sidebar.html">محصول سایدبار راست</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="javascript:void(0)">محصول 360 درجه</a>
-                                    <ul className="sub-menu">
-                                        <li><a href="product-360-left-sidebar.html">360 ساید بار چپ</a></li>
-                                        <li><a href="product-360-right-sidebar.html">360 ساید بار راست</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="javascript:void(0)">محصول ویدئو</a>
-                                    <ul className="sub-menu">
-                                        <li><a href="product-video-left-sidebar.html">سایدبار چپ ویدئویی</a></li>
-                                        <li><a href="product-video-right-sidebar.html">سایدبار راست ویدئویی</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="javascript:void(0)">محصول گالری</a>
-                                    <ul className="sub-menu">
-                                        <li><a href="product-gallery-left-sidebar.html">سایدبار چپ گالری</a></li>
-                                        <li><a href="product-gallery-right-sidebar.html">سایدبار راست گالری</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="product-full-width.html">محصول تمام عرض</a></li>
-                                <li><a href="product-360-full-width.html">360 تمام عرض</a></li>
-                                <li><a href="product-video-full-width.html">تمام عرض ویدئو </a></li>
-                                <li><a href="product-gallery-full-width.html">تمام عرض گالری</a></li>
-                            </ul>
+                        <li><Link href="#premiers">newLots</Link>
+                          
                         </li>
                         <li><a href="javascript:void(0)">دیگر</a>
                             <ul className="sub-menu">
@@ -651,7 +592,7 @@ const Navbar = () => {
                                 <li><a href="elemets-blog.html">بلاگ</a></li>
                             </ul>
                         </li>
-                        <li><a href="offer.html">پیشنهادات داغ</a></li>
+                        <li><a href="#premiers">پیشنهادات داغ</a></li>
                     </ul>
                 </div>
                 <div className="header-res-lan-curr">
@@ -730,7 +671,7 @@ const Navbar = () => {
      
       <div className="nav-item nav-item-shopping-basket" onClick={handleShoppingCart}>
        
-        <img src="../images/download.png"/>
+        <img src="/images/download.png"/>
         <span className="badge bg-info text-dark">{totalCount}</span>
       </div>
       <div className="nav-item search-section">

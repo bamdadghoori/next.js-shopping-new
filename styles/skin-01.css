@@ -18100,6 +18100,9 @@ h6,
     display: flex;
     margin-right: 1vw;
 }
+.ec-main-menu ul li.dropdown li:hover{
+    background: #f0f0f1;
+}
 
 .ec-main-menu ul li.dropdown li.position-static:hover .sub-menu.sub-menu-child {
     opacity: 1;

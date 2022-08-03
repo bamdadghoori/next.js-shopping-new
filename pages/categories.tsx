@@ -1,5 +1,5 @@
 import React from 'react'
-import Category from './category'
+import Category from './oldcategory'
  const Categories = ({lots}:{lots:Array<any>}) => {
     let categories:Array<any>=[]
     lots.map((el,i)=>{

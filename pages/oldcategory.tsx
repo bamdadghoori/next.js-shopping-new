@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import NextNProgress from "nextjs-progressbar"
 
 
-const Category = ({lots,category}:{lots:Array<any>,category:string}) => {
+const OldCategory = ({lots,category}:{lots:Array<any>,category:string}) => {
   //to find all of the lots in the category and show the image of last item in category(currentLot[currentLot.length-1]) as category image! 
   let currentLot=lots.filter((el,i)=>{return el.category===category})
  let lastValue=currentLot[currentLot.length-1]
@@ -50,4 +50,4 @@ loading==true && (
     </>
   )
 }
-export default Category;
+export default OldCategory;

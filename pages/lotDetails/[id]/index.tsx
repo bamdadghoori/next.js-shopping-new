@@ -104,7 +104,7 @@ export const getStaticPaths:GetStaticPaths=async(context:any)=>{
 
 return{
 paths,
-//fallback works when you write unknwon url in addressbar if it's false it returns 404 ,else if it's true or blocking, It returns :Cannot read properties of undefined except that in blocking mode you can't seeexception and status! in production mode there are no diffrences!
+//fallback works when you write unknwon url in addressbar if it's false it returns 404 ,else if it's true or blocking, It returns :Cannot read properties of undefined except that in blocking mode you can't see exception and status! in production mode there are no diffrences!
 
 fallback:false,
 }

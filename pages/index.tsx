@@ -11,7 +11,7 @@ import Loading from "./Loading"
 import axios from 'axios'
 // import Premiers from '../public/components/premiers'
 import Categories from './categories'
-import { getLots,getCategories } from '../utils/firebase'
+import { getLots,getCategories,getLotsInCategory } from '../utils/firebase'
 // import MainCategories from '../public/components/mainCategories'
 import type { NextPageWithLayout } from './_app'
 import MainSlider from '../public/components/mainSlider'
@@ -39,7 +39,15 @@ const Premiers=React.lazy(()=>import('../public/components/premiers'))
     //    }
        
      }
-
+const getCategoryLots=async()=>{
+  try{
+    const lotsInCategory=await getLotsInCategory("مبلمان");
+    console.log(lotsInCategory)
+  }
+  catch(er){
+console.log(er)
+  }
+}
   const getLotsList = () => {
 
     return async (dispatch: AppDispatch) => {
@@ -83,7 +91,7 @@ const Premiers=React.lazy(()=>import('../public/components/premiers'))
  //@ts-ignore
  
   useEffect(() => {
-    
+    getCategoryLots()
     dispatch(getLotsList());
     dispatch(getCategoryList());
 window.addEventListener("scroll",handleScroll)

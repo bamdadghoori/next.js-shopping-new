@@ -103,6 +103,19 @@ const getCategories=async()=>{
    }
   
 }
+const getLotsInCategory=async(title)=>{
+      try{
+        const response=await getLots();
+        const lotsInCategory=response.filter((el)=>el.category.trim()==title.trim())
+        console.log(lotsInCategory)
+        return lotsInCategory;
+        
+      }
+      catch(er){
+        console.log(er)
+        return er
+      }
+}
 // const db = getDatabase();
 // const ref = db.ref('server/saving-data/fireblog');
 // const usersRef = ref.child('users');
@@ -122,4 +135,4 @@ const getCategories=async()=>{
 
 
 export {firestore}
-export {getUsers,getLots,getCategories}
+export {getUsers,getLots,getCategories,getLotsInCategory}

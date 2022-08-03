@@ -7,7 +7,7 @@ import { RootState } from '../../redux/store';
   return (
    <>
    
-   <section className="section ec-new-product section-space-p">
+   <section className="section ec-new-product section-space-p" id="newLots">
         <div className="container">
             <div className="row">
                 <div className="col-md-12 text-center">
