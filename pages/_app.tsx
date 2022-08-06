@@ -17,6 +17,7 @@ import '../styles/skin-01.css'
 import '../styles/responsive.css'
 import '../styles/rtl.css'
 import "../styles/ecicons.min.css"
+import "../styles/nouislider.css"
 import {store,persistor} from '../redux/store'
 
 import { Provider } from 'react-redux';

@@ -34975,3 +34975,8 @@ input[type=email]:focus::-webkit-input-placeholder {
     position: absolute;
     left: 1vw;
 }
+.ec-price-input{
+margin-top: 20px;}
+.filter__label{
+    font-size: 13px !important;
+}

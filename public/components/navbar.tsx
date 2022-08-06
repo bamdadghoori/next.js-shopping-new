@@ -76,7 +76,7 @@ const Navbar = () => {
      {
        loading&& (
         <NextNProgress
-        color="rgb(255, 107, 0)"
+        color="#3474d4"
         startPosition={0.3}
         stopDelayMs={200}
         height={3}

@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../redux/store'
 import { GetStaticPaths,GetStaticProps } from 'next';
+// import CategorySideBar from '../../../public/components/categoryPage/CategorySideBar'
 import CategoryLayout from '../../../public/components/categoryPage/categoryLayout'
  const Category = ({title}:{title:string}) => {
   const lotsInCategory=useSelector((state:RootState)=>state.lots.filter((el:any)=>el.category==title))
@@ -73,5 +74,5 @@ export const getStaticProps:GetStaticProps=async(context:any)=>{
     }
   }
 export default Category;
-Category.Layout=CategoryLayout
+
 

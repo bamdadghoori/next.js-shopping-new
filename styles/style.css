@@ -103488,3 +103488,18 @@ opacity:1;
     li .category-img{
     max-width:40px;
     }
+    .chakra-slider.css-18jw6sd{
+    padding-top:2px !important;
+    padding-bottom: 2px !important;
+    }
+    .chakra-slider__thumb.css-d9r9iq:focus-visible{
+    
+    border-color: #3474d4 !important;
+    outline:unset !important
+    }
+    .chakra-slider__thumb.css-d9r9iq{
+        top: -6px;
+    }
+    .css-d9r9iq:focus-visible{
+  
+    }
