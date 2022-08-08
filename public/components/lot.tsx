@@ -13,14 +13,13 @@ import React from 'react'
       emptyStars[i]=i
     }
     return(
-        <div key={lot.id} className="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6  ec-product-content" data-animation="fadeIn">
            
-        <div className="ec-product-inner">
+        <div key={lot.id} className="ec-product-inner">
             <div className="ec-pro-image-outer">
                 <div className="ec-pro-image">
                     <a href="product-left-sidebar.html" className="image">
                         <img className="main-image" src={lot.imgUrl} alt="Product"/>
-                        <img className="hover-image" src="../images/product-image/6_2.jpg" alt="Product"/>
+                       
                     </a>
                     <span className="percentage">20%</span>
                     <a href="#" className="quickview" data-link-action="quickview" title="مشاهده" data-bs-toggle="modal" data-bs-target="#ec_quickview_modal"><img src="../images/icons/quickview.svg" className="svg_img pro_svg" alt=""/></a>
@@ -86,7 +85,7 @@ import React from 'react'
                 </div>
             </div>
         </div>
-    </div>
+    
     )
 }
 export default Lot

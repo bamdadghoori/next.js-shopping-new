@@ -41,13 +41,21 @@ const Items = ({lots}:{lots:any[]}) => {
   
 >
     <div className="row">
+   
 {currentLots.map((el:any)=>{
-                                        return  <Lot lot={el} key={el.id}/>
+                                        return (
+                                            <>
+                                             <div  key={el.id} className="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6  ec-product-content" data-animation="fadeIn">
+                                             <Lot lot={el}/>
+                                             </div>
+                                            </>
+                                        ) 
                                         
                                         
                                       
                                     })}
                                     </div>
+                                    
 </InfiniteScroll>
         {console.log(lots)}
         {/* {lots.map((el:any)=>{

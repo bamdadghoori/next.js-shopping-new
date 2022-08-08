@@ -106,7 +106,7 @@ const getCategories=async()=>{
 const getLotsInCategory=async(title)=>{
       try{
         const response=await getLots();
-        const lotsInCategory=response.filter((el)=>el.category.trim()==title.trim())
+        const lotsInCategory=response.filter((el)=>el.category==title)
         console.log(lotsInCategory)
         return lotsInCategory;
         

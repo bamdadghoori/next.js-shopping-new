@@ -22222,11 +22222,12 @@ select::-ms-expand {
     margin-bottom: 0;
     font-size: 16px;
     color: #777;
+    
 }
 
 .filter__label:before {
     color: #777;
-    font-size: 15px;
+    font-size: 12px;
     line-height: 1;
     margin-right: 4px;
 }
@@ -22244,14 +22245,20 @@ select::-ms-expand {
     border: none;
     border-radius: 0;
     padding: 0;
-    max-width: 48px;
+    max-width: unset;
     line-height: 30px;
     background: #ffffff;
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
     color: #777;
+    width: fit-content;
+    direction: ltr !important;
+    text-align: center !important;
 }
 
+input[type=number]::-webkit-inner-spin-button {
+    opacity: 1
+}
 
 /*-----  Sidebar Block  -----*/
 
