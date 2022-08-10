@@ -10,9 +10,13 @@ import CategorySideBar from '../../../public/components/categoryPage/categorySid
 import CategoryLayout from '../../../public/components/categoryPage/categoryLayout'
 import Lot from '../../../public/components/lot'
  const Category = ({title,lotsInCategory}:{title:string,lotsInCategory:any}) => {
-//   const lotsInCategory=useSelector((state:RootState)=>state.lots.filter((el:any)=>el.category==title))
+
 const router=useRouter();
           lotsInCategory=JSON.parse(lotsInCategory);
+
+        
+        
+       
 useEffect(()=>{
   
   if(lotsInCategory==undefined||lotsInCategory.length==0){
@@ -24,8 +28,13 @@ else if(lotsInCategory[0].subCategory!=undefined){
      router.push("/NotFound")
 }
 },[])
-const[limit,setLimit]:any=useState([50000,1000000])
-   
+
+const[limit,setLimit]:any=useState([0,0])
+
+
+const handleLoadPage=(min:number,max:number)=>{
+setLimit([min,max])
+}
 const handleRangeChange=(val:any[])=>{
     console.log(val)
     setLimit(val)
@@ -39,7 +48,7 @@ const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
         setLimit([limit[0],e.target.value])
      }
 }
-    console.log(lotsInCategory)
+    
   return (
     <section className="ec-page-content section-space-p">
       
@@ -74,11 +83,28 @@ const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
                     <div className="shop-pro-content">
                         <div className="shop-pro-inner">
                             <div className="row">
-                                {lotsInCategory.map((el:any)=>{
-                                    return(
-                                     <div key={el.id} className="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
-                                   <Lot lot={el}/>
-                                   </div>
+                                {
+                                //to filter some lots by range slider
+                                lotsInCategory.map((el:any)=>{
+                                    return(<>
+                                    {el.price!=undefined ?(
+                                     el.price>=limit[0] && (el.price<=limit[1]  && (
+                                        <div key={el.id} className="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
+                                        <Lot lot={el}/>
+                                        </div>
+                                     ))
+
+                                     
+                                    ):(
+                                      el.newPrice>=limit[0] &&(el.newPrice<=limit[1] &&(
+                                        <div key={el.id} className="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
+                                        <Lot lot={el}/>
+                                        </div>
+                                      ) )
+                                    )
+                                      }
+                                    
+                                   </>
                                     )
                                 })}
                            
@@ -89,7 +115,7 @@ const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
                               </div>
                               </div>
                   </div>
-               <CategorySideBar limit={limit} handleInputChange={handleInputChange} handleRangeChange={handleRangeChange}/>
+               <CategorySideBar  limit={limit} lotsInCategory={lotsInCategory} handleInputChange={handleInputChange} handleLoadPage={handleLoadPage} handleRangeChange={handleRangeChange}/>
                
              </div>
              </div>

@@ -22,11 +22,11 @@ import React from 'react'
                        
                     </a>
                     <span className="percentage">20%</span>
-                    <a href="#" className="quickview" data-link-action="quickview" title="مشاهده" data-bs-toggle="modal" data-bs-target="#ec_quickview_modal"><img src="../images/icons/quickview.svg" className="svg_img pro_svg" alt=""/></a>
+                    <a href="#" className="quickview" data-link-action="quickview" title="مشاهده" data-bs-toggle="modal" data-bs-target="#ec_quickview_modal"><img src="/images/icons/quickview.svg" className="svg_img pro_svg" alt=""/></a>
                     <div className="ec-pro-actions">
-                        <a href="compare.html" className="ec-btn-group compare" title="مقایسه"><img src="../images/icons/compare.svg" className="svg_img pro_svg" alt=""/></a>
-                        <button title="افزودن به سبد خرید" className=" add-to-cart"><img src="../images/icons/cart.svg" className="svg_img pro_svg" alt=""/> افزودن به کارت </button>
-                        <a className="ec-btn-group wishlist" title="علاقه مندی"><img src="../images/icons/wishlist.svg" className="svg_img pro_svg" alt=""/></a>
+                        <a href="compare.html" className="ec-btn-group compare" title="مقایسه"><img src="/images/icons/compare.svg" className="svg_img pro_svg" alt=""/></a>
+                        <button title="افزودن به سبد خرید" className=" add-to-cart"><img src="/images/icons/cart.svg" className="svg_img pro_svg" alt=""/> افزودن به کارت </button>
+                        <a className="ec-btn-group wishlist" title="علاقه مندی"><img src="/images/icons/wishlist.svg" className="svg_img pro_svg" alt=""/></a>
                     </div>
                 </div>
             </div>
@@ -60,8 +60,8 @@ import React from 'react'
                     <div className="ec-pro-color">
                         <span className="ec-pro-opt-label">رنگ</span>
                         {/* <ul className="ec-opt-swatch ec-change-img">
-                            <li className="active"><a href="#" className="ec-opt-clr-img" data-src="../images/product-image/6_1.jpg" data-src-hover="../images/product-image/6_1.jpg" data-tooltip="Gray"><span style={{"backgroundColor":"#e8c2ff;"}}></span></a></li>
-                            <li><a href="#" className="ec-opt-clr-img" data-src="../images/product-image/6_2.jpg" data-src-hover="../images/product-image/6_2.jpg" data-tooltip="Orange"><span style={{"backgroundColor":"#9cfdd5;"}}></span></a></li>
+                            <li className="active"><a href="#" className="ec-opt-clr-img" data-src="/images/product-image/6_1.jpg" data-src-hover="/images/product-image/6_1.jpg" data-tooltip="Gray"><span style={{"backgroundColor":"#e8c2ff;"}}></span></a></li>
+                            <li><a href="#" className="ec-opt-clr-img" data-src="/images/product-image/6_2.jpg" data-src-hover="/images/product-image/6_2.jpg" data-tooltip="Orange"><span style={{"backgroundColor":"#9cfdd5;"}}></span></a></li>
                         </ul> */}
                     </div>
                     <div className="ec-pro-size">
