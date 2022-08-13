@@ -3,7 +3,7 @@ import Items from './items';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
  const NewLots = () => {
-    const newLots=useSelector((state:RootState)=>state.lots.filter((el:any)=>{return el.isNew==true}))
+    const newLots=useSelector((state:RootState)=>state.persistedReducer.lots.filter((el:any)=>{return el.isNew==true}))
   return (
    <>
    

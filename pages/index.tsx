@@ -15,7 +15,7 @@ import { getLots,getCategories,getLotsInCategory } from '../utils/firebase'
 // import MainCategories from '../public/components/mainCategories'
 import type { NextPageWithLayout } from './_app'
 import MainSlider from '../public/components/mainSlider'
-
+import { getShoppingLots,getShoppingCategories } from '../redux/shoppingSlice'
 import LazyLoad from 'react-lazyload';
 //@ts-ignore
 const Home: NextPageWithLayout = () => {
@@ -25,7 +25,7 @@ const MainCategories=React.lazy(()=>import("../public/components/mainCategories"
 const CommingSoon=React.lazy(()=>import("../public/components/commingSoon"))
 const Premiers=React.lazy(()=>import('../public/components/premiers'))
   const dispatch: AppDispatch = useDispatch()
-  const state = useSelector((state: RootState) => state)
+  const state = useSelector((state: RootState) => state.persistedReducer)
       
   
   //@ts-ignore
@@ -39,15 +39,7 @@ const Premiers=React.lazy(()=>import('../public/components/premiers'))
     //    }
        
      }
-const getCategoryLots=async()=>{
-  try{
-    const lotsInCategory=await getLotsInCategory("مبلمان");
-    console.log(lotsInCategory)
-  }
-  catch(er){
-console.log(er)
-  }
-}
+
   const getLotsList = () => {
 
     return async (dispatch: AppDispatch) => {
@@ -91,28 +83,51 @@ console.log(er)
  //@ts-ignore
  
   useEffect(() => {
-    getCategoryLots()
-    dispatch(getLotsList());
-    dispatch(getCategoryList());
+    
+    dispatch(getShoppingLots());
+    dispatch(getShoppingCategories());
 window.addEventListener("scroll",handleScroll)
   }, [])
 
   return (
 
     <>
-
      <MainSlider/>
-      <Suspense fallback={<h1>is loading</h1>}>
-      <Premiers lots={state.lots} setOffset={setOffset}
-        />
-      </Suspense>
-      <Suspense fallback={<h1>is loading</h1>}>
-      <CommingSoon/>
-      </Suspense>
-     <Suspense fallback={<h1>is loading</h1>}>
-       <MainCategories categories={state.categories}/>
-       </Suspense>
-       <NewLots  />
+        {
+          state.isLoading==true ?(
+            <h1>loading</h1>
+          ):(
+            state.lots.length!=0 ?(
+              <>
+              
+          <Suspense fallback={<h1>is loading</h1>}>
+          <Premiers lots={state.lots} setOffset={setOffset}
+            />
+          </Suspense>
+          <Suspense fallback={<h1>is loading</h1>}>
+          <CommingSoon/>
+          </Suspense>
+          {state.isLoadingCategory==true ?(
+            <h1>loading</h1>
+          ):(
+            state.categories.length!=0 ? (
+              <Suspense fallback={<h1>is loading</h1>}>
+              <MainCategories categories={state.categories}/>
+              </Suspense>
+            ):(
+              <h1>error</h1>
+            ) 
+          )
+            }
+        
+           <NewLots  />
+              </>
+            ):(
+              <h1>error</h1>
+            )
+          )
+        }
+    
       {/* <div className={styles.container}>
       <div className="source-code">To see the source code: <a href='https://github.com/bamdadghoori/nextjs-shopping'>https://github.com/bamdadghoori/nextjs-shopping</a></div>
     

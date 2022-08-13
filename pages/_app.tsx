@@ -19,6 +19,7 @@ import '../styles/rtl.css'
 import "../styles/ecicons.min.css"
 import "../styles/nouislider.css"
 import {store,persistor} from '../redux/store'
+import Test from "../public/components/test"
 
 import { Provider } from 'react-redux';
 
@@ -35,9 +36,7 @@ type AppPropsWithLayout = AppProps & {
 function App({ Component, pageProps }) {
 
 let rect:any
-// if(elem){
-//   rect=elem.getBoundingClientRect();
-// }
+
 
   const NewLayout=Component.Layout||Layout
   
@@ -79,6 +78,9 @@ const logOut=()=>{
           <Script src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js' />
        
      <Script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.5/umd/popper.min.js"/>
+     {/* <Provider store={store}>
+     <Test/>
+     </Provider> */}
      <Provider store={store}>
   <AppContext.Provider value={{loggedIn,login,logOut}}>
      <PersistGate loading={null} persistor={persistor}>

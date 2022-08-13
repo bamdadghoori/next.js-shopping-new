@@ -21,10 +21,10 @@ const Navbar = () => {
   const [loading,setLoading]=useState(false)
   const [shoppingModal,setShoppingModal]=useState(false)
   const router=useRouter();
-  const totalCount=useSelector((state:RootState)=>state.totalCount)
-  const customerLots=useSelector((state:RootState)=>state.customerLots)
-  let lots=useSelector(((state:RootState)=>state.lots))
-  const categories=useSelector(((state:RootState)=>state.categories))
+  const totalCount=useSelector((state:RootState)=>state.persistedReducer.totalCount)
+  const customerLots=useSelector((state:RootState)=>state.persistedReducer.customerLots)
+  let lots:any[]=useSelector(((state:RootState)=>state.persistedReducer.lots))
+  const categories=useSelector(((state:RootState)=>state.persistedReducer.categories))
   //@ts-ignore
   const {loggedIn}=useContext(AppContext)
     //@ts-ignore
