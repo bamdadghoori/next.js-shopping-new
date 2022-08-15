@@ -19927,8 +19927,29 @@ i.ecicon.eci-star.fill {
     -webkit-transform: scale(1);
     transform: scale(1);
     opacity: 1;
+   
 }
-
+.tab-content .tab-pane .panel-overlay .btn{
+ margin-top: 2vh;
+ margin-right: 1vw;
+ margin-left: 1vw;
+}
+@media(max-width:1000px){
+    .tab-content .tab-pane .panel-overlay .btn{
+       
+        margin-right: 3vw;
+        margin-left: 3vw;
+       }
+}
+@media(max-width:600px){
+    .panel-overlay .row{
+        position: absolute;
+        top: 1vh;
+    }
+    .tab-pane .row img{
+        height:20vh
+    }
+}
 .tab-content .tab-pane.active {
     height: auto;
     visibility: visible;

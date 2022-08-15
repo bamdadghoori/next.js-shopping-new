@@ -23,10 +23,10 @@ useEffect(()=>{
     console.log("x")
     router.push("/NotFound")
   }
-else if(lotsInCategory[0].subCategory!=undefined){
-  console.log("y")
-     router.push("/NotFound")
-}
+// else if(lotsInCategory[0].subCategory!=undefined){
+//   console.log("y")
+//      router.push("/NotFound")
+// }
 },[])
 
 const[limit,setLimit]:any=useState([0,0])

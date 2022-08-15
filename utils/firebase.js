@@ -83,7 +83,7 @@ const getLots=async()=>{
 }
 const getCategories=async()=>{
   try{
- 
+ console.log(`t`)
     const response=await getDocs(CategoriesCol)
       
         const categoriesList=response.docs.map(doc=>doc.data())
@@ -98,6 +98,7 @@ const getCategories=async()=>{
         
     }
    catch(er){
+    console.log(`c`)
     console.log(er)
     return er
    }

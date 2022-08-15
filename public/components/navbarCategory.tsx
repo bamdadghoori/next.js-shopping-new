@@ -1,6 +1,6 @@
 
 import { useRouter } from "next/router";
-import NextNProgress from "nextjs-progressbar" 
+
 import { useState } from "react";
 const NavbarCategory=({category,changeLoading}:{category:any,changeLoading:(...args:any[])=>void})=>{
     const [loading,setLoading]=useState(false)
@@ -31,10 +31,11 @@ const NavbarCategory=({category,changeLoading}:{category:any,changeLoading:(...a
             
         {category.subCategories ? ( 
         <>
-        <a onClick={(e)=>{e.preventDefault}}>
+        <a onClick={handleLinkCategory}>
             {category.categoryTitle}
-            </a>
             <i className="ecicon eci-angle-left"></i>
+            </a>
+            
            
             <ul className="sub-menu sub-menu-child">
                     {

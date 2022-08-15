@@ -2,7 +2,7 @@
 import  {createStore,applyMiddleware,Dispatch} from "redux";
 //@ts-ignore
 import { configureStore } from '@reduxjs/toolkit'
-
+import { composeWithDevTools } from "redux-devtools-extension";
 import counterSlice from './CounterSlice'
 import shoppingSlice from './shoppingSlice'
 import thunk,{ThunkDispatch} from "redux-thunk";
@@ -36,7 +36,10 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
   getDefaultMiddleware({
     serializableCheck: false,
+    devTools:true,
+    composeWithDevTools
   }),
+ 
 })
 // export let store = createStore(persistedReducer,applyMiddleware(thunk))
 export type RootState = ReturnType<typeof store.getState> 

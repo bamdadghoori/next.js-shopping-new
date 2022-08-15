@@ -97,7 +97,7 @@ window.addEventListener("scroll",handleScroll)
           state.isLoading==true ?(
             <h1>loading</h1>
           ):(
-            state.lots.length!=0 ?(
+            state.lots.length!=0 || state.lots==undefined ?(
               <>
               
           <Suspense fallback={<h1>is loading</h1>}>

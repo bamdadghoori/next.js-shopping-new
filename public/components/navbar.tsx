@@ -32,12 +32,12 @@ const Navbar = () => {
   
 
   
-  lots=lots.map((el=>el.category))
+//   lots=lots.map((el=>el.category))
   
  
-  lots=lots.filter((el,i)=>{
-    return lots.indexOf(el)==i
-  })
+//   lots=lots.filter((el,i)=>{
+//     return lots.indexOf(el)==i
+//   })
 
 //    const handleCategoryLink=(e:React.MouseEvent<HTMLElement>,el:string)=>{
 //         e.preventDefault();

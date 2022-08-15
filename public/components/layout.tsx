@@ -20,14 +20,21 @@ setLoggedIn(true)
   setLoggedIn(false)
     }
    },[])
-  const state=useSelector((state:RootState) => state.lots)
- 
+  const categories=useSelector((state:RootState) => state.persistedReducer.categories)
+ {console.log(categories)}
 
   return (
     <>
+   
+    {
+      (categories.length!=undefined && (
+<Navbar />
+      )
+      
+      
+      )
+    }
   
-    
-  <Navbar />
   
   {children}
   <Footer/>
