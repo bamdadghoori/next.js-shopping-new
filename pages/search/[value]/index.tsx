@@ -3,8 +3,8 @@ import axios from 'axios'
 import https from "https"
 
 import Lots from '../../lots'
- const SearchResult = ({data,value}:{data:Array<any>,value:string}) => {
-
+ const SearchResult = ({data,value,q}:{data:Array<any>,value:string,q:any}) => {
+console.log(q)
      data=data.filter((el,i)=>{
          return el.title.toUpperCase().includes(value.toUpperCase())||el.category.toUpperCase().includes(value.toUpperCase())||el.description.toUpperCase().includes(value.toUpperCase())
      })
@@ -35,7 +35,7 @@ export const getServerSideProps=async(context:any)=>{
 
     }
     return{
-        props:{data,value:context.params.value}
+        props:{data,value:context.params.value,q:context.query}
     }
 
 }

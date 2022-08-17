@@ -79,7 +79,7 @@ const handleCategoryClick=(e:React.MouseEvent<HTMLAnchorElement>,category:any)=>
                               <a onClick={(e)=>handleCategoryClick(e,category)} href="#" className="btn btn-primary">مشاهده همه</a>
                           </span>
                           
-                            )
+                            
                            
                             
                            

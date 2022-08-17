@@ -17,7 +17,7 @@ const NavbarCategory=({category,changeLoading}:{category:any,changeLoading:(...a
         e.preventDefault()
         changeLoading(true)
         console.log(subCategory)
-      await  router.push(`/category/${category.categoryTitle}/${subCategory}/`)
+      await  router.push({pathname:`/category/${category.categoryTitle}`,query:{subCategory:subCategory}})
         changeLoading(false)
     }
     return(

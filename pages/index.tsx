@@ -17,6 +17,7 @@ import type { NextPageWithLayout } from './_app'
 import MainSlider from '../public/components/mainSlider'
 import { getShoppingLots,getShoppingCategories } from '../redux/shoppingSlice'
 import LazyLoad from 'react-lazyload';
+
 //@ts-ignore
 const Home: NextPageWithLayout = () => {
   
@@ -81,11 +82,18 @@ const Premiers=React.lazy(()=>import('../public/components/premiers'))
     // setScrolled(true)
   }
  //@ts-ignore
- 
+ let lotsInCategory
+//  const g=()=>{
+//   const query={subCategory:''}
+//    lotsInCategory= await getLotsInCategory('مواد غذایی')
+//   lotsInSubCategory=lotsInCategory.filter((el:any)=>query.subCategory.includes(el.subCategory)==true)
+//  }
   useEffect(() => {
-    
+  
     dispatch(getShoppingLots());
     dispatch(getShoppingCategories());
+    
+
 window.addEventListener("scroll",handleScroll)
   }, [])
 

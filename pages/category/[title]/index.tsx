@@ -9,25 +9,26 @@ import { GetStaticPaths,GetStaticProps } from 'next';
 import CategorySideBar from '../../../public/components/categoryPage/categorySideBar'
 import CategoryLayout from '../../../public/components/categoryPage/categoryLayout'
 import Lot from '../../../public/components/lot'
- const Category = ({title,lotsInCategory}:{title:string,lotsInCategory:any}) => {
+ const Category = ({lotsInCategory,category,query}:{title:string,lotsInCategory:any,category:any,query:any}) => {
 
 const router=useRouter();
-          lotsInCategory=JSON.parse(lotsInCategory);
 
-        
-        
+lotsInCategory=JSON.parse(lotsInCategory);
+query=JSON.parse(query)
+console.log(query)
+                 
+          
+
+        category=JSON.parse(category)
+      
+       console.log(category) 
        
 useEffect(()=>{
   
   if(lotsInCategory==undefined||lotsInCategory.length==0){
     console.log("x")
     router.push("/NotFound")
-  }
-// else if(lotsInCategory[0].subCategory!=undefined){
-//   console.log("y")
-//      router.push("/NotFound")
-// }
-},[])
+  }},[category])
 
 const[limit,setLimit]:any=useState([0,0])
 
@@ -50,6 +51,9 @@ const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
 }
     
   return (
+    <>
+    {console.log(lotsInCategory)}
+   
     <section className="ec-page-content section-space-p">
       
 
@@ -115,59 +119,105 @@ const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
                               </div>
                               </div>
                   </div>
-               <CategorySideBar  limit={limit} lotsInCategory={lotsInCategory} handleInputChange={handleInputChange} handleLoadPage={handleLoadPage} handleRangeChange={handleRangeChange}/>
+               <CategorySideBar query={query} category={category} limit={limit} lotsInCategory={lotsInCategory} handleInputChange={handleInputChange} handleLoadPage={handleLoadPage} handleRangeChange={handleRangeChange}/>
                
              </div>
              </div>
              </section>
+             </>
   )
 }
 
-export const getStaticPaths:GetStaticPaths= async()=>{
-    let response:any;
+// export const getStaticPaths:GetStaticPaths= async()=>{
+//     let response:any;
    
-    let paths:Array<any>=[]
-    try{
-          response= await getCategories();
-              //converting to json line below is very important!
-          await response.json()
-        // const data= response.filter((el:any)=>{return el.subCategories==undefined})
-          paths= await response.map((el:any)=>{params:{title:el.categoryTitle}})
+//     let paths:Array<any>=[]
+//     try{
+//           response= await getCategories();
+//               //converting to json line below is very important!
+//           await response.json()
+//         // const data= response.filter((el:any)=>{return el.subCategories==undefined})
+//           paths= await response.map((el:any)=>{params:{title:el.categoryTitle}})
          
+//     }
+//     catch(er){
+//   console.log(er)
+//     }
+     
+//     return {
+//       paths ,
+
+//       fallback:"blocking", // can also be true or 'blocking'
+//     }
+//   }
+// export const getStaticProps:GetStaticProps=async(context:any)=>{
+//   let title=context.params.title;
+//    let lotsInCategory:any=[]
+//    let category:any=[]
+//    let response:any
+//   try{
+//         response= await getLotsInCategory(context.params.title)
+//         lotsInCategory=JSON.stringify(response) 
+//         const categories:any=await getCategories();
+//         category=categories.filter((el:any)=>el.categoryTitle==title)
+//         category=category[0]
+//        console.log(category)
+//   }
+//   catch(er){
+//    console.log(er)
+   
+//   }
+  
+  
+//     return {
+//       props: {title:context.params.title,
+//         lotsInCategory:lotsInCategory,
+//         category:JSON.stringify(category)
+//       },
+//        revalidate:2
+      
+//     }
+//   }
+
+export async function getServerSideProps(context:any) {
+  
+    let category:any=[]
+    let query=context.query
+    let title=context.params.title;
+    let lotsInSubCategory:any=[]
+    let lotsInCategory:any=[]
+    try{
+        console.log(query)
+       lotsInCategory=await getLotsInCategory(title)
+       if(query.subCategory!=undefined){
+        lotsInCategory=lotsInCategory.filter((el:any)=>query.subCategory.includes(el.subCategory)==true)
+       }
+    
+      const categories:any=await getCategories();
+
+     category=categories.filter((el:any)=>el.categoryTitle==title)
+    category=category[0]
+    console.log(category,`y`)
+    lotsInCategory=JSON.stringify(lotsInCategory)
+    
+    category=JSON.stringify(category)
+    
+    query=JSON.stringify(query)
     }
     catch(er){
-  console.log(er)
+        console.log(er)
+        console.log(`g`)
     }
+   
+   
      
-    return {
-      paths ,
+    
 
-      fallback:"blocking", // can also be true or 'blocking'
-    }
+    
+  return {
+    props: {query,lotsInCategory,category}, // will be passed to the page component as props
   }
-export const getStaticProps:GetStaticProps=async(context:any)=>{
-   
-   let lotsInCategory:any=[]
-
-   let response:any
-  try{
-        response= await getLotsInCategory(context.params.title)
-        lotsInCategory=JSON.stringify(response) 
-  }
-  catch(er){
-   console.log(er)
-   
-  }
-  
-  
-    return {
-      props: {title:context.params.title,
-        lotsInCategory:lotsInCategory
-      },
-       revalidate:2
-      
-    }
-  }
+}
 export default Category;
 
 

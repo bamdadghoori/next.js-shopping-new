@@ -1,10 +1,16 @@
 import React,{useEffect} from 'react'
 import {Tooltip} from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import {  RangeSlider,
     RangeSliderFilledTrack,
     RangeSliderTrack,
     RangeSliderThumb} from "@chakra-ui/slider"
- const CategorySideBar = ({limit,handleInputChange,handleRangeChange,lotsInCategory,handleLoadPage}:{limit:any[],handleInputChange:(...args:any[])=>void,handleRangeChange:(args:any[])=>void,lotsInCategory:any[],handleLoadPage:(...args:any[])=>void}) => {
+ const CategorySideBar = ({limit,handleInputChange,handleRangeChange,lotsInCategory,handleLoadPage,category,query}:{limit:any[],handleInputChange:(...args:any[])=>void,handleRangeChange:(args:any[])=>void,lotsInCategory:any[],handleLoadPage:(...args:any[])=>void,category:any,query:any}) => {
+    // category=JSON.parse(category)
+
+console.log(category)
+    const router=useRouter();
+      console.log(window.location.search)
     console.log(lotsInCategory)
     //initialize min and max price for range slider 
     let minPrice:number=0
@@ -60,6 +66,13 @@ useEffect(()=>{
     // const step=1000
     console.log(step)
     console.log(limit)
+
+   const changeCheckBox=()=>{
+   const newSubCategory=query.subCategory.filter((el:any)=>el!='مردانه')
+    console.log(`x`)
+    router.push({pathname:`/category/${category.categoryTitle}`,query:{...query,subCategory:newSubCategory}})
+}
+   
   return (
     <>
     {console.log(lotsInCategory)}
@@ -69,6 +82,28 @@ useEffect(()=>{
                             <h1>محصولات فیلتر شده</h1>
                         </div>
                         <div className="ec-sidebar-wrap">
+                            {category.subCategories!=undefined && (
+                                <>
+                                  <div className="ec-sidebar-block">
+                                     <div className="ec-sb-title">
+                                    <h3 className="ec-sidebar-title">دسته‌بندی‌ها</h3>
+                                </div>
+                                <div className="ec-sb-block-content">
+                                    <ul>
+                                {category.subCategories.map((el:any)=>{
+                                 return(   <li key={el.id}>
+                                            <div className="ec-sidebar-block-item">
+                                                <input type="checkbox" value={el} onChange={changeCheckBox}/> <a href="#">{el}</a><span className="checked"></span>
+                                            </div>
+                                        </li>
+                                        )
+                                })}
+                                </ul>
+                                </div>
+                                </div>
+                                </>
+                            )}
+                            
                             
                             <div className="ec-sidebar-block">
                                 <div className="ec-sb-title">
