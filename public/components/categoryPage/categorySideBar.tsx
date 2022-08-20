@@ -11,7 +11,7 @@ import {  RangeSlider,
 console.log(category)
     const router=useRouter();
       console.log(window.location.search)
-    console.log(lotsInCategory)
+    console.log(query)
     //initialize min and max price for range slider 
     let minPrice:number=0
     let maxPrice:number=0
@@ -67,10 +67,55 @@ useEffect(()=>{
     console.log(step)
     console.log(limit)
 
-   const changeCheckBox=()=>{
-   const newSubCategory=query.subCategory.filter((el:any)=>el!='مردانه')
-    console.log(`x`)
-    router.push({pathname:`/category/${category.categoryTitle}`,query:{...query,subCategory:newSubCategory}})
+   const changeCheckBox=(e:React.ChangeEvent<HTMLInputElement>,subCategory:string)=>{
+    console.log(e.target.checked)
+    let newSubCategory:any
+//    To check all cases of the checkboxes
+    if(e.target.checked==true){
+        if(query.subCategory!=undefined){
+            
+            // To check if more than one subCategory is checked
+              if(Array.isArray(query.subCategory)){
+                newSubCategory=query.subCategory.push([...query.subCategory,subCategory])
+                router.push({pathname:`/category/${category.categoryTitle}`,query:{subCategory:newSubCategory}})
+            }
+               else{
+                newSubCategory=[query.subCategory,subCategory]
+                router.push({pathname:`/category/${category.categoryTitle}`,query:{subCategory:newSubCategory}})
+               }
+                router.push({pathname:`/category/${category.categoryTitle}`,query:{subCategory:newSubCategory}})
+              
+        }
+        else{
+            router.push({pathname:`/category/${category.categoryTitle}`,query:{subCategory:subCategory}})
+        }
+      
+
+    }
+    else{
+        if(query.subCategory!=undefined){
+               // To check if more than one subCategory is checked
+            if(Array.isArray(query.subCategory)){
+                newSubCategory=query.subCategory.filter((el:any)=>el!=subCategory)
+                router.push({pathname:`/category/${category.categoryTitle}`,query:{subCategory:newSubCategory}})
+            }
+            else{
+                
+                router.push({pathname:`/category/${category.categoryTitle}`,query:{available:`none`}})
+            }
+          
+        }
+        else{
+         
+             newSubCategory=category.subCategories
+            newSubCategory=newSubCategory.filter((el:any)=>el!=subCategory)
+            router.push({pathname:`/category/${category.categoryTitle}`,query:{subCategory:newSubCategory}})
+        }
+
+    }
+  
+
+   
 }
    
   return (
@@ -92,9 +137,28 @@ useEffect(()=>{
                                     <ul>
                                 {category.subCategories.map((el:any)=>{
                                  return(   <li key={el.id}>
+                      {/* check if  at least one of the checkboxes is checked or not. if query.available ==none, means none of checkboxes are not checked!              */}
+                                     {query.available!=undefined && query.available==`none` ?(
+                                         <div className="ec-sidebar-block-item">
+                                         <input type="checkbox" checked={false} value={el} onChange={(e)=>changeCheckBox(e,el)}/> <a href="#">{el}</a><span className="checked"></span>
+                                     </div>
+                                     ):(
+                                        // check if subCategory exists in query,if subCategory doesn't exist and available!=`none` the user should see all of the lots in category!
+                                        query.subCategory!=undefined  ?(
+                                    
                                             <div className="ec-sidebar-block-item">
-                                                <input type="checkbox" value={el} onChange={changeCheckBox}/> <a href="#">{el}</a><span className="checked"></span>
-                                            </div>
+                                            <input type="checkbox" checked={Array.isArray(query.subCategory)?(query.subCategory.includes(el) ? true : false):(query.subCategory==el ? true : false)} value={el} onChange={(e)=>changeCheckBox(e,el)}/> <a href="#">{el}</a><span className="checked"></span>
+                                        </div>
+                                        
+                                          
+                                    ):(
+                                        <div className="ec-sidebar-block-item">
+                                        <input type="checkbox" checked={true} value={el} onChange={(e)=>changeCheckBox(e,el)}/> <a href="#">{el}</a><span className="checked"></span>
+                                    </div>
+                                    )
+                                     )
+                            }
+                                         
                                         </li>
                                         )
                                 })}
@@ -105,67 +169,9 @@ useEffect(()=>{
                             )}
                             
                             
-                            <div className="ec-sidebar-block">
-                                <div className="ec-sb-title">
-                                    <h3 className="ec-sidebar-title">دسته‌بندی‌ها</h3>
-                                </div>
-                                <div className="ec-sb-block-content">
-                                    <ul>
-                                        <li>
-                                            <div className="ec-sidebar-block-item">
-                                                <input type="checkbox" checked={false}/> <a href="#">لباس ها</a><span className="checked"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="ec-sidebar-block-item">
-                                                <input type="checkbox"/> <a href="#">کیف</a><span className="checked"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="ec-sidebar-block-item">
-                                                <input type="checkbox"/> <a href="#">کفش</a><span className="checked"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="ec-sidebar-block-item">
-                                                <input type="checkbox"/> <a href="#">محصولات آرایشی</a><span className="checked"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="ec-sidebar-block-item">
-                                                <input type="checkbox"/> <a href="#">الکترونیکی</a><span className="checked"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="ec-sidebar-block-item">
-                                                <input type="checkbox" /> <a href="#">گوشی</a><span className="checked"></span>
-                                            </div>
-                                        </li>
-                                        <li id="ec-more-toggle-content" style={{"padding":"0" , "display": "none;"}}>
-                                            <ul>
-                                                <li>
-                                                    <div className="ec-sidebar-block-item">
-                                                        <input type="checkbox"/> <a href="#">ساعت</a><span className="checked"></span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div className="ec-sidebar-block-item">
-                                                        <input type="checkbox"/> <a href="#">قلم نوری</a><span className="checked"></span>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <div className="ec-sidebar-block-item ec-more-toggle">
-                                                <span className="checked"></span><span id="ec-more-toggle">دسته‌بندی‌های بیشتر</span>
-                                            </div>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div>
+                           
                          
-                            <div className="ec-sidebar-block">
+                            {/* <div className="ec-sidebar-block">
                                 <div className="ec-sb-title">
                                     <h3 className="ec-sidebar-title">اندازه</h3>
                                 </div>
@@ -220,7 +226,7 @@ useEffect(()=>{
                                       
                                     </ul>
                                 </div>
-                            </div>
+                            </div> */}
                            
                             <div className="ec-sidebar-block">
                                 <div className="ec-sb-title">

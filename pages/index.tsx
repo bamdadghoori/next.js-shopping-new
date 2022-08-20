@@ -83,13 +83,13 @@ const Premiers=React.lazy(()=>import('../public/components/premiers'))
   }
  //@ts-ignore
  let lotsInCategory
-//  const g=()=>{
-//   const query={subCategory:''}
-//    lotsInCategory= await getLotsInCategory('مواد غذایی')
-//   lotsInSubCategory=lotsInCategory.filter((el:any)=>query.subCategory.includes(el.subCategory)==true)
-//  }
+ const g=async()=>{
+  const query={subCategory:''}
+   lotsInCategory= await getLotsInCategory('مواد غذایی')
+  // lotsInSubCategory=lotsInCategory.filter((el:any)=>query.subCategory.includes(el.subCategory)==true)
+ }
   useEffect(() => {
-  
+  g();
     dispatch(getShoppingLots());
     dispatch(getShoppingCategories());
     

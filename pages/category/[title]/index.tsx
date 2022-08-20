@@ -12,11 +12,19 @@ import Lot from '../../../public/components/lot'
  const Category = ({lotsInCategory,category,query}:{title:string,lotsInCategory:any,category:any,query:any}) => {
 
 const router=useRouter();
-
+// lotsInCategory=JSON.stringify(lotsInCategory)
+// lotsInCategory.json();
+console.log(lotsInCategory)  
+if(lotsInCategory!=undefined||lotsInCategory.length!=0){
 lotsInCategory=JSON.parse(lotsInCategory);
+}
+
+
+
+
 query=JSON.parse(query)
 console.log(query)
-                 
+             console.log(lotsInCategory)    
           
 
         category=JSON.parse(category)
@@ -88,29 +96,35 @@ const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
                         <div className="shop-pro-inner">
                             <div className="row">
                                 {
-                                //to filter some lots by range slider
-                                lotsInCategory.map((el:any)=>{
-                                    return(<>
-                                    {el.price!=undefined ?(
-                                     el.price>=limit[0] && (el.price<=limit[1]  && (
-                                        <div key={el.id} className="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
-                                        <Lot lot={el}/>
-                                        </div>
-                                     ))
 
-                                     
-                                    ):(
-                                      el.newPrice>=limit[0] &&(el.newPrice<=limit[1] &&(
-                                        <div key={el.id} className="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
-                                        <Lot lot={el}/>
-                                        </div>
-                                      ) )
-                                    )
-                                      }
-                                    
-                                   </>
-                                    )
-                                })}
+                                  query.available!=undefined && query.available==`none` ? (
+                                    <h1>لطفا از نوار سمت راست حداقل یک دسته را انتخاب کنید</h1>
+                                  ):(
+                                    lotsInCategory.map((el:any)=>{
+                                      return(<>
+                                      {el.price!=undefined ?(
+                                       el.price>=limit[0] && (el.price<=limit[1]  && (
+                                          <div key={el.id} className="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
+                                          <Lot lot={el}/>
+                                          </div>
+                                       ))
+  
+                                       
+                                      ):(
+                                        el.newPrice>=limit[0] &&(el.newPrice<=limit[1] &&(
+                                          <div key={el.id} className="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
+                                          <Lot lot={el}/>
+                                          </div>
+                                        ) )
+                                      )
+                                        }
+                                      
+                                     </>
+                                      )
+                                  })
+                                  )
+                                //to filter some lots by range slider
+                               }
                            
                                
                      
@@ -182,13 +196,18 @@ const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
 export async function getServerSideProps(context:any) {
   
     let category:any=[]
-    let query=context.query
+    let query:any
+    if(context.query!=undefined){
+      query=context.query
+    }
+    
     let title=context.params.title;
-    let lotsInSubCategory:any=[]
+
     let lotsInCategory:any=[]
     try{
         console.log(query)
        lotsInCategory=await getLotsInCategory(title)
+      
        if(query.subCategory!=undefined){
         lotsInCategory=lotsInCategory.filter((el:any)=>query.subCategory.includes(el.subCategory)==true)
        }
@@ -197,16 +216,19 @@ export async function getServerSideProps(context:any) {
 
      category=categories.filter((el:any)=>el.categoryTitle==title)
     category=category[0]
-    console.log(category,`y`)
-    lotsInCategory=JSON.stringify(lotsInCategory)
     
+   
+    lotsInCategory= JSON.stringify(lotsInCategory)
+ 
     category=JSON.stringify(category)
     
     query=JSON.stringify(query)
+    
     }
     catch(er){
         console.log(er)
         console.log(`g`)
+       
     }
    
    
@@ -215,9 +237,10 @@ export async function getServerSideProps(context:any) {
 
     
   return {
-    props: {query,lotsInCategory,category}, // will be passed to the page component as props
+    props: {query,lotsInCategory,category} // will be passed to the page component as props
   }
 }
+
 export default Category;
 
 
