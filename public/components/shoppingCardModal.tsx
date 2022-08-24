@@ -17,8 +17,8 @@ const ShoppingCardModal = ({closeModal}:{closeModal:(...args:any[])=>void}) => {
     const [showError,setShowError]=useState(false)
     const [showSuccess,setShowSuccess]=useState(false)
    
-    let lots=useSelector((state:RootState)=>state.lots)
-    let customerLots=useSelector((state:RootState)=>state.customerLots)
+    // let lots=useSelector((state:RootState)=>state.lots)
+    // let customerLots=useSelector((state:RootState)=>state.customerLots)
  
     
     const increment=(lotCount:number,inventory:number,lotId:number)=>{
@@ -51,7 +51,7 @@ else{
 
     let totalCost=0;
   return (<>
-
+{/* 
   <div className='shopping-card-modal'>
       <div className="container lots-list ">
         <span className="close">
@@ -120,7 +120,7 @@ else{
     )
   }
   
-  </div>
+  </div> */}
  
   </>
     

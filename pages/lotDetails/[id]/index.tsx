@@ -15,16 +15,16 @@ import https from "https"
   
 const dispatch=useDispatch();
 
-const customerLots=useSelector((state:RootState)=>state.customerLots)
+// const customerLots=useSelector((state:RootState)=>state.customerLots)
 
 
 const lotCount=1;
 
 
 const addLots=()=>{
- if(customerLots.findIndex((el)=>el.id==data.id)==-1){
-  dispatch(AddCustomerLot({...data,lotCount:lotCount}))
- }
+//  if(customerLots.findIndex((el)=>el.id==data.id)==-1){
+//   dispatch(AddCustomerLot({...data,lotCount:lotCount}))
+//  }
 
 }
   return (

@@ -101,11 +101,11 @@ window.addEventListener("scroll",handleScroll)
 
     <>
      <MainSlider/>
-        {
+ {
           state.isLoading==true ?(
             <h1>loading</h1>
           ):(
-            state.lots.length!=0 || state.lots==undefined ?(
+            state.lots.length!=0 || state.lots!=undefined ?(
               <>
               
           <Suspense fallback={<h1>is loading</h1>}>

@@ -22,7 +22,7 @@ const Navbar = () => {
   const [shoppingModal,setShoppingModal]=useState(false)
   const router=useRouter();
   const totalCount=useSelector((state:RootState)=>state.persistedReducer.totalCount)
-  const customerLots=useSelector((state:RootState)=>state.persistedReducer.customerLots)
+//   const customerLots=useSelector((state:RootState)=>state.persistedReducer.customerLots)
   let lots:any[]=useSelector(((state:RootState)=>state.persistedReducer.lots))
   const categories=useSelector(((state:RootState)=>state.persistedReducer.categories))
   //@ts-ignore
@@ -298,7 +298,7 @@ const Navbar = () => {
                                         
                                     </ul>
                                 </li>
-                                <li className="dropdown"><Link href={`#newLots`} >جدید</Link>
+                                <li className="dropdown"><a onClick={async()=>{await router.push(`/`), router.push(`#newLots`)}}>جدید</a>
                                     
                                 </li>
                                 {/* <li className="dropdown"><a href="javascript:void(0)">صفحات</a>
@@ -420,7 +420,7 @@ const Navbar = () => {
                                         <li><a href="elemets-blog.html">بلاگ</a></li>
                                     </ul>
                                 </li> */}
-                                <li className="dropdown "><a href="#premiers">پیشنهادات داغ</a></li>
+                                <li className="dropdown "><Link href={"/#premiers"}>پیشنهادات داغ</Link></li>
                             </ul>
                         </div>
                     </div>

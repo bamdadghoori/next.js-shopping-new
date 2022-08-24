@@ -5,8 +5,8 @@ import {  RangeSlider,
     RangeSliderFilledTrack,
     RangeSliderTrack,
     RangeSliderThumb} from "@chakra-ui/slider"
- const CategorySideBar = ({limit,handleInputChange,handleRangeChange,lotsInCategory,handleLoadPage,category,query}:{limit:any[],handleInputChange:(...args:any[])=>void,handleRangeChange:(args:any[])=>void,lotsInCategory:any[],handleLoadPage:(...args:any[])=>void,category:any,query:any}) => {
-    // category=JSON.parse(category)
+ const CategorySideBar = ({limit,handleInputChange,handleRangeChange,lotsInCategory,handleLoadPage,category,query,changeLoading}:{limit:any[],handleInputChange:(...args:any[])=>void,handleRangeChange:(args:any[])=>void,lotsInCategory:any[],handleLoadPage:(...args:any[])=>void,category:any,query:any,changeLoading:(...args:any[])=>void}) => {
+
 
 console.log(category)
     const router=useRouter();
@@ -63,12 +63,13 @@ useEffect(()=>{
 
 
     const step=Math.floor((maxPrice-minPrice)/10)
-    // const step=1000
+
     console.log(step)
     console.log(limit)
 
    const changeCheckBox=(e:React.ChangeEvent<HTMLInputElement>,subCategory:string)=>{
-    console.log(e.target.checked)
+   changeLoading(true)
+
     let newSubCategory:any
 //    To check all cases of the checkboxes
     if(e.target.checked==true){
@@ -77,18 +78,20 @@ useEffect(()=>{
             // To check if more than one subCategory is checked
               if(Array.isArray(query.subCategory)){
                 newSubCategory=query.subCategory.push([...query.subCategory,subCategory])
-                router.push({pathname:`/category/${category.categoryTitle}`,query:{subCategory:newSubCategory}})
+                // router.push({pathname:`/category/${category.categoryTitle}`,query:{...query,subCategory:newSubCategory}})
             }
                else{
                 newSubCategory=[query.subCategory,subCategory]
-                router.push({pathname:`/category/${category.categoryTitle}`,query:{subCategory:newSubCategory}})
+                // router.push({pathname:`/category/${category.categoryTitle}`,query:{...query,subCategory:newSubCategory}})
                }
-                router.push({pathname:`/category/${category.categoryTitle}`,query:{subCategory:newSubCategory}})
+                
               
         }
         else{
-            router.push({pathname:`/category/${category.categoryTitle}`,query:{subCategory:subCategory}})
+            newSubCategory=subCategory
+           
         }
+        router.push({pathname:`/category/${category.categoryTitle}`,query:{...query,subCategory:newSubCategory,available:true}})
       
 
     }
@@ -97,11 +100,11 @@ useEffect(()=>{
                // To check if more than one subCategory is checked
             if(Array.isArray(query.subCategory)){
                 newSubCategory=query.subCategory.filter((el:any)=>el!=subCategory)
-                router.push({pathname:`/category/${category.categoryTitle}`,query:{subCategory:newSubCategory}})
+                router.push({pathname:`/category/${category.categoryTitle}`,query:{...query,subCategory:newSubCategory}})
             }
             else{
-                
-                router.push({pathname:`/category/${category.categoryTitle}`,query:{available:`none`}})
+                newSubCategory=subCategory
+                router.push({pathname:`/category/${category.categoryTitle}`,query:{sort:query.sort,available:false}})
             }
           
         }
@@ -114,10 +117,10 @@ useEffect(()=>{
 
     }
   
-
+    
    
 }
-   
+
   return (
     <>
     {console.log(lotsInCategory)}
@@ -137,13 +140,13 @@ useEffect(()=>{
                                     <ul>
                                 {category.subCategories.map((el:any)=>{
                                  return(   <li key={el.id}>
-                      {/* check if  at least one of the checkboxes is checked or not. if query.available ==none, means none of checkboxes are not checked!              */}
-                                     {query.available!=undefined && query.available==`none` ?(
+                      {/* check if  at least one of the checkboxes is checked or not. if query.available ==false, means none of checkboxes are not checked!              */}
+                                     {query.available!=undefined && query.available==`false` ?(
                                          <div className="ec-sidebar-block-item">
                                          <input type="checkbox" checked={false} value={el} onChange={(e)=>changeCheckBox(e,el)}/> <a href="#">{el}</a><span className="checked"></span>
                                      </div>
                                      ):(
-                                        // check if subCategory exists in query,if subCategory doesn't exist and available!=`none` the user should see all of the lots in category!
+                                        // check if subCategory exists in query,if subCategory doesn't exist and available!=false the user should see all of the lots in category!
                                         query.subCategory!=undefined  ?(
                                     
                                             <div className="ec-sidebar-block-item">

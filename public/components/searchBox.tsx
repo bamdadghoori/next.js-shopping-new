@@ -8,7 +8,7 @@ import PredictSearch from './predictSearch';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
  const SearchBox = () => {
-    const lots=useSelector((state:RootState)=>state.lots)
+    // const lots=useSelector((state:RootState)=>state.lots)
      const [searchValue,setSearchValue]=useState("");
      const [loading,setLoading]=useState(false)
      const[predictDisplay,SetPredictDisplay]=useState(false)
@@ -46,9 +46,9 @@ searchValue=="" ? (
 )
    
   
-    setRelatedLots(lots.filter((el:any,i)=>{
+    // setRelatedLots(lots.filter((el:any,i)=>{
      
-      return el.title.toUpperCase().includes(searchValue.toUpperCase())||el.category.toUpperCase().includes(searchValue.toUpperCase())||el.description.toUpperCase().includes(searchValue.toUpperCase())} ))
+    //   return el.title.toUpperCase().includes(searchValue.toUpperCase())||el.category.toUpperCase().includes(searchValue.toUpperCase())||el.description.toUpperCase().includes(searchValue.toUpperCase())} ))
  }
 
 

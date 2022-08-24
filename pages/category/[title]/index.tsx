@@ -9,18 +9,30 @@ import { GetStaticPaths,GetStaticProps } from 'next';
 import CategorySideBar from '../../../public/components/categoryPage/categorySideBar'
 import CategoryLayout from '../../../public/components/categoryPage/categoryLayout'
 import Lot from '../../../public/components/lot'
- const Category = ({lotsInCategory,category,query}:{title:string,lotsInCategory:any,category:any,query:any}) => {
+
+// import unorm from '@unorm'
+ const Category = ({title,lotsInCategory,category,query}:{title:string,lotsInCategory:any,category:any,query:any}) => {
+console.log(title)
+
+const [loading,setLoading]=useState(false);
+ 
+//to stop and start loading
+const changeLoading=(loadingState:boolean)=>{
+  setLoading(loadingState)
+}
 
 const router=useRouter();
-// lotsInCategory=JSON.stringify(lotsInCategory)
-// lotsInCategory.json();
+
 console.log(lotsInCategory)  
-if(lotsInCategory!=undefined||lotsInCategory.length!=0){
+if(lotsInCategory==undefined||lotsInCategory.length==0){
+  console.log("x")
+  router.push("/NotFound")}
+else if(lotsInCategory!=undefined||lotsInCategory.length!=0){
+
 lotsInCategory=JSON.parse(lotsInCategory);
 }
 
-
-
+// console.log('هودی بارانی'.localeCompare('تی شرت یقه گرد'))
 
 query=JSON.parse(query)
 console.log(query)
@@ -30,13 +42,16 @@ console.log(query)
         category=JSON.parse(category)
       
        console.log(category) 
-       
+       const [sortedItems,setSortedItems]=useState([])
 useEffect(()=>{
+  console.log('x')
+  // changeLoading(false)
+
+
+  setTimeout(()=>changeLoading(false),4000)
+  },[loading])
+   
   
-  if(lotsInCategory==undefined||lotsInCategory.length==0){
-    console.log("x")
-    router.push("/NotFound")
-  }},[category])
 
 const[limit,setLimit]:any=useState([0,0])
 
@@ -57,10 +72,23 @@ const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
         setLimit([limit[0],e.target.value])
      }
 }
+
+
+
+const changeSelectBox=(e:React.ChangeEvent<HTMLSelectElement>)=>{
+console.log('c')
+
+setSortedItems(lotsInCategory)
+ const value=e.target.value
+router.push({pathname:`/category/${title}`,query:{...query,sort:value}})
+
+
+
+}
     
   return (
     <>
-    {console.log(lotsInCategory)}
+    {console.log(sortedItems)}
    
     <section className="ec-page-content section-space-p">
       
@@ -79,10 +107,9 @@ const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
                         <div className="col-md-6 ec-sort-select">
                             <span className="sort-by">چینش بر اساس</span>
                             <div className="ec-select-inner">
-                                <select name="ec-select" id="ec-select">
-                                    <option selected={false} disabled={false}>موقعیت</option>
-                                    <option value="1"> مرتبط</option>
-                                    <option value="2">نام، الف تا ی</option>
+                                <select name="ec-select" id="ec-select" onChange={changeSelectBox}>
+                                    <option  value="1" selected={false} disabled={false}>موقعیت</option>
+                                    <option value="2" >نام، الف تا ی</option>
                                     <option value="3">نام، ی تا الف</option>
                                     <option value="4">قیمت، کم به زیاد</option>
                                     <option value="5">قیمت، زیاد به کم</option>
@@ -95,11 +122,13 @@ const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
                     <div className="shop-pro-content">
                         <div className="shop-pro-inner">
                             <div className="row">
-                                {
 
-                                  query.available!=undefined && query.available==`none` ? (
-                                    <h1>لطفا از نوار سمت راست حداقل یک دسته را انتخاب کنید</h1>
-                                  ):(
+                                {loading==true ? (
+                                  <h1>loading</h1>
+                                ):( query.available!=undefined && query.available==`false` ? (
+                                  <h1>لطفا از نوار سمت راست حداقل یک دسته را انتخاب کنید</h1>
+                                ):(
+                                 
                                     lotsInCategory.map((el:any)=>{
                                       return(<>
                                       {el.price!=undefined ?(
@@ -122,7 +151,11 @@ const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
                                      </>
                                       )
                                   })
-                                  )
+                                
+                               
+                                )) 
+
+                                
                                 //to filter some lots by range slider
                                }
                            
@@ -133,7 +166,7 @@ const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
                               </div>
                               </div>
                   </div>
-               <CategorySideBar query={query} category={category} limit={limit} lotsInCategory={lotsInCategory} handleInputChange={handleInputChange} handleLoadPage={handleLoadPage} handleRangeChange={handleRangeChange}/>
+               <CategorySideBar query={query} category={category} limit={limit} lotsInCategory={lotsInCategory} handleInputChange={handleInputChange} handleLoadPage={handleLoadPage} handleRangeChange={handleRangeChange} changeLoading={changeLoading}/>
                
              </div>
              </div>
@@ -200,17 +233,100 @@ export async function getServerSideProps(context:any) {
     if(context.query!=undefined){
       query=context.query
     }
-    
+      //function to sort array
+      const sortArray=(property:any,dec:boolean)=>{
+        console.log('s')
+        console.log(typeof property)
+        const compare=(a:any,b:any)=>{
+         
+          if(typeof a[property] ===`string`){
+            
+        console.log('string')
+            if (dec==false){
+          return a[property].localeCompare(b[property])
+       
+            }
+            else{
+              return b[property].localeCompare(a[property])
+            }   
+          }
+          else{
+            if (dec==false){
+              console.log('number')
+              return a[property]-b[property]
+            
+              
+                
+            }
+            else{
+              return b[property]-a[property]
+              // if(a[property]<b[property]){
+              //   return 1
+              // }
+              // else if(a[property]>b[property]){
+              //   return -1
+              // }
+            
+              //   return 0
+              
+               
+            } 
+          }
+        
+      
+          
+        }
+       lotsInCategory=lotsInCategory.sort(compare)
+        
+      }
+      //end of sortArray
     let title=context.params.title;
 
     let lotsInCategory:any=[]
     try{
         console.log(query)
        lotsInCategory=await getLotsInCategory(title)
+ 
+
+
+       //if sort exists (sort is optional part of query)
+if(query.sort!=undefined){
+  var titles:any[]=[]
+  const sort=query.sort;
+//some of the lots have price ,and some other have newPrice property and we need to have the same property 
+await lotsInCategory.forEach((el:any) => {
+   if(el.price==undefined){
+     el.price=el.newPrice
+    }
+});
+console.log(lotsInCategory,"lic")
+switch (sort){
+  case `1`:
+        
+         break;
       
-       if(query.subCategory!=undefined){
-        lotsInCategory=lotsInCategory.filter((el:any)=>query.subCategory.includes(el.subCategory)==true)
-       }
+      case `2`:
+        console.log(`2`)
+        sortArray(`title`,false)
+        break;
+        case `3`:
+          sortArray(`title`,true)
+          break;
+          case `4`:
+          sortArray(`price`,false)
+          break;
+          case `5`:
+            sortArray(`price`,true)
+            break;
+     
+}
+}
+
+
+if(query.subCategory!=undefined){
+  lotsInCategory=lotsInCategory.filter((el:any)=>query.subCategory.includes(el.subCategory)==true)
+ }
+console.log(lotsInCategory,"lic2")
     
       const categories:any=await getCategories();
 
@@ -218,11 +334,9 @@ export async function getServerSideProps(context:any) {
     category=category[0]
     
    
-    lotsInCategory= JSON.stringify(lotsInCategory)
- 
-    category=JSON.stringify(category)
     
-    query=JSON.stringify(query)
+  
+    console.log(lotsInCategory,`lic8`)
     
     }
     catch(er){
@@ -231,13 +345,17 @@ export async function getServerSideProps(context:any) {
        
     }
    
-   
-     
+    lotsInCategory=JSON.stringify(lotsInCategory)
+  
+    category=JSON.stringify(category)
     
+    query=JSON.stringify(query) 
+     
+ 
 
     
   return {
-    props: {query,lotsInCategory,category} // will be passed to the page component as props
+    props: {title,query,lotsInCategory,category} // will be passed to the page component as props
   }
 }
 
