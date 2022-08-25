@@ -11,7 +11,7 @@ import Loading from "./Loading"
 import axios from 'axios'
 // import Premiers from '../public/components/premiers'
 import Categories from './categories'
-import { getLots,getCategories,getLotsInCategory } from '../utils/firebase'
+import { getLots,getCategories,getLotsInCategory } from '../utils/manualData'
 // import MainCategories from '../public/components/mainCategories'
 import type { NextPageWithLayout } from './_app'
 import MainSlider from '../public/components/mainSlider'
@@ -49,7 +49,7 @@ const Premiers=React.lazy(()=>import('../public/components/premiers'))
       dispatch(GetLotsRequest())
       try {
         const lots: any = await getLots();
-        { console.log(lots) }
+        { console.log(JSON.stringify(lots)) }
         dispatch(GetLotsSuccess(lots))
 
       }
@@ -86,6 +86,8 @@ const Premiers=React.lazy(()=>import('../public/components/premiers'))
  const g=async()=>{
   const query={subCategory:''}
    lotsInCategory= await getLotsInCategory('مواد غذایی')
+  const categories:any=await getCategories();
+  console.log(categories.filter((el:any)=>el.categoryTitle=='لباس'))
   // lotsInSubCategory=lotsInCategory.filter((el:any)=>query.subCategory.includes(el.subCategory)==true)
  }
   useEffect(() => {
@@ -101,7 +103,9 @@ window.addEventListener("scroll",handleScroll)
 
     <>
      <MainSlider/>
+     {console.log(JSON.stringify(state.lots))}
  {
+  
           state.isLoading==true ?(
             <h1>loading</h1>
           ):(

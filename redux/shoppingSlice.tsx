@@ -1,5 +1,5 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
-import {getLots,getCategories} from '../utils/firebase'
+import {getLots,getCategories} from '../utils/manualData'
  export const getShoppingLots=createAsyncThunk(`lots/requestStatus`,async()=>{
     console.log("x")
   try{

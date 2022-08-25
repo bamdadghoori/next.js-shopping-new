@@ -1,6 +1,6 @@
 import React from 'react'
 
- const Lot = ({lot}:{lot:any}) => {
+ const Lot = ({lot,listStyle}:{lot:any,listStyle:boolean}) => {
     const stars:any[]=[]
       const emptyStars:any[]=[]
     const emptyStarsCount=5-lot.rating
@@ -14,7 +14,7 @@ import React from 'react'
     }
     return(
            
-        <div key={lot.id} className="ec-product-inner">
+        <div key={lot.id} className={`ec-product-inner ${listStyle ==true ? "bg-white":" "}`} >
             <div className="ec-pro-image-outer">
                 <div className="ec-pro-image">
                     <a href="product-left-sidebar.html" className="image">
@@ -43,6 +43,7 @@ import React from 'react'
                           }
                     
                 </div>
+                <div className="ec-pro-list-desc">{lot.description}</div>
                 <span className="ec-price">
                     {
                         lot.off===true ?(

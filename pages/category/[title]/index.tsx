@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import {getCategories,getLotsInCategory} from "../../../utils/firebase"
+import {getCategories,getLotsInCategory} from "../../../utils/manualData"
 import axios from 'axios'
 import https from "https"
 import { useRouter } from 'next/router'
@@ -9,13 +9,14 @@ import { GetStaticPaths,GetStaticProps } from 'next';
 import CategorySideBar from '../../../public/components/categoryPage/categorySideBar'
 import CategoryLayout from '../../../public/components/categoryPage/categoryLayout'
 import Lot from '../../../public/components/lot'
+import ReactLoading from "react-loading"
 
 // import unorm from '@unorm'
  const Category = ({title,lotsInCategory,category,query}:{title:string,lotsInCategory:any,category:any,query:any}) => {
-console.log(title)
+console.log(lotsInCategory)
 
 const [loading,setLoading]=useState(false);
- 
+ const [listStyle,setListStyle]=useState(false);
 //to stop and start loading
 const changeLoading=(loadingState:boolean)=>{
   setLoading(loadingState)
@@ -32,7 +33,7 @@ else if(lotsInCategory!=undefined||lotsInCategory.length!=0){
 lotsInCategory=JSON.parse(lotsInCategory);
 }
 
-// console.log('هودی بارانی'.localeCompare('تی شرت یقه گرد'))
+
 
 query=JSON.parse(query)
 console.log(query)
@@ -76,8 +77,8 @@ const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
 
 
 const changeSelectBox=(e:React.ChangeEvent<HTMLSelectElement>)=>{
-console.log('c')
 
+changeLoading(true)
 setSortedItems(lotsInCategory)
  const value=e.target.value
 router.push({pathname:`/category/${title}`,query:{...query,sort:value}})
@@ -85,10 +86,15 @@ router.push({pathname:`/category/${title}`,query:{...query,sort:value}})
 
 
 }
-    
+ //to show list style or grid style view
+const handleStyle=(isListStyle:boolean)=>{
+ 
+setListStyle(isListStyle)
+
+}
   return (
     <>
-    {console.log(sortedItems)}
+    {console.log(listStyle)}
    
     <section className="ec-page-content section-space-p">
       
@@ -99,10 +105,12 @@ router.push({pathname:`/category/${title}`,query:{...query,sort:value}})
                    
                     <div className="ec-pro-list-top d-flex">
                         <div className="col-md-6 ec-grid-list">
+                          {/* view style toggler */}
                             <div className="ec-gl-btn">
-                                <button className="btn btn-grid active"><img src="/images/icons/grid.svg" className="svg_img gl_svg" alt=""/></button>
-                                <button className="btn btn-list"><img src="/images/icons/list.svg" className="svg_img gl_svg" alt=""/></button>
+                                <button className={`btn btn-grid ${listStyle==false?  "active":" "}`} onClick={()=>handleStyle(false)}><img src="/images/icons/grid.svg" className="svg_img gl_svg" alt=""/></button>
+                                <button className={`btn btn-list ${listStyle==true?  "active":" "}`} onClick={()=>handleStyle(true)}><img src="/images/icons/list.svg" className="svg_img gl_svg" alt=""/></button>
                             </div>
+                            {/*end of view style toggler */}
                         </div>
                         <div className="col-md-6 ec-sort-select">
                             <span className="sort-by">چینش بر اساس</span>
@@ -120,11 +128,26 @@ router.push({pathname:`/category/${title}`,query:{...query,sort:value}})
                    
 
                     <div className="shop-pro-content">
-                        <div className="shop-pro-inner">
+                        <div className={`shop-pro-inner ${listStyle==true? "list-view":""}`}>
                             <div className="row">
-
+                         
+                            {/* <ReactLoading  height={"10vh"} width={'10vw'}  color={"#3474d4"}/> */}
                                 {loading==true ? (
-                                  <h1>loading</h1>
+                                  <>
+                                  
+                                  {console.log(lotsInCategory)}
+                                  {lotsInCategory.map((el:any,i:number)=>{
+                                  
+                                   return (
+                                  
+                                   <div key={el.id} className={`col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content ${listStyle==true? "width-100":" "}`}>
+                                      <div className="ec-product-inner">
+                                   <ReactLoading  key={i} height={"10vh"} width={'10vw'}  color={"#3474d4"}/>
+                              </div>
+                              </div>
+                              )
+                                  })}
+                                  </>
                                 ):( query.available!=undefined && query.available==`false` ? (
                                   <h1>لطفا از نوار سمت راست حداقل یک دسته را انتخاب کنید</h1>
                                 ):(
@@ -133,16 +156,16 @@ router.push({pathname:`/category/${title}`,query:{...query,sort:value}})
                                       return(<>
                                       {el.price!=undefined ?(
                                        el.price>=limit[0] && (el.price<=limit[1]  && (
-                                          <div key={el.id} className="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
-                                          <Lot lot={el}/>
+                                          <div key={el.id} className={`col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content ${listStyle==true? "width-100":" "}`}>
+                                          <Lot lot={el} listStyle={listStyle}/>
                                           </div>
                                        ))
   
                                        
                                       ):(
                                         el.newPrice>=limit[0] &&(el.newPrice<=limit[1] &&(
-                                          <div key={el.id} className="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
-                                          <Lot lot={el}/>
+                                          <div key={el.id}  className={`col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content ${listStyle==true? "width-100":" "}`}>
+                                          <Lot lot={el} listStyle={listStyle}/>
                                           </div>
                                         ) )
                                       )
@@ -326,17 +349,18 @@ switch (sort){
 if(query.subCategory!=undefined){
   lotsInCategory=lotsInCategory.filter((el:any)=>query.subCategory.includes(el.subCategory)==true)
  }
-console.log(lotsInCategory,"lic2")
+
     
       const categories:any=await getCategories();
-
+      console.log(categories,`lic8`)
+      console.log(lotsInCategory,"lic2")
      category=categories.filter((el:any)=>el.categoryTitle==title)
     category=category[0]
     
    
     
   
-    console.log(lotsInCategory,`lic8`)
+    
     
     }
     catch(er){

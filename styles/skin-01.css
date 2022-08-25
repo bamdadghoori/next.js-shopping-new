@@ -26,7 +26,9 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-
+.slider-list{
+    margin-top: 0!important;
+}
 @media (prefers-reduced-motion: no-preference) {
      :root {
         scroll-behavior: smooth;
@@ -19582,6 +19584,10 @@ button.btn-close.qty_close {
     z-index: 8;
     position: relative;
 }
+/* .ec-product-inner .icon-loading{
+    position: absolute;
+    width: 100%;
+} */
 
 .ec-product-inner:hover a.quickview {
     -webkit-transform: translateY(0px);

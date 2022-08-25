@@ -79,19 +79,20 @@ useEffect(()=>{
               if(Array.isArray(query.subCategory)){
                 newSubCategory=query.subCategory.push([...query.subCategory,subCategory])
                 // router.push({pathname:`/category/${category.categoryTitle}`,query:{...query,subCategory:newSubCategory}})
+                router.push({pathname:`/category/${category.categoryTitle}`,query:{...query,subCategory:newSubCategory,available:true}})
             }
                else{
                 newSubCategory=[query.subCategory,subCategory]
-                // router.push({pathname:`/category/${category.categoryTitle}`,query:{...query,subCategory:newSubCategory}})
+                router.push({pathname:`/category/${category.categoryTitle}`,query:{...query,subCategory:newSubCategory}})
                }
                 
               
         }
         else{
             newSubCategory=subCategory
-           
+            router.push({pathname:`/category/${category.categoryTitle}`,query:{...query,subCategory:newSubCategory,available:true}})
         }
-        router.push({pathname:`/category/${category.categoryTitle}`,query:{...query,subCategory:newSubCategory,available:true}})
+       
       
 
     }
