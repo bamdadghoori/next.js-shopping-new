@@ -79,7 +79,7 @@ const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
 const changeSelectBox=(e:React.ChangeEvent<HTMLSelectElement>)=>{
 
 changeLoading(true)
-setSortedItems(lotsInCategory)
+// setSortedItems(lotsInCategory)
  const value=e.target.value
 router.push({pathname:`/category/${title}`,query:{...query,sort:value}})
 
@@ -116,11 +116,11 @@ setListStyle(isListStyle)
                             <span className="sort-by">چینش بر اساس</span>
                             <div className="ec-select-inner">
                                 <select name="ec-select" id="ec-select" onChange={changeSelectBox}>
-                                    <option  value="1" selected={false} disabled={false}>موقعیت</option>
-                                    <option value="2" >نام، الف تا ی</option>
-                                    <option value="3">نام، ی تا الف</option>
-                                    <option value="4">قیمت، کم به زیاد</option>
-                                    <option value="5">قیمت، زیاد به کم</option>
+                                    <option  value="1" selected={query.sort==1 ? true:false} disabled={false}>موقعیت</option>
+                                    <option value="2"  selected={query.sort==2 ? true:false} >نام، الف تا ی</option>
+                                    <option value="3"  selected={query.sort==3 ? true:false}>نام، ی تا الف</option>
+                                    <option value="4"  selected={query.sort==4 ? true:false}>قیمت، کم به زیاد</option>
+                                    <option value="5"  selected={query.sort==5 ? true:false}>قیمت، زیاد به کم</option>
                                 </select>
                             </div>
                         </div>

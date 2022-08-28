@@ -5,7 +5,18 @@ import {  RangeSlider,
     RangeSliderFilledTrack,
     RangeSliderTrack,
     RangeSliderThumb} from "@chakra-ui/slider"
- const CategorySideBar = ({limit,handleInputChange,handleRangeChange,lotsInCategory,handleLoadPage,category,query,changeLoading}:{limit:any[],handleInputChange:(...args:any[])=>void,handleRangeChange:(args:any[])=>void,lotsInCategory:any[],handleLoadPage:(...args:any[])=>void,category:any,query:any,changeLoading:(...args:any[])=>void}) => {
+    
+    interface pageProps {limit:any[],
+        handleInputChange:(...args:any[])=>void,
+        handleRangeChange:(args:any[])=>void,
+        lotsInCategory:any[],
+        handleLoadPage:(...args:any[])=>void,
+        category?:any,
+        query:any,
+        changeLoading:(...args:any[])=>void
+    }
+    
+ const CategorySideBar = ({limit,handleInputChange,handleRangeChange,lotsInCategory,handleLoadPage,category,query,changeLoading}:pageProps) => {
 
 
 console.log(category)
@@ -131,7 +142,7 @@ useEffect(()=>{
                             <h1>محصولات فیلتر شده</h1>
                         </div>
                         <div className="ec-sidebar-wrap">
-                            {category.subCategories!=undefined && (
+                            { category!=undefined && (category.subCategories!=undefined && (
                                 <>
                                   <div className="ec-sidebar-block">
                                      <div className="ec-sb-title">
@@ -170,7 +181,7 @@ useEffect(()=>{
                                 </div>
                                 </div>
                                 </>
-                            )}
+                            ))}
                             
                             
                            

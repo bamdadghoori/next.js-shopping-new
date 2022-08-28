@@ -298,7 +298,7 @@ const Navbar = () => {
                                         
                                     </ul>
                                 </li>
-                                <li className="dropdown"><a onClick={async()=>{await router.push(`/`), router.push(`#newLots`)}}>جدید</a>
+                                <li className="dropdown"><a onClick={async()=>{router.push('/bestSellings/')}}>جدید</a>
                                     
                                 </li>
                                 {/* <li className="dropdown"><a href="javascript:void(0)">صفحات</a>
@@ -420,7 +420,7 @@ const Navbar = () => {
                                         <li><a href="elemets-blog.html">بلاگ</a></li>
                                     </ul>
                                 </li> */}
-                                <li className="dropdown "><Link href={"/#premiers"}>پیشنهادات داغ</Link></li>
+                                <li className="dropdown "><a onClick={async()=>{router.push('/bestSelling/')}}>پر فروش ترین ها</a></li>
                             </ul>
                         </div>
                     </div>

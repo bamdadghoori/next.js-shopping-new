@@ -35,7 +35,7 @@ type AppPropsWithLayout = AppProps & {
 //@ts-ignore
 function App({ Component, pageProps }) {
 
-let rect:any
+
 
 
   const NewLayout=Component.Layout||Layout
@@ -54,7 +54,57 @@ setLoggedIn(true)
     }
     
    },[])
-
+ 
+   //to sort array and pass to context
+   const sortArray=(array:any[],property:any,dec:boolean)=>{
+    console.log('s')
+    console.log(array)
+    console.log(typeof property)
+    const compare=(a:any,b:any)=>{
+      console.log(typeof property)
+      if(typeof a[property] ===`string`){
+        
+    console.log('string')
+        if (dec==false){
+      return a[property].localeCompare(b[property])
+   
+        }
+        else{
+          return b[property].localeCompare(a[property])
+        }   
+      }
+      else{
+        console.log('number')
+        if (dec==false){
+         
+          return a[property]-b[property]
+        
+          
+            
+        }
+        else{
+          return b[property]-a[property]
+          // if(a[property]<b[property]){
+          //   return 1
+          // }
+          // else if(a[property]>b[property]){
+          //   return -1
+          // }
+        
+          //   return 0
+          
+           
+        } 
+      }
+    
+  
+      
+    }
+  array=array.sort(compare)
+ 
+  return array
+    
+  }
 
 const login=()=>{
   
@@ -82,7 +132,7 @@ const logOut=()=>{
      <Test/>
      </Provider> */}
      <Provider store={store}>
-  <AppContext.Provider value={{loggedIn,login,logOut}}>
+  <AppContext.Provider value={{loggedIn,login,logOut,sortArray}}>
      <PersistGate loading={null} persistor={persistor}>
     
     
