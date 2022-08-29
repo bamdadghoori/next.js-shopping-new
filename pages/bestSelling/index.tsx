@@ -6,13 +6,16 @@ import ReactLoading from "react-loading"
 import Lot from '../../public/components/lot';
 import CategorySideBar from '../../public/components/categoryPage/categorySideBar';
 import AppContext from '../../public/components/context';
-import { truncate } from 'fs';
+
  const BestSelling = () => {
   console.log(window.location.search)
-    const [loading,setLoading]=useState(false);
-    const [listStyle,setListStyle]=useState(false);
+    const [loading,setLoading]=useState(true);
+    
+    //destruct from context
     const {sortArray}:any=useContext(AppContext)
-          var query:any={};
+    const {handleStyle}:any=useContext(AppContext)
+   const {listStyle}:any=useContext(AppContext)
+            var query:any={};
     
         const router=useRouter();
         const[limit,setLimit]:any=useState([0,0])
@@ -26,7 +29,7 @@ import { truncate } from 'fs';
    const bestSellings=async()=>{
     
            try{
-          const lots =await getBestSellings();
+          const lots:any=await getBestSellings();
         console.log(lots)
         setLotsInBestSellings(lots)
         return lots
@@ -43,20 +46,44 @@ import { truncate } from 'fs';
         setLoading(loadingState)
       }
 
-      const urlSearchParams = new URLSearchParams(window.location.search);
-      const params = Object.fromEntries(urlSearchParams.entries());
                
-             
+     console.log(router.query)
+      //to set query
+      query=router.query
+      console.log(query)
       const initializeLotsInBestSelling=async()=>{
-      const lots=await bestSellings();
+      var lots=await bestSellings();
+      if(lots.length==0||lots==undefined){
+          router.push('/404/')
+      }
       if(Array.isArray(lots)==true){
         console.log(lots)
         await lots.forEach((el:any) => {
           if(el.price==undefined){
-            el.price=el.newPrice
+            
+          return  {...el,price:el.newPrice}
            }
        });
           if(query!=undefined){
+            // the code below uses when we have category filter in bestSelling pages
+            if(query.title!=undefined){
+             if(Array.isArray(query.title)){
+              lots=lots.filter((el:any)=>{
+                return query.title.includes
+                (el.category)==true
+              })
+             }
+             else{
+              lots= lots.filter((el:any)=>{
+                return el.category==query.title
+              })
+             }
+          
+           
+              setLotsInBestSellings(lots)
+            }
+
+
             if(query.sort!=undefined){
              const sort=query.sort
              //cases of sorts
@@ -92,9 +119,7 @@ import { truncate } from 'fs';
        
       }
        console.log('ilibs')
-    //to set query
-       query=params
-       console.log(query)
+   
        var sortedArray:any[]=[];
 
     useEffect(()=>{
@@ -110,11 +135,6 @@ import { truncate } from 'fs';
     },[loading,window.location.search])
 
 
-    const handleStyle=(isListStyle:boolean)=>{
- 
-        setListStyle(isListStyle)
-        
-        }
 
      
         const changeSelectBox=async(e:React.ChangeEvent<HTMLSelectElement>)=>{
@@ -209,31 +229,38 @@ import { truncate } from 'fs';
                                   }))}
                                   </>
                                 ):( lotsInBestSellings.length==0 || lotsInBestSellings==undefined ? (
-                                  <h1> مشکلی در این صفحه پیش آمده لطفا زمانی دیگر امتحان کنید</h1>
-                                ):(
                                  
-                                    lotsInBestSellings.map((el:any)=>{
-                                      return(<>
-                                      {el.price!=undefined ?(
-                                       el.price>=limit[0] && (el.price<=limit[1]  && (
-                                          <div key={el.id} className={`col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content ${listStyle==true? "width-100":" "}`}>
-                                          <Lot lot={el} listStyle={listStyle}/>
-                                          </div>
-                                       ))
-  
-                                       
-                                      ):(
-                                        el.newPrice>=limit[0] &&(el.newPrice<=limit[1] &&(
-                                          <div key={el.id}  className={`col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content ${listStyle==true? "width-100":" "}`}>
-                                          <Lot lot={el} listStyle={listStyle}/>
-                                          </div>
-                                        ) )
-                                      )
-                                        }
-                                      
-                                     </>
-                                      )
-                                  })
+                                  <h1> مشکلی در این صفحه پیش آمده لطفا زمانی دیگر امتحان کنید</h1>
+                                
+                                ):
+                                (
+                                  query.available!=undefined && query.available==`false` ?(
+                                    <h1>لطفا از نوار سمت راست حداقل یک دسته را انتخاب کنید</h1>
+                                ):(
+                                  lotsInBestSellings.map((el:any)=>{
+                                    return(<>
+                                    {el.price!=undefined ?(
+                                     el.price>=limit[0] && (el.price<=limit[1]  && (
+                                        <div key={el.id} className={`col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content ${listStyle==true? "width-100":" "}`}>
+                                        <Lot lot={el} listStyle={listStyle}/>
+                                        </div>
+                                     ))
+
+                                     
+                                    ):(
+                                      el.newPrice>=limit[0] &&(el.newPrice<=limit[1] &&(
+                                        <div key={el.id}  className={`col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content ${listStyle==true? "width-100":" "}`}>
+                                        <Lot lot={el} listStyle={listStyle}/>
+                                        </div>
+                                      ) )
+                                    )
+                                      }
+                                    
+                                   </>
+                                    )
+                                })
+                                )
+                                 
                                 
                                
                                 )) 

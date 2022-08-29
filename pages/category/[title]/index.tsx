@@ -1,5 +1,6 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,useContext} from 'react'
 import {getCategories,getLotsInCategory} from "../../../utils/manualData"
+import AppContext from '../../../public/components/context';
 import axios from 'axios'
 import https from "https"
 import { useRouter } from 'next/router'
@@ -16,12 +17,16 @@ import ReactLoading from "react-loading"
 console.log(lotsInCategory)
 
 const [loading,setLoading]=useState(false);
- const [listStyle,setListStyle]=useState(false);
+
 //to stop and start loading
 const changeLoading=(loadingState:boolean)=>{
   setLoading(loadingState)
 }
 
+  //destruct from context
+  const {sortArray}:any=useContext(AppContext)
+  const {handleStyle}:any=useContext(AppContext)
+ const {listStyle}:any=useContext(AppContext)
 const router=useRouter();
 
 console.log(lotsInCategory)  
@@ -86,12 +91,8 @@ router.push({pathname:`/category/${title}`,query:{...query,sort:value}})
 
 
 }
- //to show list style or grid style view
-const handleStyle=(isListStyle:boolean)=>{
- 
-setListStyle(isListStyle)
 
-}
+
   return (
     <>
     {console.log(listStyle)}

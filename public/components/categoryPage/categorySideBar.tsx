@@ -1,6 +1,8 @@
 import React,{useEffect} from 'react'
 import {Tooltip} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../redux/store'
 import {  RangeSlider,
     RangeSliderFilledTrack,
     RangeSliderTrack,
@@ -18,10 +20,11 @@ import {  RangeSlider,
     
  const CategorySideBar = ({limit,handleInputChange,handleRangeChange,lotsInCategory,handleLoadPage,category,query,changeLoading}:pageProps) => {
 
+    const categories = useSelector((state: RootState) => state.persistedReducer.categories)
 
 console.log(category)
     const router=useRouter();
-      console.log(window.location.search)
+      
     console.log(query)
     //initialize min and max price for range slider 
     let minPrice:number=0
@@ -78,8 +81,10 @@ useEffect(()=>{
     console.log(step)
     console.log(limit)
 
-   const changeCheckBox=(e:React.ChangeEvent<HTMLInputElement>,subCategory:string)=>{
+   const changeCheckBoxForSubCategory=(e:React.ChangeEvent<HTMLInputElement>,subCategory:string)=>{
    changeLoading(true)
+ 
+
 
     let newSubCategory:any
 //    To check all cases of the checkboxes
@@ -88,7 +93,7 @@ useEffect(()=>{
             
             // To check if more than one subCategory is checked
               if(Array.isArray(query.subCategory)){
-                newSubCategory=query.subCategory.push([...query.subCategory,subCategory])
+                newSubCategory=[...query.subCategory,subCategory]
                 // router.push({pathname:`/category/${category.categoryTitle}`,query:{...query,subCategory:newSubCategory}})
                 router.push({pathname:`/category/${category.categoryTitle}`,query:{...query,subCategory:newSubCategory,available:true}})
             }
@@ -113,6 +118,7 @@ useEffect(()=>{
             if(Array.isArray(query.subCategory)){
                 newSubCategory=query.subCategory.filter((el:any)=>el!=subCategory)
                 router.push({pathname:`/category/${category.categoryTitle}`,query:{...query,subCategory:newSubCategory}})
+              
             }
             else{
                 newSubCategory=subCategory
@@ -133,16 +139,58 @@ useEffect(()=>{
    
 }
 
+//  using  changeCheckBoxForCategory when user is not not category page, instead user is in bestSelling or newLots
+
+
+const changeCheckBoxForCategory=(e:React.ChangeEvent<HTMLInputElement>,category:string)=>{
+    changeLoading(true)
+    if(e.target.checked==true){
+        var newTitle:any;
+        if(query.title!=undefined){
+            if(Array.isArray(query.title)==true){
+                newTitle=[...query.title,category]
+               router.push({pathname:window.location.pathname,query:{...query,title:newTitle}})
+               console.log(newTitle)
+            }
+            else{
+                newTitle=[query.title,category]
+                router.push({pathname:window.location.pathname,query:{...query,title:newTitle}})
+            }
+        }
+        else{
+            newTitle=category
+            router.push({pathname:window.location.pathname,query:{...query,title:newTitle,available:true}})
+        }
+    }
+   else{
+    if(query.title!=undefined){
+        if(Array.isArray(query.title)==true){
+            newTitle=query.title.filter((el:any)=>el!=category)
+            router.push({pathname:window.location.pathname,query:{...query,title:newTitle}})
+            console.log(newTitle)
+        }
+        else{
+            router.push({pathname:window.location.pathname,query:{sort:query.sort,available:false}})
+        }
+    }
+    else{
+        newTitle=categories.map((el:any)=>el.categoryTitle)
+        newTitle=newTitle.filter((el:any)=>el.category!=category)
+            router.push({pathname:window.location.pathname,query:{...query,title:newTitle}})
+    }
+   }
+}
   return (
     <>
-    {console.log(lotsInCategory)}
+    {console.log(lotsInCategory.every((el)=>el.soldOut>=50))}
       <div className="ec-shop-leftside col-lg-3 order-lg-first col-md-12 order-md-last">
                     <div id="shop_sidebar">
                         <div className="ec-sidebar-heading">
                             <h1>محصولات فیلتر شده</h1>
                         </div>
                         <div className="ec-sidebar-wrap">
-                            { category!=undefined && (category.subCategories!=undefined && (
+                        
+                            { category!=undefined ? (category.subCategories!=undefined && (
                                 <>
                                   <div className="ec-sidebar-block">
                                      <div className="ec-sb-title">
@@ -155,20 +203,20 @@ useEffect(()=>{
                       {/* check if  at least one of the checkboxes is checked or not. if query.available ==false, means none of checkboxes are not checked!              */}
                                      {query.available!=undefined && query.available==`false` ?(
                                          <div className="ec-sidebar-block-item">
-                                         <input type="checkbox" checked={false} value={el} onChange={(e)=>changeCheckBox(e,el)}/> <a href="#">{el}</a><span className="checked"></span>
+                                         <input type="checkbox" checked={false} value={el} onChange={(e)=>changeCheckBoxForSubCategory(e,el)}/> <a href="#">{el}</a><span className="checked"></span>
                                      </div>
                                      ):(
                                         // check if subCategory exists in query,if subCategory doesn't exist and available!=false the user should see all of the lots in category!
                                         query.subCategory!=undefined  ?(
                                     
                                             <div className="ec-sidebar-block-item">
-                                            <input type="checkbox" checked={Array.isArray(query.subCategory)?(query.subCategory.includes(el) ? true : false):(query.subCategory==el ? true : false)} value={el} onChange={(e)=>changeCheckBox(e,el)}/> <a href="#">{el}</a><span className="checked"></span>
+                                            <input type="checkbox" checked={Array.isArray(query.subCategory)?(query.subCategory.includes(el) ? true : false):(query.subCategory==el ? true : false)} value={el} onChange={(e)=>changeCheckBoxForSubCategory(e,el)}/> <a href="#">{el}</a><span className="checked"></span>
                                         </div>
                                         
                                           
                                     ):(
                                         <div className="ec-sidebar-block-item">
-                                        <input type="checkbox" checked={true} value={el} onChange={(e)=>changeCheckBox(e,el)}/> <a href="#">{el}</a><span className="checked"></span>
+                                        <input type="checkbox" checked={true} value={el} onChange={(e)=>changeCheckBoxForSubCategory(e,el)}/> <a href="#">{el}</a><span className="checked"></span>
                                     </div>
                                     )
                                      )
@@ -181,7 +229,37 @@ useEffect(()=>{
                                 </div>
                                 </div>
                                 </>
-                            ))}
+                            )):(
+// lotsInCategory.every((el)=>el.soldOut>=50)==true means the lots are best selling items and we are in the bestSelling page 
+lotsInCategory.every((el)=>el.soldOut>=50)==true && (
+    <>
+    <div className="ec-sidebar-block">
+       <div className="ec-sb-title">
+      <h3 className="ec-sidebar-title">دسته‌بندی‌ها</h3>
+  </div>
+  <div className="ec-sb-block-content">
+      <ul>
+    {categories.map((el:any,i:number)=>{
+        return  <li key={i}>
+        <div className="ec-sidebar-block-item">
+        <input type="checkbox"  checked={Array.isArray(query.title)?(query.title.includes(el.categoryTitle) ? true : false):(query.title==el.categoryTitle ? true : false)}  onChange={(e)=>changeCheckBoxForCategory(e,el.categoryTitle)} value={el.categoryTitle} /> <a href="#">{el.categoryTitle}</a><span className="checked"></span>
+        
+    </div>
+    </li>
+    })}
+    </ul>
+    </div>
+    </div>
+    </>
+
+)
+
+                         
+                    
+
+                            )
+                            
+                            }
                             
                             
                            

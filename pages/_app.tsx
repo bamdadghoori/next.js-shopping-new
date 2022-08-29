@@ -54,7 +54,11 @@ setLoggedIn(true)
     }
     
    },[])
- 
+   
+
+   //context area
+   //to determine if it's listStyle view or not
+   const [listStyle,setListStyle]=useState(false);
    //to sort array and pass to context
    const sortArray=(array:any[],property:any,dec:boolean)=>{
     console.log('s')
@@ -83,17 +87,7 @@ setLoggedIn(true)
             
         }
         else{
-          return b[property]-a[property]
-          // if(a[property]<b[property]){
-          //   return 1
-          // }
-          // else if(a[property]>b[property]){
-          //   return -1
-          // }
-        
-          //   return 0
-          
-           
+          return b[property]-a[property]  
         } 
       }
     
@@ -104,6 +98,15 @@ setLoggedIn(true)
  
   return array
     
+  }
+//end of sortArray
+
+//to toggle between listStyle and gridStyle view
+  
+const handleStyle=(isListStyle:boolean)=>{
+ 
+  setListStyle(isListStyle)
+  
   }
 
 const login=()=>{
@@ -132,7 +135,7 @@ const logOut=()=>{
      <Test/>
      </Provider> */}
      <Provider store={store}>
-  <AppContext.Provider value={{loggedIn,login,logOut,sortArray}}>
+  <AppContext.Provider value={{loggedIn,login,logOut,sortArray,handleStyle,listStyle}}>
      <PersistGate loading={null} persistor={persistor}>
     
     

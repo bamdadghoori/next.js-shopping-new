@@ -298,7 +298,7 @@ const Navbar = () => {
                                         
                                     </ul>
                                 </li>
-                                <li className="dropdown"><a onClick={async()=>{router.push('/bestSellings/')}}>جدید</a>
+                                <li className="dropdown"><a onClick={async()=>{router.push('/bestSelling/')}}>جدید</a>
                                     
                                 </li>
                                 {/* <li className="dropdown"><a href="javascript:void(0)">صفحات</a>
