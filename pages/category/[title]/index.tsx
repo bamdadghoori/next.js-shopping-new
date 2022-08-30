@@ -48,7 +48,7 @@ console.log(query)
         category=JSON.parse(category)
       
        console.log(category) 
-       const [sortedItems,setSortedItems]=useState([])
+       
 useEffect(()=>{
   console.log('x')
   // changeLoading(false)

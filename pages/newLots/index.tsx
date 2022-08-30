@@ -1,193 +1,167 @@
 import React from 'react'
 import { useEffect,useState,useContext } from 'react';
-import { getBestSellings } from '../../utils/manualData';
+import { getNewLots } from '../../utils/manualData';
 import { useRouter } from 'next/router';
 import ReactLoading from "react-loading"
 import Lot from '../../public/components/lot';
 import CategorySideBar from '../../public/components/categoryPage/categorySideBar';
 import AppContext from '../../public/components/context';
 
- const BestSelling = () => {
-  console.log(window.location.search)
-    const [loading,setLoading]=useState(true);
-    
-    //destruct from context
-    const {sortArray}:any=useContext(AppContext)
-    const {handleStyle}:any=useContext(AppContext)
-   const {listStyle}:any=useContext(AppContext)
-            var query:any={};
-    
-        const router=useRouter();
-        const[limit,setLimit]:any=useState([0,0])
-    //to get bestSelling from manualData.js
-    const [lotsInBestSellings,setLotsInBestSellings]:any=useState([])
-    
+ const NewLots = () => {
 
+     //destruct from context
+     const {sortArray}:any=useContext(AppContext)
+     const {handleStyle}:any=useContext(AppContext)
+    const {listStyle}:any=useContext(AppContext)
+
+    const [loading,setLoading]=useState(true);
+             var query:any={};
+     
+         const router=useRouter();
+         const[limit,setLimit]:any=useState([0,0])
+     //to get bestSelling from manualData.js
+     const [lotsInNewLots,setLotsInNewLots]:any=useState([])
+     
+
+    // get newLots from API
+   const newLots=async()=>{
+    
+    try{
+   const lots:any=await getNewLots();
+ console.log(lots)
+ setLotsInNewLots(lots)
+ return lots
+
+    }
+    catch(er){
+         console.log(er)
+         return false
+    }
+}
+
+
+console.log(router.query)
+//to set query
+query=router.query
+console.log(query)
+
+var sortedArray:any[]=[];
+
+const initializeLotsInNewLots=async()=>{
+var lots=await newLots();
+if(lots.length==0||lots==undefined){
+    router.push('/404/')
+}
+if(Array.isArray(lots)==true){
+  console.log(lots)
+  lots= lots.map((el:any) => {
+    if(el.price==undefined){
+      
+        return {...el,price:el.newPrice}
+     }
+     else{
+       return el
+     }
+ });
+    if(query!=undefined){
+      // the code below uses when we have category filter in bestSelling pages
+      if(query.title!=undefined){
+       if(Array.isArray(query.title)){
+        lots=lots.filter((el:any)=>{
+          return query.title.includes
+          (el.category)==true
+        })
+       }
+       else{
+        lots= lots.filter((el:any)=>{
+          return el.category==query.title
+        })
+       }
+    
+     
+        setLotsInNewLots(lots)
+      }
+
+
+      if(query.sort!=undefined){
+       const sort=query.sort
+       //cases of sorts
+       console.log([...lots])
+        sortedArray=[...lots]
+       switch (sort){
+          
+           case `1`:
+                 
+                  break;
+               
+               case `2`:
+                 console.log(`2`)
+                sortedArray=await sortArray(lots,`title`,false)
+            
+                 break;
+                 case `3`:
+                  sortedArray=await sortArray(lots,`title`,true)
+                   break;
+                   case `4`:
+                   sortedArray=await sortArray(lots,`price`,false)
+                   break;
+                   case `5`:
+                    sortedArray=await  sortArray(lots,`price`,true)
+                     break;
+              
+         }
+         console.log([...sortedArray])
+         setLotsInNewLots([...sortedArray])
+      }
+  }
+   }
+ 
+}
+
+
+useEffect(()=>{
+    initializeLotsInNewLots();
+    setTimeout(()=>changeLoading(false),4000)
+},[loading])
+
+const changeLoading=(loadingState:boolean)=>{
+    setLoading(loadingState)
+  }
+
+
+const changeSelectBox=async(e:React.ChangeEvent<HTMLSelectElement>)=>{
+
+    changeLoading(true)
+  
+     const value=e.target.value
+    await initializeLotsInNewLots();
+    router.push({pathname:`/newLots/`,query:{...query,sort:value}})
+ console.log(lotsInNewLots)
    
     
-// get bestSelling from API
-   const bestSellings=async()=>{
     
-           try{
-          const lots:any=await getBestSellings();
-        console.log(lots)
-        setLotsInBestSellings(lots)
-        return lots
-
-           }
-           catch(er){
-                console.log(er)
-                return false
-           }
+    
     }
 
-
-    const changeLoading=(loadingState:boolean)=>{
-        setLoading(loadingState)
-      }
-
-               
-     console.log(router.query)
-      //to set query
-      query=router.query
-      console.log(query)
-
-      var sortedArray:any[]=[];
-      const initializeLotsInBestSelling=async()=>{
-      var lots:any=await bestSellings();
-      if(lots.length==0||lots==undefined){
-          router.push('/404/')
-      }
-      if(Array.isArray(lots)==true){
-        console.log(lots)
-        
-         lots=await lots.map((el:any) => {
-        
-          if(el.price==undefined){
-          return {...el,price:el.newPrice}
-           
-        //    const newElement= Object.create(el)
-        //  newElement.price=el.newPrice
-        //        return newElement
-           }
-           else{
-            return el
-           }
-          
-       });
-           console.log(lots)
-          if(query!=undefined){
-            // the code below uses when we have category filter in bestSelling pages
-            if(query.title!=undefined){
-             if(Array.isArray(query.title)){
-              lots=lots.filter((el:any)=>{
-                return query.title.includes
-                (el.category)==true
-              })
+    const handleLoadPage=(min:number,max:number)=>{
+        setLimit([min,max])
+        }
+        const handleRangeChange=(val:any[])=>{
+            console.log(val)
+            setLimit(val)
+        }
+        const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
+            console.log(e.currentTarget.value)
+             if(e.target.id==`firstInput`){
+                setLimit([e.target.value,limit[1]])
              }
              else{
-              lots= lots.filter((el:any)=>{
-                return el.category==query.title
-              })
+                setLimit([limit[0],e.target.value])
              }
-          
-           
-              setLotsInBestSellings(lots)
-            }
-
-
-            if(query.sort!=undefined){
-             const sort=query.sort
-             //cases of sorts
-             console.log(lots)
-              sortedArray=lots
-             switch (sort){
-                
-                 case `1`:
-                       
-                        break;
-                     
-                     case `2`:
-                       console.log(`2`)
-                      sortedArray=await sortArray(lots,`title`,false)
-                  
-                       break;
-                       case `3`:
-                        sortedArray=await sortArray(lots,`title`,true)
-                         break;
-                         case `4`:
-                         sortedArray=await sortArray(lots,`price`,false)
-                         break;
-                         case `5`:
-                          sortedArray=await  sortArray(lots,`price`,true)
-                           break;
-                    
-               }
-               console.log([...sortedArray])
-               setLotsInBestSellings([...sortedArray])
-            }
         }
-         }
-       
-      }
-       console.log('ilibs')
-   
-   
-
-    useEffect(()=>{
-       console.log("uf")
-      
-        initializeLotsInBestSelling();
-    
-      
-            
-      
-        setTimeout(()=>changeLoading(false),4000)
-       
-    },[loading,window.location.search])
-
-
-
-     
-        const changeSelectBox=async(e:React.ChangeEvent<HTMLSelectElement>)=>{
-
-            changeLoading(true)
-          
-             const value=e.target.value
-            await initializeLotsInBestSelling();
-            router.push({pathname:`/bestSelling/`,query:{...query,sort:value}})
-         console.log(lotsInBestSellings)
-           
-            
-            
-            
-            }
-
-            const handleLoadPage=(min:number,max:number)=>{
-                setLimit([min,max])
-                }
-                const handleRangeChange=(val:any[])=>{
-                    console.log(val)
-                    setLimit(val)
-                }
-                const handleInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
-                    console.log(e.currentTarget.value)
-                     if(e.target.id==`firstInput`){
-                        setLimit([e.target.value,limit[1]])
-                     }
-                     else{
-                        setLimit([limit[0],e.target.value])
-                     }
-                }
-
-// to be refactured
-
-
-
-
   return (
     <>
-    {console.log(lotsInBestSellings)}
+   {console.log(lotsInNewLots)}
      <section className="ec-page-content section-space-p">
       
 
@@ -228,7 +202,7 @@ import AppContext from '../../public/components/context';
                                   <>
                                   
                                  
-                                  { lotsInBestSellings.length!=0 && (lotsInBestSellings.map((el:any,i:number)=>{
+                                  { lotsInNewLots.length!=0 && (lotsInNewLots.map((el:any,i:number)=>{
                                   
                                    return (
                                   
@@ -240,7 +214,7 @@ import AppContext from '../../public/components/context';
                               )
                                   }))}
                                   </>
-                                ):( lotsInBestSellings.length==0 || lotsInBestSellings==undefined ? (
+                                ):( lotsInNewLots.length==0 || lotsInNewLots==undefined ? (
                                  
                                   <h1> مشکلی در این صفحه پیش آمده لطفا زمانی دیگر امتحان کنید</h1>
                                 
@@ -249,7 +223,7 @@ import AppContext from '../../public/components/context';
                                   query.available!=undefined && query.available==`false` ?(
                                     <h1>لطفا از نوار سمت راست حداقل یک دسته را انتخاب کنید</h1>
                                 ):(
-                                  lotsInBestSellings.map((el:any)=>{
+                                  lotsInNewLots.map((el:any)=>{
                                     return(<>
                                     {el.price!=undefined ?(
                                      el.price>=limit[0] && (el.price<=limit[1]  && (
@@ -289,8 +263,8 @@ import AppContext from '../../public/components/context';
                               </div>
                   </div>
                   {
-                    lotsInBestSellings.length!=0 &&(
-                        <CategorySideBar query={query}  limit={limit} lotsInCategory={lotsInBestSellings} handleInputChange={handleInputChange} handleLoadPage={handleLoadPage} handleRangeChange={handleRangeChange} changeLoading={changeLoading}/>
+                    lotsInNewLots.length!=0 &&(
+                        <CategorySideBar query={query}  limit={limit} lotsInCategory={lotsInNewLots} handleInputChange={handleInputChange} handleLoadPage={handleLoadPage} handleRangeChange={handleRangeChange} changeLoading={changeLoading}/>
                     )
 
                   }
@@ -299,7 +273,6 @@ import AppContext from '../../public/components/context';
              </div>
              </div>
              </section>
-    </>
-  )
+    </>)
 }
-export default BestSelling;
+export default NewLots

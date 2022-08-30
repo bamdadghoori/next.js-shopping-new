@@ -65,8 +65,9 @@ setLoggedIn(true)
     console.log(array)
     console.log(typeof property)
     const compare=(a:any,b:any)=>{
-      console.log(typeof property)
-      if(typeof a[property] ===`string`){
+      console.log(a)
+      console.log(typeof a[property])
+      if(typeof a[property] ==='string'){
         
     console.log('string')
         if (dec==false){

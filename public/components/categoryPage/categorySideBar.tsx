@@ -230,8 +230,8 @@ const changeCheckBoxForCategory=(e:React.ChangeEvent<HTMLInputElement>,category:
                                 </div>
                                 </>
                             )):(
-// lotsInCategory.every((el)=>el.soldOut>=50)==true means the lots are best selling items and we are in the bestSelling page 
-lotsInCategory.every((el)=>el.soldOut>=50)==true && (
+// lotsInCategory.every((el)=>el.soldOut>=50)==true means the lots are best selling items and we are in the bestSelling page  and  lotsInCategory.every((el)=>el.isNew) means we are in newLots page
+(lotsInCategory.every((el)=>el.soldOut>=50)==true || lotsInCategory.every((el)=>el.isNew)==true) && (
     <>
     <div className="ec-sidebar-block">
        <div className="ec-sb-title">
