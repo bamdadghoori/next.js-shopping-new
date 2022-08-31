@@ -121,6 +121,8 @@ import AppContext from '../../public/components/context';
                          case `5`:
                           sortedArray=await  sortArray(lots,`price`,true)
                            break;
+                           default:
+                            router.push('/404/')
                     
                }
                console.log([...sortedArray])
@@ -144,7 +146,7 @@ import AppContext from '../../public/components/context';
       
         setTimeout(()=>changeLoading(false),4000)
        
-    },[loading,window.location.search])
+    },[loading])
 
 
 

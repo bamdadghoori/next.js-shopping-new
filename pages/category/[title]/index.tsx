@@ -11,10 +11,11 @@ import CategorySideBar from '../../../public/components/categoryPage/categorySid
 import CategoryLayout from '../../../public/components/categoryPage/categoryLayout'
 import Lot from '../../../public/components/lot'
 import ReactLoading from "react-loading"
+import nc from "next-connect";
 
 // import unorm from '@unorm'
  const Category = ({title,lotsInCategory,category,query}:{title:string,lotsInCategory:any,category:any,query:any}) => {
-console.log(lotsInCategory)
+
 
 const [loading,setLoading]=useState(false);
 
@@ -30,12 +31,13 @@ const changeLoading=(loadingState:boolean)=>{
 const router=useRouter();
 
 console.log(lotsInCategory)  
-if(lotsInCategory==undefined||lotsInCategory.length==0){
+if(lotsInCategory==undefined||lotsInCategory.length==0||lotsInCategory==null){
   console.log("x")
   router.push("/NotFound")}
 else if(lotsInCategory!=undefined||lotsInCategory.length!=0){
 
 lotsInCategory=JSON.parse(lotsInCategory);
+
 }
 
 
@@ -284,14 +286,7 @@ export async function getServerSideProps(context:any) {
             }
             else{
               return b[property]-a[property]
-              // if(a[property]<b[property]){
-              //   return 1
-              // }
-              // else if(a[property]>b[property]){
-              //   return -1
-              // }
-            
-              //   return 0
+         
               
                
             } 
@@ -305,7 +300,7 @@ export async function getServerSideProps(context:any) {
       }
       //end of sortArray
     let title=context.params.title;
-
+     
     let lotsInCategory:any=[]
     try{
         console.log(query)
@@ -315,7 +310,7 @@ export async function getServerSideProps(context:any) {
 
        //if sort exists (sort is optional part of query)
 if(query.sort!=undefined){
-  var titles:any[]=[]
+ 
   const sort=query.sort;
 //some of the lots have price ,and some other have newPrice property and we need to have the same property 
 await lotsInCategory.forEach((el:any) => {
@@ -353,9 +348,18 @@ if(query.subCategory!=undefined){
 
     
       const categories:any=await getCategories();
+      
       console.log(categories,`lic8`)
       console.log(lotsInCategory,"lic2")
-     category=categories.filter((el:any)=>el.categoryTitle==title)
+      //to prevent show error when the user write unexpected title in the address bar
+      
+      if(categories.filter((el:any)=>el.categoryTitle==title).length==0){
+            title="";
+      }
+    
+        category=categories.filter((el:any)=>el.categoryTitle==title)
+      
+     
     category=category[0]
     
    
@@ -369,12 +373,20 @@ if(query.subCategory!=undefined){
         console.log(`g`)
        
     }
-   
+     //to prevent show error when the user write unexpected title in the address bar
+   if(title!=""){
     lotsInCategory=JSON.stringify(lotsInCategory)
   
     category=JSON.stringify(category)
     
     query=JSON.stringify(query) 
+   }
+   else{
+    lotsInCategory=null
+    category=null
+    query=null
+   }
+    
      
  
 

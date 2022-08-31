@@ -298,7 +298,11 @@ const Navbar = () => {
                                         
                                     </ul>
                                 </li>
-                                <li className="dropdown"><a onClick={async()=>{router.push('/newLots/')}}>جدید</a>
+                                <li className="dropdown"><a onClick={async()=>{
+                                    changeLoading(true)
+                                  await  router.push('/newLots/')
+                                  changeLoading(false)
+                                    }}>جدید</a> 
                                     
                                 </li>
                                 {/* <li className="dropdown"><a href="javascript:void(0)">صفحات</a>
@@ -420,7 +424,11 @@ const Navbar = () => {
                                         <li><a href="elemets-blog.html">بلاگ</a></li>
                                     </ul>
                                 </li> */}
-                                <li className="dropdown "><a onClick={async()=>{router.push('/bestSelling/')}}>پر فروش ترین ها</a></li>
+                                <li className="dropdown "><a onClick={async()=>{
+                                      changeLoading(true)
+                                        await  router.push('/bestSelling/')
+                                    changeLoading(false)
+                                    }}>پر فروش ترین ها</a></li>
                             </ul>
                         </div>
                     </div>
@@ -436,7 +444,11 @@ const Navbar = () => {
             <div className="ec-menu-inner">
                 <div className="ec-menu-content">
                     <ul>
-                        <li className='dropdown'><Link href="/home">خانه</Link></li>
+                        <li className='dropdown'><a onClick={async()=>{
+                            changeLoading(true)
+                            router.push('/home/')
+                            changeLoading(false)
+                        }}>خانه</a></li>
                         <li><a href="javascript:void(0)">دسته بندی ها</a>
                             <ul className="sub-menu">
                                 <li>

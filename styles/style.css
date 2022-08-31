@@ -35045,11 +35045,11 @@ input[type=email]:focus::-webkit-input-placeholder {
     display: -ms-flexbox;
     display: flex;
     padding: 40px 0;
-    height: 100vh;
+    /* height: 100vh; */
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    background: #ffffff;
+    /* background: #ffffff; */
 }
 
 .ec-404-error-page-02 .main-title {
