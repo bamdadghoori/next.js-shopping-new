@@ -6,6 +6,7 @@ import { useEffect,Suspense,useState } from 'react'
 import { GetLotsFail, GetLotsRequest, GetLotsSuccess,GetCategoriesFail,GetCategoriesRequest,GetCategoriesSuccess } from '../redux/shopping/shoppingActions'
 import { RootState, AppDispatch } from '../redux/store'
 import NewLots from '../public/components/newLots'
+import MainPageLoading from '../public/components/mainPageLoading'
 // import CommingSoon from '../public/components/commingSoon'
 import Loading from "./Loading"
 import axios from 'axios'
@@ -112,18 +113,18 @@ window.addEventListener("scroll",handleScroll)
             state.lots.length!=0 || state.lots!=undefined ?(
               <>
               
-          <Suspense fallback={<h1>is loading</h1>}>
+          <Suspense fallback={<MainPageLoading lots={state.lots}/>}>
           <Premiers lots={state.lots} setOffset={setOffset}
             />
           </Suspense>
-          <Suspense fallback={<h1>is loading</h1>}>
+          <Suspense fallback={<MainPageLoading lots={state.lots}/>}>
           <CommingSoon/>
           </Suspense>
           {state.isLoadingCategory==true ?(
             <h1>loading</h1>
           ):(
             state.categories.length!=0 ? (
-              <Suspense fallback={<h1>is loading</h1>}>
+              <Suspense fallback={<MainPageLoading lots={state.categories}/>}>
               <MainCategories categories={state.categories}/>
               </Suspense>
             ):(
@@ -131,8 +132,9 @@ window.addEventListener("scroll",handleScroll)
             ) 
           )
             }
-        
+         <Suspense fallback={<MainPageLoading lots={state.lots}/>}>
            <NewLots  />
+           </Suspense>
               </>
             ):(
               <h1>error</h1>

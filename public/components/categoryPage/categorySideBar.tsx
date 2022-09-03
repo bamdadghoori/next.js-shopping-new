@@ -121,13 +121,14 @@ useEffect(()=>{
               
             }
             else{
+               
                 newSubCategory=subCategory
                 router.push({pathname:`/category/${category.categoryTitle}`,query:{sort:query.sort,available:false}})
             }
           
         }
         else{
-         
+           
              newSubCategory=category.subCategories
             newSubCategory=newSubCategory.filter((el:any)=>el!=subCategory)
             router.push({pathname:`/category/${category.categoryTitle}`,query:{subCategory:newSubCategory}})
@@ -170,6 +171,7 @@ const changeCheckBoxForCategory=(e:React.ChangeEvent<HTMLInputElement>,category:
             console.log(newTitle)
         }
         else{
+            console.log(window.location.pathname)
             router.push({pathname:window.location.pathname,query:{sort:query.sort,available:false}})
         }
     }

@@ -1,10 +1,13 @@
 import React,{useState} from 'react'
 import Lot from './lot'
-//@ts-ignore
-import InfiniteScroll from 'react-infinite-scroller';
+
+
+
+import MainPageLoading from './mainPageLoading';
+import LoadingLot from './loadingLot'
 const Items = ({lots}:{lots:any[]}) => {
   const[hasMore,setHasmore]=useState(true)
-    const [myLots,setMyLots]=useState(lots.slice(6))
+    // const [myLots,setMyLots]=useState(lots.slice(6))
     const itemsPerPage=4;
     const pagesNumber=Math.floor(lots.length/itemsPerPage)
    
@@ -22,7 +25,7 @@ const Items = ({lots}:{lots:any[]}) => {
                 setCurrentPage(currentPage+1)
             
            
-        },1000)
+        },2000)
     }
         else{
             setHasmore(false)
@@ -30,40 +33,63 @@ const Items = ({lots}:{lots:any[]}) => {
       
        
     }
+
+    
+    const countOfLoadingComponent=lots.length-currentLots.length
+      // define array so that array.length==count 
+      let loader:any[]=[]
+      for(let i=0;i<countOfLoadingComponent;i++){
+        loader[i]=i
+      }
+      let onLoadingLots:any[]=[]
+      //calcute onLoading lots so we should get lots so that is not in currentLots!
+      for(let i=0;i<lots.length;i++){
+              if(currentLots.includes(lots[i])==false)
+              {
+                onLoadingLots=[...onLoadingLots,lots[i]]
+              }
+      }
     return (
         <>
-        <InfiniteScroll
-  dataLength={currentLots.length} //This is important field to render the next data
-  loadMore={fetchData}
-  hasMore={hasMore}
-  loader={<h4>Loading...</h4>}
- 
-  
->
+     {console.log(onLoadingLots)}
     <div className="row">
-   
+   <>
 {currentLots.map((el:any)=>{
                                         return (
                                             <>
                                              <div  key={el.id} className="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6  ec-product-content" data-animation="fadeIn">
-                                             <Lot lot={el}/>
+                                         
+                                             <Lot lot={el} listStyle={false}/>
+                                            
                                              </div>
+                                             
                                             </>
                                         ) 
                                         
                                         
                                       
                                     })}
+
+       {onLoadingLots.map((el:any,i:number)=>{
+     return(  <>
+       
+            
+
+                                     <div key={i} className="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6  ec-product-content">
+                                       <LoadingLot lot={el} hasMore={hasMore} fetchData={fetchData} currentLots={currentLots}  listStyle={false}/>
+
+
+
+</div>
+</>
+) 
+       })}
+       </>
                                     </div>
                                     
-</InfiniteScroll>
+                  
         {console.log(lots)}
-        {/* {lots.map((el:any)=>{
-                                        return  <Lot lot={el} key={el.id}/>
-                                        
-                                        
-                                      
-                                    })} */}
+    
                
                 
          </>

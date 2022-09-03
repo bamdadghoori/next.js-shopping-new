@@ -11,7 +11,7 @@ import CategorySideBar from '../../../public/components/categoryPage/categorySid
 import CategoryLayout from '../../../public/components/categoryPage/categoryLayout'
 import Lot from '../../../public/components/lot'
 import ReactLoading from "react-loading"
-import nc from "next-connect";
+import CheckBoxError from '../../../public/components/categoryPage/checkBoxError';
 
 // import unorm from '@unorm'
  const Category = ({title,lotsInCategory,category,query}:{title:string,lotsInCategory:any,category:any,query:any}) => {
@@ -144,15 +144,15 @@ router.push({pathname:`/category/${title}`,query:{...query,sort:value}})
                                    return (
                                   
                                    <div key={el.id} className={`col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content ${listStyle==true? "width-100":" "}`}>
-                                      <div className="ec-product-inner">
-                                   <ReactLoading  key={i} height={"10vh"} width={'10vw'}  color={"#3474d4"}/>
+                                      <div className="ec-product-inner loading-container">
+                                   <ReactLoading  key={i} type='spin' height={"10vh"} width={'10vw'}  color={"#3474d4"}/>
                               </div>
                               </div>
                               )
                                   })}
                                   </>
                                 ):( query.available!=undefined && query.available==`false` ? (
-                                  <h1>لطفا از نوار سمت راست حداقل یک دسته را انتخاب کنید</h1>
+                                  <CheckBoxError/>
                                 ):(
                                  
                                     lotsInCategory.map((el:any)=>{

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
 import { useDispatch,useSelector } from 'react-redux';
-
+import { getLots,getLotById } from '../../../utils/manualData';
 import { AddCustomerLot } from '../../../redux/shopping/shoppingActions';
 
 import { RootState } from '../../../redux/store'
@@ -29,47 +29,8 @@ const addLots=()=>{
 }
   return (
     <>
-    
-   {!error ?(
-       <div className='container lot-details'>
+{console.log(data)}    
 
-       <div className="row" >
-        <div className="col-md-4" >
-          <div className="img-container">
-          <img src={data.image} alt="" />
-          </div>
-       
-        </div>
-        <div className="col-md-4">
-           <div className="detail-container">
-             <div className="title-details"><h3>{data.title}</h3></div>
-         
-            
-             <div className="description-details">{data.description}</div>
-          
-           </div>
-        </div>
-        <div className="col-md-4">
-        <div className="detail-container">
-          <div className="last-container">
-          <div className="badge"><FontAwesomeIcon icon={faStar}/><span>{data.rating.rate}</span></div>
-        <div className="inventory">
-               Inventory: <span className="count">{data.rating.count}</span> 
-             </div>
-             
-             <div className="price">Price: <span className="price-number">{data.price}$</span> </div>
-           <button className="btn btn-regist" onClick={addLots}>Add to shopping basket</button>
-           </div>
-        </div>
-        </div>
-      
-        
-         
-       </div>
-       </div>
-   ):(
-     <h2>there are some problem in this site,try again later</h2>
-   ) }
   
     </>
     
@@ -88,10 +49,11 @@ let error=""
 
 export const getStaticPaths:GetStaticPaths=async(context:any)=>{
   let paths=[]
+  let lots:any=[]
   try{
-    const response= await axios.get("https://fakestoreapi.com/products")
+     lots= await getLots();
 
-    paths=await response.data.map((el:any)=>({params:{id:el.id.toString()}}))
+    paths=await lots.map((el:any)=>({params:{id:el.id.toString()}}))
   }
   catch(er:any){
     error=er.message
@@ -114,8 +76,9 @@ let data={};
 
  export const getStaticProps:GetStaticProps=async(context:any)=>{
     try{
-      const response= await axios.get(`https://fakestoreapi.com/products/${context.params.id}`)
-      data=response.data
+      const id=context.params.id
+       data= await getLotById(id)
+     
     }
     catch(er:any){
    error=er.message

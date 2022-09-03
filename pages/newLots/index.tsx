@@ -6,7 +6,7 @@ import ReactLoading from "react-loading"
 import Lot from '../../public/components/lot';
 import CategorySideBar from '../../public/components/categoryPage/categorySideBar';
 import AppContext from '../../public/components/context';
-
+import CheckBoxError from '../../public/components/categoryPage/checkBoxError';
  const NewLots = () => {
 
      //destruct from context
@@ -207,8 +207,8 @@ const changeSelectBox=async(e:React.ChangeEvent<HTMLSelectElement>)=>{
                                    return (
                                   
                                    <div key={el.id} className={`col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content ${listStyle==true? "width-100":" "}`}>
-                                      <div className="ec-product-inner">
-                                   <ReactLoading  key={i} height={"10vh"} width={'10vw'}  color={"#3474d4"}/>
+                                      <div className="ec-product-inner loading-container">
+                                   <ReactLoading  key={i}  type='spin' height={"10vh"} width={'10vw'}  color={"#3474d4"}/>
                               </div>
                               </div>
                               )
@@ -221,7 +221,7 @@ const changeSelectBox=async(e:React.ChangeEvent<HTMLSelectElement>)=>{
                                 ):
                                 (
                                   query.available!=undefined && query.available==`false` ?(
-                                    <h1>لطفا از نوار سمت راست حداقل یک دسته را انتخاب کنید</h1>
+                                   <CheckBoxError/>
                                 ):(
                                   lotsInNewLots.map((el:any)=>{
                                     return(<>

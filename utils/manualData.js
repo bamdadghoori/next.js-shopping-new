@@ -161,6 +161,18 @@ const getNewLots=async()=>{
     return(er)
   }
 }
+//to get one product
+const getLotById=async(id)=>{
+  try{
+    var lots=await getLots();
+    lots=lots.filter((el)=>el.id==id)
+    return lots[0]
+   }
+   catch(er){
+     console.log(er)
+     return(er)
+   }
+}
 // const db = getDatabase();
 // const ref = db.ref('server/saving-data/fireblog');
 // const usersRef = ref.child('users');
@@ -180,4 +192,4 @@ const getNewLots=async()=>{
 
 
 
-export {getLots,getCategories,getLotsInCategory,getBestSellings,getNewLots}
+export {getLots,getCategories,getLotsInCategory,getBestSellings,getNewLots,getLotById}

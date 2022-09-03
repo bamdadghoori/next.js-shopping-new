@@ -6,7 +6,7 @@ import ReactLoading from "react-loading"
 import Lot from '../../public/components/lot';
 import CategorySideBar from '../../public/components/categoryPage/categorySideBar';
 import AppContext from '../../public/components/context';
-
+import CheckBoxError from '../../public/components/categoryPage/checkBoxError';
  const BestSelling = () => {
   console.log(window.location.search)
     const [loading,setLoading]=useState(true);
@@ -122,7 +122,7 @@ import AppContext from '../../public/components/context';
                           sortedArray=await  sortArray(lots,`price`,true)
                            break;
                            default:
-                            router.push('/404/')
+                            // router.push('/404/')
                     
                }
                console.log([...sortedArray])
@@ -225,7 +225,7 @@ import AppContext from '../../public/components/context';
                         <div className={`shop-pro-inner ${listStyle==true? "list-view":""}`}>
                             <div className="row">
                          
-                            {/* <ReactLoading  height={"10vh"} width={'10vw'}  color={"#3474d4"}/> */}
+                           
                                 {loading==true ? (
                                   <>
                                   
@@ -235,8 +235,8 @@ import AppContext from '../../public/components/context';
                                    return (
                                   
                                    <div key={el.id} className={`col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content ${listStyle==true? "width-100":" "}`}>
-                                      <div className="ec-product-inner">
-                                   <ReactLoading  key={i} height={"10vh"} width={'10vw'}  color={"#3474d4"}/>
+                                      <div className="ec-product-inner loading-container">
+                                   <ReactLoading  key={i} type='spin' height={"10vh"} width={'10vw'}  color={"#3474d4"}/>
                               </div>
                               </div>
                               )
@@ -249,7 +249,7 @@ import AppContext from '../../public/components/context';
                                 ):
                                 (
                                   query.available!=undefined && query.available==`false` ?(
-                                    <h1>لطفا از نوار سمت راست حداقل یک دسته را انتخاب کنید</h1>
+                                    <CheckBoxError/>
                                 ):(
                                   lotsInBestSellings.map((el:any)=>{
                                     return(<>
