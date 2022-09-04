@@ -1,6 +1,7 @@
 import React from 'react'
 
  const Lot = ({lot,listStyle}:{lot:any,listStyle:boolean}) => {
+    //to counting rating stars
     const stars:any[]=[]
       const emptyStars:any[]=[]
     const emptyStarsCount=5-lot.rating
@@ -12,6 +13,8 @@ import React from 'react'
     for(let i=0;i<emptyStarsCount;i++){
       emptyStars[i]=i
     }
+
+    
     return(
            
         <div key={lot.id} className={`ec-product-inner ${listStyle ==true ? "bg-white":" "}`} >
@@ -72,7 +75,7 @@ import React from 'react'
  
     lot.size.map((el:any,i:number)=>{
         return (
-            <li key={i} ><a href="#" className="ec-opt-sz" data-old="2500 تومان" data-new="2000 تومان" data-tooltip="Small">{el}</a></li>
+            <li key={i} ><a href="#" className="ec-opt-sz" data-tooltip="Small">{el}</a></li>
         )
     }))}
      {/* <li className="active"><a href="#" className="ec-opt-sz" data-old="2500 تومان" data-new="2000 تومان" data-tooltip="Small">S</a></li>

@@ -23512,7 +23512,7 @@ h4.ec-faq-title::after,
     -ms-flex-align: center;
     align-items: center;
     letter-spacing: 0.1px;
-    margin-bottom: 16px;
+    margin-bottom: unset;
 }
 
 .single-pro-content .ec-single-sales .ec-single-sales-visitor span {
@@ -23752,8 +23752,22 @@ h4.ec-faq-title::after,
     font-size: 22px;
     color: #777777;
 }
-
+/* Chrome, Safari, Edge, Opera */
+.single-pro-content .ec-single-qty .qty-plus-minus input.qty-input::-webkit-outer-spin-button,
+.single-pro-content .ec-single-qty .qty-plus-minus input.qty-input::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0
+}
+/* Firefox */
 .single-pro-content .ec-single-qty .qty-plus-minus input.qty-input {
+    -moz-appearance: textfield
+}
+ 
+.single-pro-content .ec-single-qty .qty-plus-minus input.qty-input {
+  -webkit-appearance: none;
+  margin: 0;
+  -moz-appearance: textfield;
     background: transparent none repeat scroll 0 0;
     border: medium none;
     color: #444444;
