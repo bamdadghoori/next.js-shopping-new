@@ -19908,10 +19908,10 @@ i.ecicon.eci-star.fill {
 .tab-content .tab-pane {
     display: block;
     overflow: hidden;
-    height: 0;
-    visibility: hidden;
+    height: unset;
+    visibility: visible;
     max-width: 100%;
-    opacity: 0;
+    opacity: 1;
     position: relative;
 }
 

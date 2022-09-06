@@ -5,11 +5,12 @@ import axios from 'axios';
 import { useDispatch,useSelector } from 'react-redux';
 import { getLots,getLotById } from '../../../utils/manualData';
 import { AddCustomerLot } from '../../../redux/shopping/shoppingActions';
-
 import { RootState } from '../../../redux/store'
 import { GetStaticPaths,GetStaticProps } from 'next';
-
+import RelatedLots from '../../../public/components/lotDetailsPage/relatedLots';
 import https from "https"
+import Comments from '../../../public/components/lotDetailsPage/comments';
+
 
  const LotDetails = ({lot,error}:{lot:any,error:string}) => {
   //to show which lot is bought
@@ -89,39 +90,39 @@ const decrementCount=()=>{
                                 <div className="single-pro-img">
                                     <div className="single-product-scroll">
                                         <div className="single-product-cover">
-                                            <div className="single-slide zoom-image-hover">
-                                                <img className="img-responsive" src={lot.imgUrl} alt=""/>
-                                            </div>
+                                             <div className="single-slide zoom-image-hover">
+                                                <img className="img-responsive" src={lot.imgUrl} alt="Product"/>
+                                            </div> 
                                             {/* <div className="single-slide zoom-image-hover">
-                                                <img className="img-responsive" src={lot.imgUrl} alt=""/>
-                                            </div> */}
-                                            <div className="single-slide zoom-image-hover">
-                                                <img className="img-responsive" src="/images/product-image/9_3.jpg" alt=""/>
+                                                <img className="img-responsive" src={lot.imgUrl} alt="Product"/>
                                             </div>
                                             <div className="single-slide zoom-image-hover">
-                                                <img className="img-responsive" src="/images/product-image/9_4.jpg" alt=""/>
+                                                <img className="img-responsive" src="/images/product-image/9_3.jpg" alt="Product"/>
                                             </div>
                                             <div className="single-slide zoom-image-hover">
-                                                <img className="img-responsive" src="/images/product-image/9_3.jpg" alt=""/>
+                                                <img className="img-responsive" src="/images/product-image/9_4.jpg" alt="Product"/>
                                             </div>
+                                            <div className="single-slide zoom-image-hover">
+                                                <img className="img-responsive" src="/images/product-image/9_3.jpg" alt="Product"/>
+                                            </div>  */}
                                         </div>
-                                        <div className="single-nav-thumb">
+                                        {/* <div className="single-nav-thumb">
                                             <div className="single-slide">
-                                                <img className="img-responsive" src="/images/product-image/9_1.jpg" alt=""/>
+                                                <img className="img-responsive" src="/images/product-image/9_1.jpg" alt="Product"/>
                                             </div>
                                             <div className="single-slide">
-                                                <img className="img-responsive" src="/images/product-image/9_2.jpg" alt=""/>
+                                                <img className="img-responsive" src="/images/product-image/9_2.jpg" alt="Product"/>
                                             </div>
                                             <div className="single-slide">
-                                                <img className="img-responsive" src="/images/product-image/9_3.jpg" alt="" />
+                                                <img className="img-responsive" src="/images/product-image/9_3.jpg" alt="Product" />
                                             </div>
                                             <div className="single-slide">
-                                                <img className="img-responsive" src="/images/product-image/9_4.jpg" alt="" />
+                                                <img className="img-responsive" src="/images/product-image/9_4.jpg" alt="Product" />
                                             </div>
                                             <div className="single-slide">
-                                                <img className="img-responsive" src="/images/product-image/9_3.jpg" alt="" />
+                                                <img className="img-responsive" src="/images/product-image/9_3.jpg" alt="Product" />
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                                 <div className="single-pro-desc">
@@ -199,143 +200,19 @@ const decrementCount=()=>{
                                                 <button className="btn btn-primary">افزودن به سبد خرید</button>
                                             </div>
                                             <div className="ec-single-wishlist">
-                                                <a className="ec-btn-group wishlist" title="علاقه مندی"><img src="/images/icons/wishlist.svg" className="svg_img pro_svg" alt=""/></a>
+                                                <a className="ec-btn-group wishlist" title="علاقه مندی"><img src="/images/icons/wishlist.svg" className="svg_img pro_svg" alt="Product"/></a>
                                             </div>
                                             <div className="ec-single-quickview">
-                                                <a href="#" className="ec-btn-group quickview" data-link-action="quickview" title="مشاهده" data-bs-toggle="modal" data-bs-target="#ec_quickview_modal"><img src="/images/icons/quickview.svg" className="svg_img pro_svg" alt="" /></a>
+                                                <a href="#" className="ec-btn-group quickview" data-link-action="quickview" title="مشاهده" data-bs-toggle="modal" data-bs-target="#ec_quickview_modal"><img src="/images/icons/quickview.svg" className="svg_img pro_svg" alt="Product" /></a>
                                             </div>
                                         </div>
-                                        <div className="ec-single-social">
-                                            <ul className="mb-0">
-                                                <li className="list-inline-item facebook"><a href="#"><i className="ecicon eci-facebook"></i></a></li>
-                                                <li className="list-inline-item twitter"><a href="#"><i className="ecicon eci-twitter"></i></a></li>
-                                                <li className="list-inline-item instagram"><a href="#"><i className="ecicon eci-instagram"></i></a></li>
-                                                <li className="list-inline-item youtube-play"><a href="#"><i className="ecicon eci-youtube-play"></i></a></li>
-                                                <li className="list-inline-item behance"><a href="#"><i className="ecicon eci-behance"></i></a></li>
-                                                <li className="list-inline-item whatsapp"><a href="#"><i className="ecicon eci-whatsapp"></i></a></li>
-                                                <li className="list-inline-item plus"><a href="#"><i className="ecicon eci-plus"></i></a></li>
-                                            </ul>
-                                        </div>
+                                     
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                  
-                    <div className="ec-single-pro-tab">
-                        <div className="ec-single-pro-tab-wrapper">
-                            <div className="ec-single-pro-tab-nav">
-                                <ul className="nav nav-tabs">
-                                    <li className="nav-item">
-                                        <a className="nav-link active" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-details" role="tablist">جزییات</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-info" role="tablist">اطلاعات بیشتر</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-review" role="tablist">نظرات</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="tab-content  ec-single-pro-tab-content">
-                                <div id="ec-spt-nav-details" className="tab-pane fade show active">
-                                    <div className="ec-single-pro-tab-desc">
-                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا  </p>
-                                        <ul>
-                                            <li> هر نوع محصول که می خواهید - ساده، قابل تنظیم </li>
-                                            <li> محصولات الکترونیکی و دیجیتال قابل دانلود</li>
-                                            <li> مدیریت موجودی با موارد نخصصی</li>
-                                            <li> موجود در تمامی شعبه ها</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div id="ec-spt-nav-info" className="tab-pane fade">
-                                    <div className="ec-single-pro-tab-moreinfo">
-                                        <ul>
-                                            <li><span>وزن</span> 1000 گرم</li>
-                                            <li><span>ابعاد</span> 35 × 30 × 7 cm</li>
-                                            <li><span>رنگ</span> سیاه، صورتی، قرمز، سفید</li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div id="ec-spt-nav-review" className="tab-pane fade">
-                                    <div className="row">
-                                        <div className="ec-t-review-wrapper">
-                                            <div className="ec-t-review-item">
-                                                <div className="ec-t-review-avtar">
-                                                    <img src="/images/review-image/1.jpg" alt=""/>
-                                                </div>
-                                                <div className="ec-t-review-content">
-                                                    <div className="ec-t-review-top">
-                                                        <div className="ec-t-review-name">جانان دارا</div>
-                                                        <div className="ec-t-review-rating">
-                                                            <i className="ecicon eci-star fill"></i>
-                                                            <i className="ecicon eci-star fill"></i>
-                                                            <i className="ecicon eci-star fill"></i>
-                                                            <i className="ecicon eci-star fill"></i>
-                                                            <i className="ecicon eci-star-o"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div className="ec-t-review-bottom">
-                                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="ec-t-review-item">
-                                                <div className="ec-t-review-avtar">
-                                                    <img src="/images/review-image/2.jpg" alt="" />
-                                                </div>
-                                                <div className="ec-t-review-content">
-                                                    <div className="ec-t-review-top">
-                                                        <div className="ec-t-review-name">لیندا کیانی</div>
-                                                        <div className="ec-t-review-rating">
-                                                            <i className="ecicon eci-star fill"></i>
-                                                            <i className="ecicon eci-star fill"></i>
-                                                            <i className="ecicon eci-star fill"></i>
-                                                            <i className="ecicon eci-star-o"></i>
-                                                            <i className="ecicon eci-star-o"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div className="ec-t-review-bottom">
-                                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div className="ec-ratting-content">
-                                            <h3>افزودن نظر</h3>
-                                            <div className="ec-ratting-form">
-                                                <form action="#">
-                                                    <div className="ec-ratting-star">
-                                                        <span>امتیاز شما:</span>
-                                                        <div className="ec-t-review-rating">
-                                                            <i className="ecicon eci-star fill"></i>
-                                                            <i className="ecicon eci-star fill"></i>
-                                                            <i className="ecicon eci-star-o"></i>
-                                                            <i className="ecicon eci-star-o"></i>
-                                                            <i className="ecicon eci-star-o"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div className="ec-ratting-input">
-                                                        <input name="your-name" placeholder="نام" type="text"/>
-                                                    </div>
-                                                    <div className="ec-ratting-input">
-                                                        <input name="your-email" placeholder="ایمیل" type="email" />
-                                                    </div>
-                                                    <div className="ec-ratting-input form-submit">
-                                                        <textarea name="your-commemt" placeholder="نظر شما"></textarea>
-                                                        <button className="btn btn-primary" type="submit" value="Submit">ارسال</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  <Comments/>
                 
                 </div>
             
@@ -345,6 +222,7 @@ const decrementCount=()=>{
     </section>
   
 
+<RelatedLots lot={lot}/>
   
     </>
     
