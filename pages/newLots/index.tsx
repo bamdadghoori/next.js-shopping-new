@@ -193,28 +193,22 @@ const changeSelectBox=async(e:React.ChangeEvent<HTMLSelectElement>)=>{
                     </div>
                    
 
-                    <div className="shop-pro-content">
-                        <div className={`shop-pro-inner ${listStyle==true? "list-view":""}`}>
-                            <div className="row">
+                    
                          
                             {/* <ReactLoading  height={"10vh"} width={'10vw'}  color={"#3474d4"}/> */}
                                 {loading==true ? (
                                   <>
                                   
                                  
-                                  { lotsInNewLots.length!=0 && (lotsInNewLots.map((el:any,i:number)=>{
-                                  
-                                   return (
-                                  
-                                   <div key={el.id} className={`col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content ${listStyle==true? "width-100":" "}`}>
-                                      <div className="ec-product-inner loading-container">
-                                   <ReactLoading  key={i}  type='spin' height={"10vh"} width={'10vw'}  color={"#3474d4"}/>
-                              </div>
-                              </div>
-                              )
-                                  }))}
+                                  { lotsInNewLots.length!=0 && 
+                                  <span className="loader_img"></span>
+                                  }
                                   </>
-                                ):( lotsInNewLots.length==0 || lotsInNewLots==undefined ? (
+                                ):( 
+                                  <div className="shop-pro-content">
+                        <div className={`shop-pro-inner ${listStyle==true? "list-view":""}`}>
+                            <div className="row">
+                                 {lotsInNewLots.length==0 || lotsInNewLots==undefined ? (
                                  
                                   <h1> مشکلی در این صفحه پیش آمده لطفا زمانی دیگر امتحان کنید</h1>
                                 
@@ -245,11 +239,15 @@ const changeSelectBox=async(e:React.ChangeEvent<HTMLSelectElement>)=>{
                                    </>
                                     )
                                 })
+
                                 )
                                  
-                                
-                               
-                                )) 
+                                )
+                              }
+                              </div>
+                              </div>
+                              </div>
+                                ) 
 
                                 
                                 //to filter some lots by range slider
@@ -258,9 +256,7 @@ const changeSelectBox=async(e:React.ChangeEvent<HTMLSelectElement>)=>{
                                
                      
 
-                              </div>
-                              </div>
-                              </div>
+                             
                   </div>
                   {
                     lotsInNewLots.length!=0 &&(

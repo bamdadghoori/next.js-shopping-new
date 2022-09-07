@@ -221,34 +221,35 @@ import CheckBoxError from '../../public/components/categoryPage/checkBoxError';
                     </div>
                    
 
-                    <div className="shop-pro-content">
-                        <div className={`shop-pro-inner ${listStyle==true? "list-view":""}`}>
-                            <div className="row">
+                  
                          
                            
                                 {loading==true ? (
                                   <>
                                   
-                                 
-                                  { lotsInBestSellings.length!=0 && (lotsInBestSellings.map((el:any,i:number)=>{
-                                  
-                                   return (
-                                  
-                                   <div key={el.id} className={`col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content ${listStyle==true? "width-100":" "}`}>
-                                      <div className="ec-product-inner loading-container">
-                                   <ReactLoading  key={i} type='spin' height={"10vh"} width={'10vw'}  color={"#3474d4"}/>
-                              </div>
-                              </div>
-                              )
-                                  }))}
+                               
+                                  { lotsInBestSellings.length!=0 &&
+                                   <span className='loader_img'>
+
+                                    </span>
+                                   
+                                  }
                                   </>
                                 ):( lotsInBestSellings.length==0 || lotsInBestSellings==undefined ? (
-                                 
+
+                                  <div className="shop-pro-content">
+                                  <div className={`shop-pro-inner ${listStyle==true? "list-view":""}`}>
+                                      <div className="row">
                                   <h1> مشکلی در این صفحه پیش آمده لطفا زمانی دیگر امتحان کنید</h1>
-                                
+                                </div>
+                                </div>
+                                </div>
                                 ):
                                 (
-                                  query.available!=undefined && query.available==`false` ?(
+                                  <div className="shop-pro-content">
+                                  <div className={`shop-pro-inner ${listStyle==true? "list-view":""}`}>
+                                      <div className="row">
+                                 {query.available!=undefined && query.available==`false` ?(
                                     <CheckBoxError/>
                                 ):(
                                   lotsInBestSellings.map((el:any)=>{
@@ -274,8 +275,10 @@ import CheckBoxError from '../../public/components/categoryPage/checkBoxError';
                                     )
                                 })
                                 )
-                                 
-                                
+                                }
+                                </div>
+                                </div>
+                                </div>
                                
                                 )) 
 
@@ -286,9 +289,7 @@ import CheckBoxError from '../../public/components/categoryPage/checkBoxError';
                                
                      
 
-                              </div>
-                              </div>
-                              </div>
+                             
                   </div>
                   {
                     lotsInBestSellings.length!=0 &&(

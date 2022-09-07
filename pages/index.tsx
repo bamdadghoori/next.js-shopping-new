@@ -112,19 +112,21 @@ window.addEventListener("scroll",handleScroll)
           ):(
             state.lots.length!=0 || state.lots!=undefined ?(
               <>
-              
-          <Suspense fallback={<MainPageLoading lots={state.lots}/>}>
+              {/* <span className='loader_img'></span> */}
+
+          <Suspense fallback={<MainPageLoading count={8}/>}>
           <Premiers lots={state.lots} setOffset={setOffset}
             />
           </Suspense>
-          <Suspense fallback={<MainPageLoading lots={state.lots}/>}>
+          
+          <Suspense fallback={<MainPageLoading count={4}/>}>
           <CommingSoon/>
           </Suspense>
           {state.isLoadingCategory==true ?(
             <h1>loading</h1>
           ):(
             state.categories.length!=0 ? (
-              <Suspense fallback={<MainPageLoading lots={state.categories}/>}>
+              <Suspense fallback={<MainPageLoading count={4}/>}>
               <MainCategories categories={state.categories}/>
               </Suspense>
             ):(
@@ -132,7 +134,7 @@ window.addEventListener("scroll",handleScroll)
             ) 
           )
             }
-         <Suspense fallback={<MainPageLoading lots={state.lots}/>}>
+         <Suspense fallback={<MainPageLoading count={8}/>}>
            <NewLots  />
            </Suspense>
               </>

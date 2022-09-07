@@ -129,17 +129,16 @@ router.push({pathname:`/category/${title}`,query:{...query,sort:value}})
                         </div>
                     </div>
                    
-
-                    <div className="shop-pro-content">
-                        <div className={`shop-pro-inner ${listStyle==true? "list-view":""}`}>
-                            <div className="row">
+                  
+                
                          
                             {/* <ReactLoading  height={"10vh"} width={'10vw'}  color={"#3474d4"}/> */}
                                 {loading==true ? (
                                   <>
                                   
                                   {console.log(lotsInCategory)}
-                                  {lotsInCategory.map((el:any,i:number)=>{
+                                  <span className="loader_img"></span>
+                                  {/* {lotsInCategory.map((el:any,i:number)=>{
                                   
                                    return (
                                   
@@ -149,13 +148,21 @@ router.push({pathname:`/category/${title}`,query:{...query,sort:value}})
                               </div>
                               </div>
                               )
-                                  })}
+                                  })} */}
                                   </>
                                 ):( query.available!=undefined && query.available==`false` ? (
+                                  <div className="shop-pro-content">
+                                  <div className={`shop-pro-inner ${listStyle==true? "list-view":""}`}>
+                                      <div className="row">
                                   <CheckBoxError/>
+                                  </div>
+                                  </div>
+                                  </div>
                                 ):(
-                                 
-                                    lotsInCategory.map((el:any)=>{
+                                  <div className="shop-pro-content">
+                                  <div className={`shop-pro-inner ${listStyle==true? "list-view":""}`}>
+                                      <div className="row">
+                                    {lotsInCategory.map((el:any)=>{
                                       return(<>
                                       {el.price!=undefined ?(
                                        el.price>=limit[0] && (el.price<=limit[1]  && (
@@ -176,10 +183,15 @@ router.push({pathname:`/category/${title}`,query:{...query,sort:value}})
                                       
                                      </>
                                       )
-                                  })
-                                
+                                    
+                                  })}
                                
-                                )) 
+                               </div>
+                                      </div>
+                                      </div>
+                                )
+                               
+                                ) 
 
                                 
                                 //to filter some lots by range slider
@@ -188,9 +200,7 @@ router.push({pathname:`/category/${title}`,query:{...query,sort:value}})
                                
                      
 
-                              </div>
-                              </div>
-                              </div>
+                            
                   </div>
                <CategorySideBar query={query} category={category} limit={limit} lotsInCategory={lotsInCategory} handleInputChange={handleInputChange} handleLoadPage={handleLoadPage} handleRangeChange={handleRangeChange} changeLoading={changeLoading}/>
                
