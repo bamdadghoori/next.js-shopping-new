@@ -95,7 +95,7 @@ const Premiers=React.lazy(()=>import('../public/components/premiers'))
   g();
     dispatch(getShoppingLots());
     dispatch(getShoppingCategories());
-    
+    dispatch
 
 window.addEventListener("scroll",handleScroll)
   }, [])

@@ -25,6 +25,7 @@ const Navbar = () => {
 //   const customerLots=useSelector((state:RootState)=>state.persistedReducer.customerLots)
   let lots:any[]=useSelector(((state:RootState)=>state.persistedReducer.lots))
   const categories=useSelector(((state:RootState)=>state.persistedReducer.categories))
+  const customerLots=useSelector(((state:RootState)=>state.persistedReducer.customerLots))
   //@ts-ignore
   const {loggedIn}=useContext(AppContext)
     //@ts-ignore
@@ -72,7 +73,7 @@ const Navbar = () => {
  
   return (
     <>
- 
+ {console.log(customerLots)}
      {
        loading&& (
         <NextNProgress
@@ -151,7 +152,7 @@ const Navbar = () => {
                             
                             <a href="#ec-side-cart" className="ec-header-btn ec-side-toggle">
                                 <div className="header-icon"><img src="/images/icons/cart.svg" className="svg_img header_svg" alt="" /></div>
-                                <span className="ec-header-count cart-count-lable">3</span>
+                                <span className="ec-header-count cart-count-lable">{customerLots.length}</span>
                             </a>
                         
                             <a href="#ec-mobile-menu" className="ec-header-btn ec-side-toggle d-lg-none">
@@ -205,7 +206,7 @@ const Navbar = () => {
                               
                                 <a href="#ec-side-cart" className="ec-header-btn ec-side-toggle">
                                     <div className="header-icon"><img src="/images/icons/cart.svg" className="svg_img header_svg" alt="" /></div>
-                                    <span className="ec-header-count cart-count-lable">3</span>
+                                    <span className="ec-header-count cart-count-lable">{customerLots.length}</span>
                                 </a>
                                 
                             </div>
@@ -251,7 +252,7 @@ const Navbar = () => {
                                       
                                           
                                                
-                                                {categories.map((el,i)=>{
+                                                {categories.map((el:any,i:number)=>{
                                                  return   <NavbarCategory changeLoading={changeLoading} key={i} category={el}/>
                                                  
                                              

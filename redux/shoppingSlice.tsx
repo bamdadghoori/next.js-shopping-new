@@ -30,6 +30,8 @@ import {getLots,getCategories} from '../utils/manualData'
     }
     
  })
+
+
 const initialState={
     lots:[],
     isLoading:false,
@@ -39,14 +41,32 @@ const initialState={
     totalCount:0,
     categories:[]
 }
+
+ //to add to customerLots (ordered by customer)
+//  export const  addToCustomerLots=(state:any,action:any)=>{
+//     const newCustomerLots=[...state.customerLots,action.payload]
+//         return {...state,customerLots:newCustomerLots}
+//           console.log(newCustomerLots)
+
+
+//  }
+
 const shoppingSlice=createSlice({
     name:'shopping',
    initialState:initialState,
    reducers: {
     // fill in primary logic here
+    addToCustomerLots(state:any,action:any){
+            const newCustomerLots=[...state.customerLots,action.payload]
+            console.log(newCustomerLots)
+                return {...state,customerLots:newCustomerLots}
+                
+         },
   },
    extraReducers:(builder)=>{
-  
+    // builder.addCase(addToCustomerLots,(state,action)=>{
+
+    // })
     builder.addCase(getShoppingLots.fulfilled,(state,action)=>{
         console.log('y')
         state.lots=action.payload;
@@ -79,5 +99,5 @@ const shoppingSlice=createSlice({
 }
 })
    
-   
+export const{ addToCustomerLots:addToCustomerLotsAction }=shoppingSlice.actions
    export default shoppingSlice.reducer

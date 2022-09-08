@@ -1,11 +1,39 @@
 import React from 'react'
-
+import { useState } from 'react'
+import NextNProgress from 'nextjs-progressbar'
+import {useRouter} from 'next/router'
+import { AppDispatch } from '../../redux/store'
+import { useDispatch } from 'react-redux'
+import { addToCustomerLotsAction } from '../../redux/shoppingSlice'
  const Lot = ({lot,listStyle}:{lot:any,listStyle:boolean}) => {
+    const dispatch=useDispatch()
+    let price:number;
+    let size:string="";
+    //some property have price propery and some other have newPrice!
+    if(lot.price!=undefined){
+        price=lot.price
+    }
+    else{
+        price=lot.newPrice
+    }
+    
+   
+    //the lot that user added to cart
+ 
+    const customerLot={
+        id:lot.id,
+        title:lot.title,
+        price:price,
+        count:1,
+       
+    }
+    const [loading,setLoading]=useState(false)
+    const router=useRouter();
     //to counting rating stars
     const stars:any[]=[]
       const emptyStars:any[]=[]
     const emptyStarsCount=5-lot.rating
-
+          
     for(let i=0;i<lot.rating;i++){
         stars[i]=i
     }
@@ -14,13 +42,46 @@ import React from 'react'
       emptyStars[i]=i
     }
 
+    //when you click on lot title
+const handleLink=(e:React.MouseEvent<HTMLAnchorElement>)=>{
+e.preventDefault();
+setLoading(true)
+router.push(`/lotDetails/${lot.id}`)
+
+}
+ //adding to shopping cart
+ const addToCart=()=>{
+    console.log('adt')
+    //check if the lot has size property or not (is it in clothes category?)
+    if(lot.size!=undefined){
+        dispatch(addToCustomerLotsAction({...customerLot,size:lot.size}))
+        console.log('size')
+    }
+    else{
+        dispatch(addToCustomerLotsAction(customerLot))
+        console.log('nsize')
+    }
+   
+     
+ }
     
-    return(
-           
+    return(<>
+        {
+            
+            loading && (
+             <NextNProgress
+             color="#3474d4"
+             startPosition={0.3}
+             stopDelayMs={200}
+             height={3}
+             showOnShallow={true}
+           />
+            )
+          }
         <div key={lot.id} className={`ec-product-inner ${listStyle ==true ? "bg-white":" "}`} >
             <div className="ec-pro-image-outer">
                 <div className="ec-pro-image">
-                    <a href="product-left-sidebar.html" className="image">
+                    <a href="#" className="image">
                         <img className="main-image" src={lot.imgUrl} alt="Product"/>
                        
                     </a>
@@ -28,13 +89,13 @@ import React from 'react'
                     <a href="#" className="quickview" data-link-action="quickview" title="مشاهده" data-bs-toggle="modal" data-bs-target="#ec_quickview_modal"><img src="/images/icons/quickview.svg" className="svg_img pro_svg" alt=""/></a>
                     <div className="ec-pro-actions">
                         <a href="compare.html" className="ec-btn-group compare" title="مقایسه"><img src="/images/icons/compare.svg" className="svg_img pro_svg" alt=""/></a>
-                        <button title="افزودن به سبد خرید" className=" add-to-cart"><img src="/images/icons/cart.svg" className="svg_img pro_svg" alt=""/> افزودن به کارت </button>
+                        <button title="افزودن به سبد خرید" onClick={addToCart} className=" add-to-cart"><img src="/images/icons/cart.svg" className="svg_img pro_svg" alt=""/> افزودن به کارت </button>
                         <a className="ec-btn-group wishlist" title="علاقه مندی"><img src="/images/icons/wishlist.svg" className="svg_img pro_svg" alt=""/></a>
                     </div>
                 </div>
             </div>
             <div className="ec-pro-content">
-                <h5 className="ec-pro-title"><a href="product-left-sidebar.html">{lot.title}</a></h5>
+                <h5 className="ec-pro-title"><a href="#"  onClick={handleLink} >{lot.title}</a></h5>
                 <div className="ec-pro-rating">
                        {stars.map((el)=>{
                        return <i className="ecicon eci-star fill"></i>
@@ -89,7 +150,7 @@ import React from 'react'
                 </div>
             </div>
         </div>
-    
+        </>
     )
 }
 export default Lot
