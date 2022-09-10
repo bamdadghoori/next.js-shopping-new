@@ -18380,7 +18380,7 @@ body.ec-open:before {
 }
 
 .ec-side-cart-overlay {
-    display: none;
+    display: block;
     width: 100%;
     height: 100vh;
     position: fixed;

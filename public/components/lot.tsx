@@ -2,10 +2,12 @@ import React from 'react'
 import { useState } from 'react'
 import NextNProgress from 'nextjs-progressbar'
 import {useRouter} from 'next/router'
-import { AppDispatch } from '../../redux/store'
-import { useDispatch } from 'react-redux'
+import { AppDispatch,RootState } from '../../redux/store'
+
+import { useDispatch,useSelector } from 'react-redux'
 import { addToCustomerLotsAction } from '../../redux/shoppingSlice'
  const Lot = ({lot,listStyle}:{lot:any,listStyle:boolean}) => {
+    const customerLots=useSelector((state:RootState)=>state.persistedReducer.customerLots)
     const dispatch=useDispatch()
     let price:number;
     let size:string="";
@@ -25,6 +27,7 @@ import { addToCustomerLotsAction } from '../../redux/shoppingSlice'
         title:lot.title,
         price:price,
         count:1,
+        imgUrl:lot.imgUrl
        
     }
     const [loading,setLoading]=useState(false)
@@ -52,18 +55,25 @@ router.push(`/lotDetails/${lot.id}`)
  //adding to shopping cart
  const addToCart=()=>{
     console.log('adt')
-    //check if the lot has size property or not (is it in clothes category?)
-    if(lot.size!=undefined){
-        dispatch(addToCustomerLotsAction({...customerLot,size:lot.size}))
-        console.log('size')
+    //check if the lot has been registed before or not
+    if(customerLots.filter((el:any)=>el.id==lot.id).length!=0){
+         return
     }
     else{
-        dispatch(addToCustomerLotsAction(customerLot))
-        console.log('nsize')
+        if(lot.size!=undefined){
+            dispatch(addToCustomerLotsAction({...customerLot,size:lot.size}))
+            console.log('size')
+        }
+        else{
+            dispatch(addToCustomerLotsAction(customerLot))
+            console.log('nsize')
+        }
+       
+         
+     }
     }
-   
-     
- }
+    //check if the lot has size property or not (is it in clothes category?)
+ 
     
     return(<>
         {

@@ -51,9 +51,7 @@ const Navbar = () => {
    }
 
 
-   const handleShoppingCart=()=>{
-     setShoppingModal(!shoppingModal)
-   }
+   
 
 
    const handleLogOut=(e:React.MouseEvent<HTMLElement>)=>{
@@ -64,7 +62,12 @@ const Navbar = () => {
         logOut();
        
    }
-  
+
+   //to open and close shoppingCardModal
+   const openModal=(e:React.MouseEvent<HTMLAnchorElement>)=>{
+    e.preventDefault();
+    setShoppingModal(true)
+   }
    const closeModal=()=>{
     setShoppingModal(false)
    }
@@ -150,7 +153,7 @@ const Navbar = () => {
                                 <span className="ec-header-count">4</span>
                             </a>
                             
-                            <a href="#ec-side-cart" className="ec-header-btn ec-side-toggle">
+                            <a href="#" onClick={openModal} className="ec-header-btn ec-side-toggle">
                                 <div className="header-icon"><img src="/images/icons/cart.svg" className="svg_img header_svg" alt="" /></div>
                                 <span className="ec-header-count cart-count-lable">{customerLots.length}</span>
                             </a>
@@ -204,7 +207,7 @@ const Navbar = () => {
                                     <span className="ec-header-count">4</span>
                                 </a>
                               
-                                <a href="#ec-side-cart" className="ec-header-btn ec-side-toggle">
+                                <a href="#ec-side-cart" onClick={openModal}  className="ec-header-btn ec-side-toggle">
                                     <div className="header-icon"><img src="/images/icons/cart.svg" className="svg_img header_svg" alt="" /></div>
                                     <span className="ec-header-count cart-count-lable">{customerLots.length}</span>
                                 </a>
@@ -257,44 +260,7 @@ const Navbar = () => {
                                                  
                                              
                                                 })}
-                                                {/* <li><a href="shop-left-sidebar-col-3.html">سایدبار چپ 3 ستونه</a>
-                                                </li>
-                                                <li><a href="shop-left-sidebar-col-4.html">سایدبار چپ 4 ستونه</a>
-                                                </li>
-                                                <li><a href="shop-right-sidebar-col-3.html">سایدبار راست 3 ستونه</a>
-                                                </li>
-                                                <li><a href="shop-right-sidebar-col-4.html">سایدبار راست 4 ستونه</a>
-                                                </li>
-                                                <li><a href="shop-full-width.html">تمام عرض 4 ستونه</a></li> */}
-                                            
-                                            {/* <ul className="d-block">
-                                                <li className="menu_title"><a href="javascript:void(0)">ورژن کلاسیک</a></li>
-                                                <li><a href="shop-banner-left-sidebar-col-3.html"> بنر سایدبار چپ 3 ستونه</a></li>
-                                                <li><a href="shop-banner-left-sidebar-col-4.html"> بنر سایدبار چپ 4 ستونه</a></li>
-                                                <li><a href="shop-banner-right-sidebar-col-3.html"> بنر سایدبار راست 3 ستونه </a></li>
-                                                <li><a href="shop-banner-right-sidebar-col-4.html"> بنر سایدبار راست 4 ستونه </a></li>
-                                                <li><a href="shop-banner-full-width.html"> بنر تمام عرض 4 ستونه</a>
-                                                </li>
-                                            </ul>
-                                            <ul className="d-block">
-                                                <li className="menu_title"><a href="javascript:void(0)">ورژن ستونه</a></li>
-                                                <li><a href="shop-full-width-col-3.html">3 ستون تمام عرض</a></li>
-                                                <li><a href="shop-full-width-col-4.html">4 ستون تمام عرض</a></li>
-                                                <li><a href="shop-full-width-col-5.html">5 ستون تمام عرض</a></li>
-                                                <li><a href="shop-full-width-col-6.html">6 ستون تمام عرض</a></li>
-                                                <li><a href="shop-banner-full-width-col-3.html">بنر 3 ستونه</a>
-                                                </li>
-                                            </ul>
-                                            <ul className="d-block">
-                                                <li className="menu_title"><a href="javascript:void(0)">ورژن لیست</a>
-                                                </li>
-                                                <li><a href="shop-list-left-sidebar.html">فروشگاه با سایدبار چپ</a></li>
-                                                <li><a href="shop-list-right-sidebar.html">فروشگاه با سایدبار راست</a></li>
-                                                <li><a href="shop-list-banner-left-sidebar.html"> بنر سایدبار چپ </a>
-                                                </li>
-                                                <li><a href="shop-list-banner-right-sidebar.html">بنر سایدبار راست</a></li>
-                                                <li><a href="shop-list-full-col-2.html">تمام عرض 2 ستونه</a></li>
-                                            </ul> */}
+                                           
                                         
                                         
                                     </ul>
@@ -306,125 +272,7 @@ const Navbar = () => {
                                     }}>جدید</a> 
                                     
                                 </li>
-                                {/* <li className="dropdown"><a href="javascript:void(0)">صفحات</a>
-                                    <ul className="sub-menu">
-                                        <li><a href="about-us.html">درباره ما</a></li>
-                                        <li><a href="contact-us.html">ارتباط با ما</a></li>
-                                        <li><a href="cart.html">سبد خرید</a></li>
-                                        <li><a href="checkout.html">ادامه خرید</a></li>
-                                        <li><a href="compare.html">مقایسه</a></li>
-                                        <li><a href="faq.html">سوالات متداول</a></li>
-                                        <li><a href="login.html">ورود</a></li>
-                                        <li><a href="register.html">ثبت نام</a></li>
-                                        <li><a href="track-order.html">پیگیری سفارش</a></li>
-                                        <li><a href="terms-condition.html">شرایط و ضوابط</a></li>
-                                        <li><a href="privacy-policy.html">سیاست حفظ حریم خصوصی</a></li>
-                                    </ul>
-                                </li>
-                                <li className="dropdown"><span className="main-label-note-new" data-toggle="tooltip" title="NEW"></span><a href="javascript:void(0)">دیگر</a>
-                                    <ul className="sub-menu">
-                                        <li className="dropdown position-static"><a href="javascript:void(0)">تاییده ایمیل 
-                                                <i className="ecicon eci-angle-left"></i></a>
-                                            <ul className="sub-menu sub-menu-child">
-                                                <li><a href="email-template-confirm-1.html">تاییده ایمیل  1</a></li>
-                                                <li><a href="email-template-confirm-2.html">تاییده ایمیل  2</a></li>
-                                                <li><a href="email-template-confirm-3.html">تاییده ایمیل  3</a></li>
-                                                <li><a href="email-template-confirm-4.html">تاییده ایمیل  4</a></li>
-                                                <li><a href="email-template-confirm-5.html">تاییده ایمیل  5</a></li>
-                                            </ul>
-                                        </li>
-                                        <li className="dropdown position-static"><a href="javascript:void(0)">ایمیل ریست رمزعبور
-                                                <i className="ecicon eci-angle-left"></i></a>
-                                            <ul className="sub-menu sub-menu-child">
-                                                <li><a href="email-template-forgot-password-1.html">ایمیل ریست رمزعبور 1</a>
-                                                </li>
-                                                <li><a href="email-template-forgot-password-2.html">ایمیل ریست رمزعبور 2</a>
-                                                </li>
-                                                <li><a href="email-template-forgot-password-3.html">ایمیل ریست رمزعبور 3</a>
-                                                </li>
-                                                <li><a href="email-template-forgot-password-4.html">ایمیل ریست رمزعبور 4</a>
-                                                </li>
-                                                <li><a href="email-template-forgot-password-5.html">ایمیل ریست رمزعبور 5</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li className="dropdown position-static"><a href="javascript:void(0)">ایمیل تبلیغاتی 
-                                                <i className="ecicon eci-angle-left"></i></a>
-                                            <ul className="sub-menu sub-menu-child">
-                                                <li><a href="email-template-offers-1.html">ایمیل تبلیغاتی  1</a></li>
-                                                <li><a href="email-template-offers-2.html">ایمیل تبلیغاتی  2</a></li>
-                                                <li><a href="email-template-offers-3.html">ایمیل تبلیغاتی  3</a></li>
-                                                <li><a href="email-template-offers-4.html">ایمیل تبلیغاتی  4</a></li>
-                                                <li><a href="email-template-offers-5.html">ایمیل تبلیغاتی  5</a></li>
-                                                <li><a href="email-template-offers-6.html">ایمیل تبلیغاتی  6</a></li>
-                                                <li><a href="email-template-offers-7.html">ایمیل تبلیغاتی  7</a></li>
-                                                <li><a href="email-template-offers-8.html">ایمیل تبلیغاتی  8</a></li>
-                                            </ul>
-                                        </li>
-                                        <li className="dropdown position-static">
-                                            <span className="label-note-hot"></span>
-                                            <a href="javascript:void(0)">صفحات اکانت فروشنده
-                                                <i className="ecicon eci-angle-left"></i></a>
-                                            <ul className="sub-menu sub-menu-child">
-                                                <li><a href="vendor-dashboard.html">داشبرد فروشنده</a></li>
-                                                <li><a href="vendor-profile.html">پروفایل فروشنده</a></li>
-                                                <li><a href="vendor-uploads.html">آپلودهای فروشنده</a></li>
-                                                <li><a href="vendor-settings.html">تنظیمات فروشنده</a></li>
-                                            </ul>
-                                        </li>
-                                        <li className="dropdown position-static">
-                                            <span className="label-note-trending"></span>
-                                            <a href="javascript:void(0)">صفحات اکانت کاربر
-                                                <i className="ecicon eci-angle-left"></i></a>
-                                            <ul className="sub-menu sub-menu-child">
-                                                <li><a href="user-profile.html">پروفایل کاربر</a></li>
-                                                <li><a href="user-history.html">تاریخچه</a></li>
-                                                <li><a href="wishlist.html">علاقه مندی ها</a></li>
-                                                <li><a href="track-order.html">پیگیری سفارش</a></li>
-                                                <li><a href="user-invoice.html">فاکتور</a></li>
-                                            </ul>
-                                        </li>
-                                        <li className="dropdown position-static"><a href="javascript:void(0)">صفحات ساخت و ساز
-                                                <i className="ecicon eci-angle-left"></i></a>
-                                            <ul className="sub-menu sub-menu-child">
-                                                <li><a href="404-error-page.html">404 صفحه خطا</a></li>
-                                                <li><a href="under-maintenance.html">صفحه در حال ساخت</a></li>
-                                                <li><a href="coming-soon.html">صفحه به زودی</a></li>
-                                            </ul>
-                                        </li>
-                                        <li className="dropdown position-static">
-                                            <span className="label-note-new"></span>
-                                            <a href="javascript:void(0)">صفحات کاتالوگ فروشندگی
-                                                <i className="ecicon eci-angle-left"></i></a>
-                                            <ul className="sub-menu sub-menu-child">
-                                                <li><a href="catalog-single-vendor.html">کاتالوگ تک فروشنده </a></li>
-                                                <li><a href="catalog-multi-vendor.html">کاتالوگ چند فروشنده </a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li className="dropdown"><a href="javascript:void(0)">بلاگ</a>
-                                    <ul className="sub-menu">
-                                        <li><a href="blog-left-sidebar.html">بلاگ سایدبار چپ</a></li>
-                                        <li><a href="blog-right-sidebar.html">بلاگ سایدبار راست</a></li>
-                                        <li><a href="blog-detail-left-sidebar.html">جزییات بلاگ سایدبار چپ</a></li>
-                                        <li><a href="blog-detail-right-sidebar.html">جزییات بلاگ سایدبار راست</a></li>
-                                        <li><a href="blog-full-width.html">بلاگ تمام عرض</a></li>
-                                        <li><a href="blog-detail-full-width.html">جزییات بلاگ تمام عرض</a></li>
-                                    </ul>
-                                </li>
-                                <li className="dropdown"><a href="javascript:void(0)">عناصر</a>
-                                    <ul className="sub-menu">
-                                        <li><a href="elemets-products.html">محصولات</a></li>
-                                        <li><a href="elemets-typography.html">تایپوگرافی</a></li>
-                                        <li><a href="elemets-title.html">سرتیترها</a></li>
-                                        <li><a href="elemets-categories.html">دسته بندی ها</a></li>
-                                        <li><a href="elemets-buttons.html">دکمه ها</a></li>
-                                        <li><a href="elemets-tabs.html">تب ها</a></li>
-                                        <li><a href="elemets-accordions.html">آکاردیون</a></li>
-                                        <li><a href="elemets-blog.html">بلاگ</a></li>
-                                    </ul>
-                                </li> */}
+                               
                                 <li className="dropdown "><a onClick={async()=>{
                                       changeLoading(true)
                                         await  router.push('/bestSelling/')
@@ -645,6 +493,8 @@ const Navbar = () => {
         </div>
         
     </header>
+   <ShoppingCardModal shoppingModal={shoppingModal} closeModal={closeModal}/> 
+    
     
 
 {/* 
