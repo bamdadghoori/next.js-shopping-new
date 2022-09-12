@@ -83,7 +83,7 @@ setErrors([])
                                                 <form action="#">
                                                     <div className="ec-ratting-star">
                                                         <span>امتیاز شما:</span>
-                                                        <div className="ec-t-review-rating">
+                                                        <div className="ec-t-review-rating" style={{'cursor':'pointer'}}>
                                                             <ul style={{"display":"flex"}}>
                                                             <li value={1} onClick={(e)=>changeRating(e)}> <i  className={`ecicon eci-star ${comment.rating>=1 ? 'fill':' '}`}></i></li>
                                                             <li  value={2} onClick={(e)=>changeRating(e)}> <i  className={`ecicon eci-star ${comment.rating>=2 ? 'fill':' '}`}></i></li>

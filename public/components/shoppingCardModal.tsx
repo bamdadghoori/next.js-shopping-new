@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose } from '@fortawesome/free-solid-svg-icons'
 import { useContext } from 'react'
 import AppContext from './context'
-import { IncrementCountCustomerLot,DecrementCountCustomerLot,RemoveCustomerLot } from '../../redux/shopping/shoppingActions'
-import { removeFromCustomerLotsAction,decrementCountofCustomerLotAction,incrementCountofCustomerLotAction } from '../../redux/shoppingSlice'
+import ShoppingCardLot from './shoppingCardLot'
+import { removeFromCustomerLotsAction,decrementCountofCustomerLotAction,incrementCountofCustomerLotAction,changeCountOfCustomerLotAction } from '../../redux/shoppingSlice'
 import { useDispatch } from 'react-redux'
 
 const ShoppingCardModal = ({closeModal,shoppingModal}:{shoppingModal:boolean,closeModal:(...args:any[])=>void}) => {
@@ -18,8 +18,16 @@ const ShoppingCardModal = ({closeModal,shoppingModal}:{shoppingModal:boolean,clo
   const dispatch=useDispatch();
     const [showError,setShowError]=useState(false)
     const [showSuccess,setShowSuccess]=useState(false)
+    const [refresh,setRefresh]=useState(false)
+   const changeRefresh=()=>{
+    setRefresh(!refresh)
+   }
    
     let customerLots=useSelector((state:RootState)=>state.persistedReducer.customerLots)
+    const [customerLotsState,setCutomerLotsState]=useState(customerLots)
+    useEffect(()=>{
+setCutomerLotsState(customerLots)
+    },[customerLots])
   let lots=useSelector((state:RootState)=>state.persistedReducer.lots)
  
     //to increment count of one lot
@@ -36,10 +44,34 @@ const ShoppingCardModal = ({closeModal,shoppingModal}:{shoppingModal:boolean,clo
     if(lot.count>1){
       dispatch(decrementCountofCustomerLotAction(lot))
     }
-    else{
-      dispatch(removeFromCustomerLotsAction(lot.id))
-    }
+   
     
+}
+//to make count input controlled
+const handleCountInputChange=(e:React.ChangeEvent<HTMLInputElement>,lot:any)=>{
+  const newCount=parseInt(e.currentTarget.value);
+  const inventory=lots.filter((el:any)=>el.id==lot.id)[0].inventory
+  const newLot={...lot,count:newCount}
+  
+  if(newCount<inventory&&newLot>1){
+    
+    dispatch(changeCountOfCustomerLotAction(newLot))
+  }
+
+
+//   if(parseInt(e.currentTarget.value)>lot.inventory || parseInt(e.currentTarget.value)<1)
+//  {
+//   setCustomerLot(customerLot)
+//   }
+//   else if(e.currentTarget.value.length==0){
+//     setCustomerLot({...customerLot,count:1})
+//   }
+//  else{
+//   setCustomerLot({...customerLot,count: parseInt(e.currentTarget.value)})
+//  }
+  
+  
+  
 }
 
 const handleRegister=(e:React.MouseEvent<HTMLButtonElement>)=>{
@@ -71,21 +103,9 @@ const removeItem=(id:number)=>{
                     <button className="ec-close" onClick={closeModal}>×</button>
                 </div>
                 <ul className="eccart-pro-items">
-                  {customerLots.map((el:any,i:number)=>{
+                  {customerLotsState.map((el:any,i:number)=>{
                     return (
-                      <li key={el.id}>
-                      <a href="product-left-sidebar.html" className="sidekka_pro_img"><img src={el.imgUrl}alt="product"/></a>
-                      <div className="ec-pro-content">
-                          <a href="product-left-sidebar.html" className="cart_pro_title">{el.title}</a>
-                          <span className="cart-price"><span>{el.price}</span> x {el.count}</span>
-                          <div className="qty-plus-minus">
-                          <div className="dec ec_qtybtn" onClick={()=>decrement(el)}>-</div>
-                              <input className="qty-input" type="number" name="ec_qtybtn" value={el.count} />
-                              <div className="inc ec_qtybtn" onClick={()=>increment(el)}>+</div>
-                          </div>
-                          <a href="#" onClick={()=>removeItem(el.id)} className="remove">×</a>
-                      </div>
-                  </li>
+                   <ShoppingCardLot removeItem={removeItem} changeRefresh={changeRefresh} lot={el}/>
                     )
                   })}
                    

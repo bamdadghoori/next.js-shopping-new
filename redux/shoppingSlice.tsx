@@ -103,6 +103,26 @@ const shoppingSlice=createSlice({
             
             console.log(newCustomerLots)
             return {...state,customerLots:newCustomerLots}
+         },
+         //to change count of customerLot
+         changeCountOfCustomerLot(state:any,action:any){
+            const newLot=action.payload
+           
+            //to find which lot should be changed
+            console.log(newLot)
+            console.log(state.customerLots)
+            const index=state.customerLots.findIndex((el:any)=>el.id==newLot.id)
+            let newCustomerLots
+            console.log(index)
+            if(index==0){
+                newCustomerLots=[newLot,...state.customerLots.slice(1,state.customerLots.length)]
+            }
+            else{
+                newCustomerLots=[...state.customerLots.slice(0,index),newLot,...state.customerLots.slice(index+1,state.customerLots.length)]
+            }
+            
+            console.log(newCustomerLots)
+            return {...state,customerLots:newCustomerLots}
          }
   },
    extraReducers:(builder)=>{
@@ -142,5 +162,5 @@ const shoppingSlice=createSlice({
 }
 })
    
-export const{ addToCustomerLots:addToCustomerLotsAction,removeFromCustomerLots:removeFromCustomerLotsAction,decrementCountofCustomerLot:decrementCountofCustomerLotAction,incrementCountofCustomerLot:incrementCountofCustomerLotAction }=shoppingSlice.actions
+export const{ addToCustomerLots:addToCustomerLotsAction,removeFromCustomerLots:removeFromCustomerLotsAction,decrementCountofCustomerLot:decrementCountofCustomerLotAction,incrementCountofCustomerLot:incrementCountofCustomerLotAction,changeCountOfCustomerLot:changeCountOfCustomerLotAction }=shoppingSlice.actions
    export default shoppingSlice.reducer

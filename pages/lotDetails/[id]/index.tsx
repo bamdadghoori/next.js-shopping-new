@@ -8,15 +8,30 @@ import { AddCustomerLot } from '../../../redux/shopping/shoppingActions';
 import { RootState } from '../../../redux/store'
 import { GetStaticPaths,GetStaticProps } from 'next';
 import RelatedLots from '../../../public/components/lotDetailsPage/relatedLots';
+import { addToCustomerLotsAction } from '../../../redux/shoppingSlice';
 import https from "https"
 import Comments from '../../../public/components/lotDetailsPage/comments';
 
 
  const LotDetails = ({lot,error}:{lot:any,error:string}) => {
-  //to show which lot is bought
+
+  let customerLots=useSelector((state:RootState)=>state.persistedReducer.customerLots)
+  let price:number;
+  let size:string="";
+    //some property have price propery and some other have newPrice!
+    if(lot.price!=undefined){
+      price=lot.price
+  }
+  else{
+      price=lot.newPrice
+  }
+  
 const [customerLot,setCustomerLot]=useState({
   id:lot.id,
-  count:1
+  title:lot.title,
+  price:price,
+  count:1,
+  imgUrl:lot.imgUrl
 })
 
   {console.log(lot)}
@@ -75,6 +90,28 @@ const decrementCount=()=>{
   }
  
 }
+
+
+//adding to shopping cart
+const addToCart=()=>{
+  
+  //check if the lot has been registed before or not
+  if(customerLots.filter((el:any)=>el.id==lot.id).length!=0){
+       return
+  }
+  else{
+      if(lot.size!=undefined){
+          dispatch(addToCustomerLotsAction({...customerLot,size:lot.size}))
+          console.log('size')
+      }
+      else{
+          dispatch(addToCustomerLotsAction(customerLot))
+          console.log('nsize')
+      }
+     
+       
+   }
+  }
   return (
     <>
  
@@ -129,7 +166,7 @@ const decrementCount=()=>{
                                     <div className="single-pro-content">
                                         <h5 className="ec-single-title">{lot.title}</h5>
                                         <div className="ec-single-rating-wrap">
-                                            <div className="ec-single-rating">
+                                            <div className="ec-single-rating" >
                                               {stars.map((el:number,i:number)=>{
                                               return  <i key={i} className="ecicon eci-star fill"></i>
                                               })}
@@ -139,7 +176,7 @@ const decrementCount=()=>{
                                                 
                                                
                                             </div>
-                                            <span className="ec-read-review"><a href="#ec-spt-nav-review">اولین کسی که نظر میدهد باشید</a></span>
+                                            <span className="ec-read-review"><a href="#ec-spt-nav-review"> ما را از نظرات خود بهره مند سازید</a></span>
                                         </div>
                                         <div className="ec-single-desc">{lot.description}</div>
 
@@ -197,7 +234,7 @@ const decrementCount=()=>{
                                                 <div className='inc ec_qtybtn' onClick={incrementCount}>+</div>
                                             </div>
                                             <div className="ec-single-cart ">
-                                                <button className="btn btn-primary">افزودن به سبد خرید</button>
+                                                <button className="btn btn-primary" onClick={addToCart}>افزودن به سبد خرید</button>
                                             </div>
                                             <div className="ec-single-wishlist">
                                                 <a className="ec-btn-group wishlist" title="علاقه مندی"><img src="/images/icons/wishlist.svg" className="svg_img pro_svg" alt="Product"/></a>
