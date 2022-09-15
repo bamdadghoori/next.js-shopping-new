@@ -24,17 +24,26 @@ const ShoppingCardModal = ({closeModal,shoppingModal}:{shoppingModal:boolean,clo
    }
    
     let customerLots=useSelector((state:RootState)=>state.persistedReducer.customerLots)
-    const [customerLotsState,setCutomerLotsState]=useState(customerLots)
-    useEffect(()=>{
-setCutomerLotsState(customerLots)
-    },[customerLots])
+  //to calcute total price 
+  let totalPrice:number=0;
+  customerLots.forEach((el:any) => {
+    //some lots have price property and some other have newPrice! 
+    if(el.price!=undefined){
+      totalPrice+=el.price*el.count
+    }
+    else{
+      totalPrice=el.newPrice*el.count
+    }
+   
+  });
+  
   let lots=useSelector((state:RootState)=>state.persistedReducer.lots)
  
     //to increment count of one lot
     const increment=(lot:any)=>{
       const inventory=lots.filter((el:any)=>el.id==lot.id)[0].inventory
       console.log(inventory)
-      if(lot.count<=inventory){
+      if(lot.count<inventory){
           dispatch(incrementCountofCustomerLotAction(lot))
        
       }
@@ -103,7 +112,7 @@ const removeItem=(id:number)=>{
                     <button className="ec-close" onClick={closeModal}>×</button>
                 </div>
                 <ul className="eccart-pro-items">
-                  {customerLotsState.map((el:any,i:number)=>{
+                  {customerLots.map((el:any,i:number)=>{
                     return (
                    <ShoppingCardLot removeItem={removeItem} changeRefresh={changeRefresh} lot={el}/>
                     )
@@ -115,23 +124,16 @@ const removeItem=(id:number)=>{
                 <div className="cart-ریزهزینه">
                     <table className="table cart-table">
                         <tbody>
-                            <tr>
-                                <td className="text-left">ریز هزینه:</td>
-                                <td className="text-right">3000 تومان</td>
-                            </tr>
-                            <tr>
-                                <td className="text-left">مالیات (20%) :</td>
-                                <td className="text-right">6000 تومان</td>
-                            </tr>
+                           
                             <tr>
                                 <td className="text-left">جمع کل:</td>
-                                <td className="text-right primary-color">3600 تومان</td>
+                                <td className="text-right primary-color">{totalPrice} تومان</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div className="cart_btn">
-                    <a href="cart.html" className="btn btn-primary">مشاهده سبد خرید</a>
+                    
                     <a href="checkout.html" className="btn btn-secondary">ادامه خرید</a>
                 </div>
             </div>

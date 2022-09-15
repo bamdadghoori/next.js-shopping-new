@@ -23,7 +23,7 @@ import { removeFromCustomerLotsAction,decrementCountofCustomerLotAction,incremen
         const inventory=lots.filter((el:any)=>el.id==lot.id)[0].inventory
         console.log(inventory)
         // const newLot={...lot,count:lotState.count+1}
-        if(lot.count<=inventory){
+        if(lot.count<inventory){
            
             dispatch(incrementCountofCustomerLotAction(lotState))
          

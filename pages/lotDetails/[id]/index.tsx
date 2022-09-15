@@ -65,22 +65,22 @@ for(let i=0;i<emptyStarsCount;i++){
 
 //to make count input controlled
 const handleCountInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
-  if(parseInt(e.currentTarget.value)>lot.inventory || parseInt(e.currentTarget.value)<1)
+  if(parseInt(e.currentTarget.value)<=lot.inventory && parseInt(e.currentTarget.value)>=1)
  {
-  setCustomerLot(customerLot)
-  }
-  else if(e.currentTarget.value.length==0){
-    setCustomerLot({...customerLot,count:1})
-  }
- else{
   setCustomerLot({...customerLot,count: parseInt(e.currentTarget.value)})
- }
+  }
+//   else if(e.currentTarget.value.length==0){
+//     setCustomerLot({...customerLot,count:1})
+//   }
+//  else{
+//   setCustomerLot({...customerLot,count: parseInt(e.currentTarget.value)})
+//  }
   
   
   
 }
 const incrementCount=()=>{
-  if(customerLot.count<lot.inventory){
+  if(customerLot.count<=lot.inventory){
     setCustomerLot({...customerLot,count:customerLot.count+1})
   }
 }

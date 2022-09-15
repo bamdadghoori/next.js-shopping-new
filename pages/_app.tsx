@@ -18,8 +18,10 @@ import '../styles/responsive.css'
 import '../styles/rtl.css'
 import "../styles/ecicons.min.css"
 import "../styles/nouislider.css"
+import "../styles/ol.css"
 import {store,persistor} from '../redux/store'
 import Test from "../public/components/test"
+// import './SimpleMap.css'
 
 import { Provider } from 'react-redux';
 
