@@ -17,6 +17,7 @@ import XYZ from 'ol/source/XYZ';
 
 import OLTileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
+import * as yup from 'yup';
 
 // import { MapContainer } from 'react-leaflet/MapContainer'
 // import { TileLayer } from 'react-leaflet/TileLayer'
@@ -28,6 +29,15 @@ import OSM from 'ol/source/OSM';
  const RegistOrder = () => {
     const currentDate=new Date()
  const localCurrentDate=new Date().toLocaleDateString('fa-IR',{year:'numeric',month:'2-digit',day:'2-digit',formatMatcher:'basic'});
+
+ //validating using yup 
+ const schema=yup.object().shape({
+    name:yup.string().required(),
+    family:yup.string().required(),
+    address:yup.string().required(),
+    postalCode:yup.number()
+    
+ })
 
 const convertWeekDayNumToString=(weekNumber:number)=>{
    switch(weekNumber){
@@ -61,23 +71,63 @@ const convertWeekDayNumToString=(weekNumber:number)=>{
 
  //  to get date of tomorrows
  const firstDate:Date=new Date();
+ let localFirstDate:string=""
     firstDate.setDate(currentDate.getDate()+1)
     //check if the day is friday or not
     if(firstDate.getDay()==5){
         firstDate.setDate(firstDate.getDate()+1)
+       
     }
+    localFirstDate=firstDate.toLocaleDateString('fa-IR',{year:'numeric',month:'2-digit',day:'2-digit',formatMatcher:'basic'});
     const secondDate=new Date();
+    let localSecondDate:string=""
     secondDate.setDate(firstDate.getDate()+1)
 //check if the day is friday or not
     if(secondDate.getDay()==5){
         console.log(secondDate.getDay())
         secondDate.setDate(secondDate.getDate()+1)
+        
+
     }
+    localSecondDate=secondDate.toLocaleDateString('fa-IR',{year:'numeric',month:'2-digit',day:'2-digit',formatMatcher:'basic'});
  console.log(firstDate,secondDate.getDay())
 
-const selectBoxDates=[{weekDay:convertWeekDayNumToString(firstDate.getDay()),mounthDay:firstDate.getDate(),firstTime:8,secondTime:12},{weekDay:convertWeekDayNumToString(firstDate.getDay()),mounthDay:firstDate.getDate(),firstTime:16,secondTime:20},{weekDay:convertWeekDayNumToString(secondDate.getDay()),mounthDay:secondDate.getDate(),firstTime:8,secondTime:12},,{weekDay:convertWeekDayNumToString(secondDate.getDay()),mounthDay:secondDate.getDate(),firstTime:16,secondTime:20}]
+ //sending times Array
+const selectBoxDates=[{id:1,weekDay:convertWeekDayNumToString(firstDate.getDay()),date:localFirstDate,firstTime:8,secondTime:12},{id:2,weekDay:convertWeekDayNumToString(firstDate.getDay()),date:localFirstDate,firstTime:16,secondTime:20},{id:3,weekDay:convertWeekDayNumToString(secondDate.getDay()),date:localSecondDate,firstTime:8,secondTime:12},{id:4,weekDay:convertWeekDayNumToString(secondDate.getDay()),date:localSecondDate,firstTime:16,secondTime:20}]
+
+const cities=[{id:1,name:'تهران',regions:[1,2,3,4,5,6,7,8,9,10]},{
+    id:2,name:'کرج',regions:[1,2,3,4]
+}]
+
+const [informations,setInformations]=useState({
+    name:'',
+    family:'',
+    address:'',
+    city:cities[0],
+    // regions:cities[0].regions,
+    selectedRegion:1,
+    sendingTime:selectBoxDates[1],
+    postalCode:'',
+    comment:''
+   
+})
 console.log(selectBoxDates)
+
+//calculating total price
     let lots=useSelector((state:RootState)=>state.persistedReducer.customerLots)
+              
+              let totalPrice:number=0;
+  lots.forEach((el:any) => {
+    //some lots have price property and some other have newPrice! 
+    if(el.price!=undefined){
+      totalPrice+=el.price*el.count
+    }
+    else{
+      totalPrice=el.newPrice*el.count
+    }
+   
+  });
+
    let mapRef:any=useRef();
     const config:any={
         headers:{
@@ -87,12 +137,91 @@ console.log(selectBoxDates)
 
     }
 
-const [sendingCost,setSendingCost]=useState(0)
+const [totalSendingCost,setTotalSendingCost]=useState(0)
 
-//to calcute sending cost
-const calcuteSendingCost=()=>{
-      
+const changeSendingTime=(e:React.ChangeEvent<HTMLSelectElement>)=>{
+//to calculate sending cost
+
+
+  const value=e.target.value
+  //to find the selected date
+  let selectedDate:any=selectBoxDates.filter((el:any)=>el.id.toString()==value)
+  selectedDate=selectedDate[0]
+
+  setInformations({...informations,sendingTime:selectedDate})
+  //sending time increases in fast sending
+      calculateSendingCost(value)
 }
+
+//to set selected city
+const changeSelectedCity=(e:React.ChangeEvent<HTMLSelectElement>)=>{
+    const value=e.target.value;
+    //to find the selected city
+    let selectedCity:any=cities.filter((el:any)=>el.id.toString()==value)
+    selectedCity=selectedCity[0]
+    setInformations({...informations,city:selectedCity,selectedRegion:(selectedCity.regions)[0]})
+   
+}
+//to set selectedRegion
+const changeSelectedRegion=(e:React.ChangeEvent<HTMLSelectElement>)=>{
+    const value=e.target.value;
+    //to find the selected city
+    let selectedRegion:any=informations.city.regions.filter((el:any)=>el.toString()==value)
+    selectedRegion=selectedRegion[0]
+    console.log(selectedRegion)
+    setInformations({...informations,selectedRegion:selectedRegion})
+}
+
+//to calculate sending cost
+const calculateSendingCost=(value:string)=>{
+// consider at least 10000 for  sending
+const initialCost=10000
+  let sendingCost:number=0;
+  let sendingTimeFactor=0;
+  if(value=="1"||value=="2"){
+    sendingTimeFactor=10000
+  }
+
+  //formula for sending cost is : sendingCost=(sendingCost Of each lots in category)*initialCost+sendingTimeFactor and sendingCost Of each lots in category each category is calcuteCategoryFactor(el.category)*el.count
+  lots.forEach((el:any)=>{
+    //formula for sending cost
+   sendingCost+=calcuteCategoryFactor(el.category)*el.count
+  })
+  sendingCost=sendingCost*initialCost+sendingTimeFactor;
+  
+    console.log(sendingCost)
+    setTotalSendingCost(sendingCost)
+
+}
+
+
+
+const calcuteCategoryFactor=(factor:string)=>{
+      switch(factor){
+        case 'لباس':
+            return 2 
+            break;
+            case 'مبلمان':
+                return 2 
+                break;
+                case 'الکترونیک':
+                    return 2 
+                    break;
+                    case 'مواد غذایی':
+                        return 2 
+                        break;
+                        default:
+                            return 0;
+      }
+}
+
+//to set textBoxes controlled
+const changeTextBox=(e:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>)=>{
+    const value=e.target.value
+    setInformations({...informations,[e.target.name]:value})
+}
+
+
     const position:any = [51.505, -0.09]
 // config map settings
     // var myMap = new ol.Map({
@@ -142,10 +271,12 @@ const calcuteSendingCost=()=>{
 //    console.log(response)
     }
     useEffect(()=>{
-        getMap()
-    },[])
+        
+         calculateSendingCost('1')
+    },[lots])
   return (
     <>
+    {console.log(informations)}
 {/* 
 <ComposableMap>
       <Geographies geography={url}>
@@ -190,58 +321,48 @@ const calcuteSendingCost=()=>{
                                             <form action="#" method="post">
                                                 <span className="ec-bill-wrap ec-bill-half">
                                                     <label>نام *</label>
-                                                    <input type="text" name="firstname" placeholder="نام خود را وارد کنید"  />
+                                                    <input type="text" value={informations.name} onChange={changeTextBox} name="name" placeholder="نام خود را وارد کنید"  />
                                                 </span>
                                                 <span className="ec-bill-wrap ec-bill-half">
                                                     <label> نام خانوادگی *</label>
-                                                    <input type="text" name="lastname" placeholder="نام خانوادگی خود را وارد کنید"  />
+                                                    <input value={informations.family} onChange={changeTextBox} type="text" name="family" placeholder="نام خانوادگی خود را وارد کنید"  />
                                                 </span>
                                                 <span className="ec-bill-wrap">
                                                     <label>آدرس</label>
-                                                    <input type="text" name="address" placeholder="آدرس خط اول" />
+                                                    <input type="text" value={informations.address} onChange={changeTextBox} name="address" placeholder="آدرس خط اول" />
                                                 </span>
                                                 <span className="ec-bill-wrap ec-bill-half">
                                                     <label>شهر *</label>
                                                     <span className="ec-bl-select-inner">
-                                                        <select name="ec_select_city" id="ec-select-city" className="ec-bill-select">
-                                                            <option >شهر </option>
-                                                            <option value="1">شهر  1</option>
-                                                            <option value="2">شهر  2</option>
-                                                            <option value="3">شهر  3</option>
-                                                            <option value="4">شهر  4</option>
-                                                            <option value="5">شهر  5</option>
+                                                        <select name="ec_select_city" id="ec-select-city" className="ec-bill-select" onChange={changeSelectedCity}>
+                                                           {cities.map((el:any)=>{
+                                                            return <option key={el.id} value={el.id.toString()}>{el.name}</option>
+                                                           })}
                                                         </select>
                                                     </span>
                                                 </span>
                                                 <span className="ec-bill-wrap ec-bill-half">
                                                     <label>کد پستی</label>
-                                                    <input type="text" name="postalcode" placeholder="کدپستی" />
+                                                    <input onChange={changeTextBox} type="text" name="postalCode" placeholder="کدپستی" />
                                                 </span>
                                                 <span className="ec-bill-wrap ec-bill-half">
                                                     <label>زمان ارسال *</label>
                                                     <span className="ec-bl-select-inner">
-                                                        <select name="ec_select_country" id="ec-select-country" className="ec-bill-select">
-                                                            {selectBoxDates.map((el:any,i:number)=>{
-                                                              return <option value={i.toString()}>{el.weekDay} {el.mounthDay} ساعت {el.firstTime} تا {el.secondTime}{el.endTime}</option>
+                                                        <select name="ec_select_country" id="ec-select-country" onChange={changeSendingTime} className="ec-bill-select">
+                                                            {selectBoxDates.map((el:any)=>{
+                                                                
+                                                              return <option  key={el.id} value={el.id.toString()}>{el.weekDay} {el.date} ساعت {el.firstTime} تا {el.secondTime}{el.endTime}</option>
                                                             })}
-                                                            <option value="1">کشور 1</option>
-                                                            <option value="2">کشور 2</option>
-                                                            <option value="3">کشور 3</option>
-                                                            <option value="4">کشور 4</option>
-                                                            <option value="5">کشور 5</option>
                                                         </select>
                                                     </span>
                                                 </span>
                                                 <span className="ec-bill-wrap ec-bill-half">
                                                     <label>منطقه</label>
                                                     <span className="ec-bl-select-inner">
-                                                        <select name="ec_select_state" id="ec-select-state" className="ec-bill-select">
-                                                            <option >منطقه/ایالت</option>
-                                                            <option value="1">منطقه/ایالت 1</option>
-                                                            <option value="2">منطقه/ایالت 2</option>
-                                                            <option value="3">منطقه/ایالت 3</option>
-                                                            <option value="4">منطقه/ایالت 4</option>
-                                                            <option value="5">منطقه/ایالت 5</option>
+                                                        <select name="ec_select_state" id="ec-select-state" className="ec-bill-select" onChange={changeSelectedRegion}>
+                                                            {informations.city.regions.map((el:any)=>{
+                                                                return <option selected={el==informations.selectedRegion ? true:false}  key={el} value={el.toString()}>منطقه {el}</option>
+                                                            })}
                                                         </select>
                                                     </span>
                                                 </span>
@@ -266,27 +387,29 @@ const calcuteSendingCost=()=>{
                      
                         <div className="ec-sidebar-block">
                             <div className="ec-sb-title">
-                                <h3 className="ec-sidebar-title">روش ارسال</h3>
+                                <h3 className="ec-sidebar-title">قیمت</h3>
                             </div>
                             <div className="ec-sb-block-content">
                                 <div className="ec-checkout-del">
-                                    <div className="ec-del-desc">لطفا روش حمل و نقل ترجیحی را برای این سفارش انتخاب کنید.</div>
+                                    <div className="ec-del-desc">هزینه ارسال با توجه به دسته بندی محصول، تعداد و زمان ارسال محاسبه شده است.</div>
                                     <form action="#">
                                         <span className="ec-del-option">
                                             <span>
-                                                <span className="ec-del-opt-head"> ارسال رایگان </span>
-                                        <input type="radio" id="del1" name="radio-group"  />
-                                        <label htmlFor="del1">هزینه -  0</label>
+                                                <span className="ec-del-opt-head"> قیمت کالاها</span>
+                                       
+                                        <label >{totalPrice} تومان</label>
                                         </span>
                                         <span>
-                                                <span className="ec-del-opt-head">ارسال سریع</span>
-                                        <input type="radio" id="del2" name="radio-group" />
-                                        <label htmlFor="del2">هزینه - 5000 تومان</label>
+                                                <span className="ec-del-opt-head">هزینه ارسال</span>
+                                      
+                                     <label >{totalSendingCost} تومان</label>
+                                     
+                                       
                                         </span>
                                         </span>
                                         <span className="ec-del-commemt">
                                             <span className="ec-del-opt-head">اضافه کردن یادداشت در مورد سفارش </span>
-                                        <textarea name="your-commemt" placeholder="یادداشت"></textarea>
+                                        <textarea value={informations.comment} name="comment" placeholder="یادداشت" onChange={changeTextBox}></textarea>
                                         </span>
                                     </form>
                                 </div>
@@ -310,11 +433,8 @@ const calcuteSendingCost=()=>{
                                                 <label htmlFor="pay1">نقدی هنگام تحویل</label>
                                             </span>
                                         </span>
-                                        <span className="ec-pay-commemt">
-                                            <span className="ec-pay-opt-head">اضافه کردن یادداشت در مورد سفارش </span>
-                                        <textarea name="your-commemt" placeholder="یادداشت"></textarea>
-                                        </span>
-                                        <span className="ec-pay-agree"><input type="checkbox" value="" /><a href="#">تمامی موارد <span>قوانین و شرایط</span> را خوانده ام</a><span className="checked"></span></span>
+                                     
+                                        
                                     </form>
                                 </div>
                             </div>

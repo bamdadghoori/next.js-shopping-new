@@ -27,7 +27,8 @@ import { addToCustomerLotsAction } from '../../redux/shoppingSlice'
         title:lot.title,
         price:price,
         count:1,
-        imgUrl:lot.imgUrl
+        imgUrl:lot.imgUrl,
+        category:lot.category
        
     }
     const [loading,setLoading]=useState(false)

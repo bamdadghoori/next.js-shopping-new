@@ -31,7 +31,8 @@ const [customerLot,setCustomerLot]=useState({
   title:lot.title,
   price:price,
   count:1,
-  imgUrl:lot.imgUrl
+  imgUrl:lot.imgUrl,
+  category:lot.category
 })
 
   {console.log(lot)}

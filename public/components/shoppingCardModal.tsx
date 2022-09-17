@@ -24,7 +24,7 @@ const ShoppingCardModal = ({closeModal,shoppingModal}:{shoppingModal:boolean,clo
    }
    
     let customerLots=useSelector((state:RootState)=>state.persistedReducer.customerLots)
-  //to calcute total price 
+  //to calculate total price 
   let totalPrice:number=0;
   customerLots.forEach((el:any) => {
     //some lots have price property and some other have newPrice! 
