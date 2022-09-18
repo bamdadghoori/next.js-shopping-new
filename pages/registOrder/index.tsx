@@ -18,6 +18,7 @@ import XYZ from 'ol/source/XYZ';
 import OLTileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import * as yup from 'yup';
+import { truncate } from 'fs/promises'
 
 // import { MapContainer } from 'react-leaflet/MapContainer'
 // import { TileLayer } from 'react-leaflet/TileLayer'
@@ -30,14 +31,26 @@ import * as yup from 'yup';
     const currentDate=new Date()
  const localCurrentDate=new Date().toLocaleDateString('fa-IR',{year:'numeric',month:'2-digit',day:'2-digit',formatMatcher:'basic'});
 
+ const [errors,setErrors]:any[]=useState([])
+ const [showSuccessMessage,setShowSuccessMessage]=useState(false)
+
+ const paymentRef:any=useRef();
+ 
  //validating using yup 
  const schema=yup.object().shape({
-    name:yup.string().required(),
-    family:yup.string().required(),
-    address:yup.string().required(),
-    postalCode:yup.number()
-    
- })
+    name:yup.string().required('فیلد نام الزامی است'),
+    family:yup.string().required('فیلد نام خانوادگی الزامی است'),
+    address:yup.string().required('فیلد آدرس الزامی است'),
+    //@ts-ignore
+    postalCode:yup.string().when('postalCode',(val,schema)=>{
+if(val && val.length>0){
+  return  yup.string().matches(/^\d{10}$/,'کد پستی را به صورت عددی ده رقمی و بدون خط تیره وارد کنید')
+}
+else{
+   return yup.string().notRequired();
+}
+    })
+ },[["postalCode","postalCode"]])
 
 const convertWeekDayNumToString=(weekNumber:number)=>{
    switch(weekNumber){
@@ -221,6 +234,34 @@ const changeTextBox=(e:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>)=
     setInformations({...informations,[e.target.name]:value})
 }
 
+//to submit form informations
+const handleSubmit=async(e:React.MouseEvent<HTMLAnchorElement>)=>{
+e.preventDefault();
+   const isValid=await validate();
+   if(isValid==true){
+    setErrors([])
+    setShowSuccessMessage(true)
+   }
+   else{
+    setShowSuccessMessage(false)
+   }
+     paymentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
+//validating
+const validate=async()=>{
+    try{
+      await schema.validate(informations,{abortEarly:false})
+        return true
+        
+    }
+    catch(er:any){
+          
+            setErrors(er.errors)
+            return false
+    }
+}
+
 
     const position:any = [51.505, -0.09]
 // config map settings
@@ -304,6 +345,7 @@ const changeTextBox=(e:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>)=
       </Popup>
     </Marker>
   </MapContainer> */}
+   
      <section className="ec-page-content section-space-p checkout_page">
         <div className="container">
             <div className="row">
@@ -312,11 +354,19 @@ const changeTextBox=(e:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>)=
                     <div className="ec-checkout-content">
                         <div className="ec-checkout-inner">
                             
-                            <div className="ec-checkout-wrap margin-bottom-30 padding-bottom-3">
+                            <div ref={paymentRef} className="ec-checkout-wrap margin-bottom-30 padding-bottom-3">
                                 <div className="ec-checkout-block ec-check-bill">
                                     <h3 className="ec-checkout-title">جزییات پرداخت</h3>
                                     <div className="ec-bl-block-content">
                                      
+                                    <div className="section-title">
+  {errors!=undefined && errors.map((el:any,i:number)=>{
+      return <p className="sub-title mb-3" style={{"textAlign":"center","color":"#b2001a"}}>{el}</p>
+  })}
+  {showSuccessMessage==true && (
+    <p className="sub-title mb-3" style={{"textAlign":"center","color":"#0f5132"}}>نظر شما با موفقیت ثبت شد</p>
+  )}
+  </div>
                                         <div className="ec-check-bill-form">
                                             <form action="#" method="post">
                                                 <span className="ec-bill-wrap ec-bill-half">
@@ -343,7 +393,8 @@ const changeTextBox=(e:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>)=
                                                 </span>
                                                 <span className="ec-bill-wrap ec-bill-half">
                                                     <label>کد پستی</label>
-                                                    <input onChange={changeTextBox} type="text" name="postalCode" placeholder="کدپستی" />
+                                                    <input dir='ltr
+                                                    ' onChange={changeTextBox} type="text" name="postalCode" placeholder="کدپستی" />
                                                 </span>
                                                 <span className="ec-bill-wrap ec-bill-half">
                                                     <label>زمان ارسال *</label>
@@ -374,7 +425,7 @@ const changeTextBox=(e:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>)=
 
                             </div>
                             <span className="ec-check-order-btn">
-                                <a className="btn btn-primary" href="#">سفارش</a>
+                                <a className="btn btn-primary" onClick={handleSubmit} href="#">سفارش</a>
                             </span>
                         </div>
                     </div>
