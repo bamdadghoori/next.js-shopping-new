@@ -7,145 +7,169 @@ import  AppContext  from '../public/components/context';
 import * as yup from "yup"
 
 const Login = () => {
+  const [mobile,setMobile]=useState('')
+  const [showSuccessMessage,setShowSuccessMessage]=useState(false)
+  const [errors,setErrors]=useState([])
+const schema=yup.object().shape({
   //@ts-ignore
-  const{login}=useContext(AppContext);
-   //@ts-ignore
-   const{loggedIn}=useContext(AppContext);
+  mobile:yup.string().when('mobile',(val)=>{
+       if(val!=undefined && val.length>0){
+      return  yup.string().matches(/^(\+98|0)?9\d{9}$/,'فرمت شماره وارد شده صحیح نیست')
+       }
+       else{
+       return yup.string().required('فیلد تلفن همراه الزامی است')
+       }
+  })
+},[['mobile','mobile']])
 
-    const [user,setUser]=useState({
-        email:"",
-        password:""
-    })
-    const [loading,setLoading]=useState(false)
-    const [errors, setErrors] = useState([])
-   const schema= yup.object().shape({
-      email:yup.string().required("Please enter your email").email("Email is not correct"),
-      password:yup.string().required("Please enter your password")
-    })
 
-const validate=async()=>{
-  try{
-    const validateResult= await schema.validate(user,{abortEarly:false})
-    setErrors([])
-   return true
-  
-  }
- 
-  catch(er:any){
-       
-         //@ts-ignore
-        setErrors(er.errors)
-        return false
-  }
-        
-          
+
+//set mobile input controlled
+const changeTextBox=(e:React.ChangeEvent<HTMLInputElement>)=>{
+  const value=e.target.value
+  setMobile(value)
+}
+//to submit
+const handleSubmit=async(e:React.MouseEvent<HTMLButtonElement>)=>{
+  e.preventDefault()
+  const isValid=await validate();
+    if(isValid==true){
+      setShowSuccessMessage(true)
+      setErrors([])
+    }
+    else{
+      setShowSuccessMessage(false)
+    }
+
 }
 
-    const handleSubmit=async(e:React.SyntheticEvent)=>{
-        e.preventDefault();
-        setLoading(true)
-        const validateResult=await validate()
-       if(validateResult==true){
-      
-        try{
-          const response=await axios.post(`https://reqres.in/api/login`,user)
+//validating
+const validate=async()=>{
+  try{
+  await schema.validate({mobile:mobile},{abortEarly:false})
+  return true
+  
+  }
+  catch(er:any){   
+console.log(er.errors)
+setErrors(er.errors)
+return false
+  }
+  
+}
+
+
+//   //@ts-ignore
+//   const{login}=useContext(AppContext);
+//    //@ts-ignore
+//    const{loggedIn}=useContext(AppContext);
+
+//     const [user,setUser]=useState({
+//         email:"",
+//         password:""
+//     })
+//     const [loading,setLoading]=useState(false)
+//     const [errors, setErrors] = useState([])
+//    const schema= yup.object().shape({
+//       email:yup.string().required("Please enter your email").email("Email is not correct"),
+//       password:yup.string().required("Please enter your password")
+//     })
+
+// const validate=async()=>{
+//   try{
+//     const validateResult= await schema.validate(user,{abortEarly:false})
+//     setErrors([])
+//    return true
+  
+//   }
+ 
+//   catch(er:any){
+       
+//          //@ts-ignore
+//         setErrors(er.errors)
+//         return false
+//   }
         
-          const token=response.data.token;
+          
+// }
+
+//     const handleSubmit=async(e:React.SyntheticEvent)=>{
+//         e.preventDefault();
+//         setLoading(true)
+//         const validateResult=await validate()
+//        if(validateResult==true){
+      
+//         try{
+//           const response=await axios.post(`https://reqres.in/api/login`,user)
+        
+//           const token=response.data.token;
          
-          localStorage.setItem("token",token)
-          setErrors([]);
-          login()
+//           localStorage.setItem("token",token)
+//           setErrors([]);
+//           login()
 
           
-        }
-        catch(er){
-          //@ts-ignore
+//         }
+//         catch(er){
+//           //@ts-ignore
          
-        setErrors(["The username or password is incorrect"])
+//         setErrors(["The username or password is incorrect"])
        
-        localStorage.setItem("token","")
-        }
+//         localStorage.setItem("token","")
+//         }
        
        
-       }
+//        }
     
-        setLoading(false)
-     }
+//         setLoading(false)
+//      }
 
 
-     const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
-        setUser({...user,[e.currentTarget.id]:e.currentTarget.value})
-     }
+//      const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
+//         setUser({...user,[e.currentTarget.id]:e.currentTarget.value})
+//      }
 
   return (
   <>
-  {loggedIn==false && (
- <div className='login-guide'>To see the successfull login use:
- email:"eve.holt@reqres.in" and any password you want
-</div>
-  )}
   
-  <div className="wrapper fadeInDown">
- { loggedIn==true   && (
-    <div className='success-login alert alert-success'>
-     You are logged in!
-      </div>
-   )}
-     
-  {loggedIn==false && (
-    <div id="formContent">
-    {errors.length!=0 && (
-       <div className="vali">
-       {errors.map((el:any)=>{
-          
-             return <>
-                      
-                       <div key={el.id} className="error-list">
-                       {el}
-                       </div>
-                      
-                      
-                 
-             
-             </>
-           })}
+  {console.log(errors)}
+  <section className="ec-page-content section-space-p">
+        <div className="container">
+            <div className="row">
+                <div className="col-md-12 text-center">
+                    <div className="section-title">
+                        <h2 className="ec-bg-title">ورود</h2>
+                        <h2 className="ec-title">ورود</h2>
+                        <p className="sub-title mb-3">بهترین مکان برای خرید و فروش محصولات دیجیتال</p>
+                    </div>
+                </div>
+                <div className="ec-login-wrapper">
+                    <div className="ec-login-container">
+                        <div className="ec-login-form">
+                        {errors!=undefined && errors.map((el:any,i:number)=>{
+      return <p className="sub-title mb-3" style={{"textAlign":"center","color":"#b2001a"}}>{el}</p>
+  })}
+  {showSuccessMessage==true && (
+    <p className="sub-title mb-3" style={{"textAlign":"center","color":"#0f5132"}}>سفارش شما با موفقیت ثبت شد</p>
+  )}
+                            <form action="#" method="post" >
+                                <span className="ec-login-wrap">
+                                    <label> تلفن همراه*</label>
+                                    <input defaultValue={''} value={mobile} onChange={changeTextBox} type="text" name="mobile" placeholder="وارد کردن شماره تلفن ..."  autoComplete="somerandomstring"/>
+                                </span>
+                               
+                               
+                                <span className="ec-login-wrap ec-login-btn">
+                                    <button className="btn btn-primary" onClick={handleSubmit} type="submit">ورود</button>
+                                   
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-    )
-   
-   
-   }
-
- 
-    <div className="fadeIn first">
-      Login
-    </div>
-
-  
-    <form onSubmit={handleSubmit}>
-    
-    <div className="form-floating form-outline">
-      <input type="text"  id="email" className="fadeIn second form-control" placeholder='Mobile Phone' onChange={handleChange} />
-      <label className="form-label" htmlFor="email">Email</label>
-     </div>  
-     <div className="form-floating form-outline">
-      <input type="password"  id="password" className="fadeIn second form-control" placeholder='Password'onChange={handleChange}/>
-      <label className="form-label" htmlFor="password">Password</label>
-     </div>
-     {
-      loading &&    <div className="wait">Please wait...</div>
-     }
-  
-      <input type="submit" className="fadeIn fourth "  value="Log In"/>
-      
-    </form>
-
-  
-
-  </div>
-
-  )}
-  
-</div>
+        </div>
+    </section>
 
 
 

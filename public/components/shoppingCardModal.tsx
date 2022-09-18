@@ -10,6 +10,8 @@ import AppContext from './context'
 import ShoppingCardLot from './shoppingCardLot'
 import { removeFromCustomerLotsAction,decrementCountofCustomerLotAction,incrementCountofCustomerLotAction,changeCountOfCustomerLotAction } from '../../redux/shoppingSlice'
 import { useDispatch } from 'react-redux'
+import NextNProgress from 'nextjs-progressbar'
+import { useRouter } from 'next/router'
 
 const ShoppingCardModal = ({closeModal,shoppingModal}:{shoppingModal:boolean,closeModal:(...args:any[])=>void}) => {
  
@@ -19,6 +21,8 @@ const ShoppingCardModal = ({closeModal,shoppingModal}:{shoppingModal:boolean,clo
     const [showError,setShowError]=useState(false)
     const [showSuccess,setShowSuccess]=useState(false)
     const [refresh,setRefresh]=useState(false)
+    const [loading,setLoading]=useState(true)
+    const router=useRouter();
    const changeRefresh=()=>{
     setRefresh(!refresh)
    }
@@ -103,6 +107,17 @@ const removeItem=(id:number)=>{
 }
     let totalCost=0;
   return (<>
+   {
+       loading&& (
+        <NextNProgress
+        color="#3474d4"
+        startPosition={0.3}
+        stopDelayMs={200}
+        height={3}
+        showOnShallow={true}
+      />
+       )
+     }
            <div className="ec-side-cart-overlay" style={shoppingModal==true ? {display:'none'}:{display:'none'}}></div>
     <div id="ec-side-cart" className={`ec-side-cart ${shoppingModal==true ? 'ec-open':' '}` }>
         <div className="ec-cart-inner">
@@ -134,7 +149,11 @@ const removeItem=(id:number)=>{
                 </div>
                 <div className="cart_btn">
                     
-                    <a href="checkout.html" className="btn btn-secondary">ادامه خرید</a>
+                    <a href="#" onClick={async(e)=>{e.preventDefault();
+                       setLoading(true)
+                       await router.push("/registOrder/")
+                       closeModal()
+                    }} className="btn btn-secondary">ادامه خرید</a>
                 </div>
             </div>
         </div>

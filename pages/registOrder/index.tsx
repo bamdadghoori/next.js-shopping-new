@@ -364,7 +364,7 @@ const validate=async()=>{
       return <p className="sub-title mb-3" style={{"textAlign":"center","color":"#b2001a"}}>{el}</p>
   })}
   {showSuccessMessage==true && (
-    <p className="sub-title mb-3" style={{"textAlign":"center","color":"#0f5132"}}>نظر شما با موفقیت ثبت شد</p>
+    <p className="sub-title mb-3" style={{"textAlign":"center","color":"#0f5132"}}>سفارش شما با موفقیت ثبت شد</p>
   )}
   </div>
                                         <div className="ec-check-bill-form">

@@ -3,16 +3,20 @@ import {useState,useEffect} from 'react'
 import { useSelector } from 'react-redux'
 import {RootState} from "../../redux/store"
 import { useDispatch } from 'react-redux'
+import {useRouter} from 'next/router'
+import NextNProgress from 'nextjs-progressbar'
 import { removeFromCustomerLotsAction,decrementCountofCustomerLotAction,incrementCountofCustomerLotAction,changeCountOfCustomerLotAction } from '../../redux/shoppingSlice'
  const ShoppingCardLot = ({lot,changeRefresh,removeItem}:{lot:any,changeRefresh:(...args:any[])=>void,removeItem:(...args:any[])=>any}) => {
 
     
     const dispatch=useDispatch();
-
+const router=useRouter();
     
     console.log(lot)
     let lots=useSelector((state:RootState)=>state.persistedReducer.lots)
     const [lotState,setLotState]:any[]=useState(lot)
+
+    const [loading,setLoading]=useState(false)
     useEffect(()=>{
               setLotState(lot)
     },[lot])
@@ -50,13 +54,32 @@ import { removeFromCustomerLotsAction,decrementCountofCustomerLotAction,incremen
     } 
     
   }
+  //to handle lot title link
+  const lotTitleLink=(e:React.MouseEvent<HTMLAnchorElement>)=>{
+  e.preventDefault();
+  setLoading(true)
+    router.push(`/lotDetails/${lotState.id}`)
+  
+  }
 
 
   return (
+    <>
+     {
+       loading&& (
+        <NextNProgress
+        color="#3474d4"
+        startPosition={0.3}
+        stopDelayMs={200}
+        height={3}
+        showOnShallow={true}
+      />
+       )
+     }
     <li key={lotState.id}>
     <a href="product-left-sidebar.html" className="sidekka_pro_img"><img src={lotState.imgUrl}alt="product"/></a>
     <div className="ec-pro-content">
-        <a href="product-left-sidebar.html" className="cart_pro_title">{lotState.title}</a>
+        <a href="#" onClick={lotTitleLink} className="cart_pro_title">{lotState.title}</a>
         <span className="cart-price"><span>{lotState.price}</span> x {lotState.count}</span>
         <div className="qty-plus-minus">
         <div className="dec ec_qtybtn" onClick={()=>decrement(lotState)}>-</div>
@@ -66,6 +89,7 @@ import { removeFromCustomerLotsAction,decrementCountofCustomerLotAction,incremen
         <a href="#" onClick={()=>removeItem(lot.id)} className="remove">×</a>
     </div>
 </li>
+</>
   )
 }
 export default ShoppingCardLot
