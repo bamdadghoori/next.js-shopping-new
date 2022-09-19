@@ -119,6 +119,7 @@ const login=()=>{
 
 
 const logOut=()=>{
+  console.log('logout')
   setLoggedIn(false)
 }
  

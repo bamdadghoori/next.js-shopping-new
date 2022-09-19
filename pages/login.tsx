@@ -1,16 +1,41 @@
 import React from 'react'
 import axios from "axios"
-import { useState } from 'react';
-
+import { useState,useEffect } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
+import { RootState,AppDispatch } from '../redux/store';
 import { useContext } from 'react';
 import  AppContext  from '../public/components/context';
+import { addUserAction } from '../redux/shoppingSlice';
 import * as yup from "yup"
 
 const Login = () => {
+//get redux factors
+const dispatch:AppDispatch=useDispatch()
+const users=useSelector((state:RootState)=>state.persistedReducer.users)
+
+
+//connect to context
+const {loggedIn,login,logOut}:any=useContext(AppContext)
+
+
+
+const [refresh,setRefresh]=useState(false)
+
+        useEffect(()=>{
+
+        },[refresh])
+
   const [mobile,setMobile]=useState('')
+  const [code,setCode]=useState(' ')
   const [showSuccessMessage,setShowSuccessMessage]=useState(false)
   const [errors,setErrors]=useState([])
-const schema=yup.object().shape({
+
+  const [userId,setUserId]=useState(0)
+    
+  //to check if the user has received the mobile code or not
+  const [isCodeReceived,setIsCodeReceived]=useState(false)
+  
+const mobileSchema=yup.object().shape({
   //@ts-ignore
   mobile:yup.string().when('mobile',(val)=>{
        if(val!=undefined && val.length>0){
@@ -23,18 +48,42 @@ const schema=yup.object().shape({
 },[['mobile','mobile']])
 
 
+const codeSchema=yup.object().shape({
+  //@ts-ignore
+  code:yup.string().when('code',(val)=>{
+       if(val!=undefined && val.length>0){
+      return  yup.string().matches(/1234$/,'کد وارد شده صحیح نیست')
+       }
+       else{
+       return yup.string().required('فیلد  کد الزامی است')
+       }
+  })
+},[['code','code']])
 
-//set mobile input controlled
+
+
+//set  inputs controlled
 const changeTextBox=(e:React.ChangeEvent<HTMLInputElement>)=>{
   const value=e.target.value
-  setMobile(value)
+  const name=e.target.name
+  if(name=='mobile'){
+    setMobile(value)
+   
+  }
+
+  //if value==code
+  else{
+    setCode(value)
+  }
+ 
 }
-//to submit
-const handleSubmit=async(e:React.MouseEvent<HTMLButtonElement>)=>{
+//to submit mobile number
+const handleSubmitMobileNumber=async(e:React.MouseEvent<HTMLButtonElement>)=>{
   e.preventDefault()
-  const isValid=await validate();
+  const isValid=await mobileValidate();
     if(isValid==true){
-      setShowSuccessMessage(true)
+      
+      setIsCodeReceived(true)
       setErrors([])
     }
     else{
@@ -44,9 +93,9 @@ const handleSubmit=async(e:React.MouseEvent<HTMLButtonElement>)=>{
 }
 
 //validating
-const validate=async()=>{
+const mobileValidate=async()=>{
   try{
-  await schema.validate({mobile:mobile},{abortEarly:false})
+  await mobileSchema.validate({mobile:mobile},{abortEarly:false})
   return true
   
   }
@@ -58,81 +107,85 @@ return false
   
 }
 
-
-//   //@ts-ignore
-//   const{login}=useContext(AppContext);
-//    //@ts-ignore
-//    const{loggedIn}=useContext(AppContext);
-
-//     const [user,setUser]=useState({
-//         email:"",
-//         password:""
-//     })
-//     const [loading,setLoading]=useState(false)
-//     const [errors, setErrors] = useState([])
-//    const schema= yup.object().shape({
-//       email:yup.string().required("Please enter your email").email("Email is not correct"),
-//       password:yup.string().required("Please enter your password")
-//     })
-
-// const validate=async()=>{
-//   try{
-//     const validateResult= await schema.validate(user,{abortEarly:false})
-//     setErrors([])
-//    return true
-  
-//   }
- 
-//   catch(er:any){
-       
-//          //@ts-ignore
-//         setErrors(er.errors)
-//         return false
-//   }
-        
-          
-// }
-
-//     const handleSubmit=async(e:React.SyntheticEvent)=>{
-//         e.preventDefault();
-//         setLoading(true)
-//         const validateResult=await validate()
-//        if(validateResult==true){
+//to submit mobile number
+const handleSubmitCode=async(e:React.MouseEvent<HTMLButtonElement>)=>{
+  e.preventDefault()
+  const isValid=await codeValidate();
+    if(isValid==true){
+      setShowSuccessMessage(true)
+     
+      setErrors([])
       
-//         try{
-//           const response=await axios.post(`https://reqres.in/api/login`,user)
+     
+
+
+      let id=1;
+      if(users.length!=0){
+        console.log(users[users.length-1])
+        id=users[users.length-1].id+1
         
-//           const token=response.data.token;
+
+        //checking if user registered before or not
+        if(users.length>0 && users.filter((el:any)=>el.mobile==mobile).length>0 ){
+          let currentUser=users.filter((el:any)=>el.mobile==mobile) 
+                   //user registered before
+
+            //convert currentUser from array to object
+            currentUser=currentUser[0]
+            const token=currentUser.jwt
+      localStorage.setItem('token',token)
+        }
+        else{
+          //user registered just now
+          const token=`assume this is jwt:${mobile}`
+          localStorage.setItem('token',token)
+          const newUser={
+            id:id,
+            mobile:mobile,
+            jwt:token
+          }
+          dispatch(addUserAction(newUser))
          
-//           localStorage.setItem("token",token)
-//           setErrors([]);
-//           login()
+          console.log(localStorage.getItem('token'))
+        }
+      }
+      await login()
+          // refresh the page causes loggedIn state reload!
+            // setRefresh(true)
+    }
+    else{
+      setShowSuccessMessage(false)
+    }
 
-          
-//         }
-//         catch(er){
-//           //@ts-ignore
-         
-//         setErrors(["The username or password is incorrect"])
-       
-//         localStorage.setItem("token","")
-//         }
-       
-       
-//        }
-    
-//         setLoading(false)
-//      }
+}
 
+//validating
+const codeValidate=async()=>{
+  try{
+  await codeSchema.validate({code:code},{abortEarly:false})
+ return true
+  
+  }
+  catch(er:any){   
+console.log(er.errors)
+setErrors(er.errors)
+return false
+  }
+  
+}
 
-//      const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
-//         setUser({...user,[e.currentTarget.id]:e.currentTarget.value})
-//      }
+//to logout
+const handleLogout=async (e:React.MouseEvent<HTMLButtonElement>)=>{
+  e.preventDefault();
+await logOut()
+setIsCodeReceived(false)
+localStorage.removeItem('token')
+}
 
   return (
   <>
-  
-  {console.log(errors)}
+  {console.log(loggedIn)}
+
   <section className="ec-page-content section-space-p">
         <div className="container">
             <div className="row">
@@ -140,7 +193,7 @@ return false
                     <div className="section-title">
                         <h2 className="ec-bg-title">ورود</h2>
                         <h2 className="ec-title">ورود</h2>
-                        <p className="sub-title mb-3">بهترین مکان برای خرید و فروش محصولات دیجیتال</p>
+                        <p className="sub-title mb-3">بهترین مکان برای خرید و فروش محصولات </p>
                     </div>
                 </div>
                 <div className="ec-login-wrapper">
@@ -149,18 +202,57 @@ return false
                         {errors!=undefined && errors.map((el:any,i:number)=>{
       return <p className="sub-title mb-3" style={{"textAlign":"center","color":"#b2001a"}}>{el}</p>
   })}
-  {showSuccessMessage==true && (
-    <p className="sub-title mb-3" style={{"textAlign":"center","color":"#0f5132"}}>سفارش شما با موفقیت ثبت شد</p>
+  {
+  loggedIn==true ? (
+    <p className="sub-title mb-3" style={{"textAlign":"center","color":"#0f5132"}}>ورود شما با موفقیت انجام شد</p>
+  ):( isCodeReceived && <p className="sub-title mb-3" style={{"textAlign":"center","color":"#0f5132"}}>مثلا کد ارسال شده به موبایل 1234 است!</p> 
+
   )}
+ 
                             <form action="#" method="post" >
-                                <span className="ec-login-wrap">
-                                    <label> تلفن همراه*</label>
-                                    <input defaultValue={''} value={mobile} onChange={changeTextBox} type="text" name="mobile" placeholder="وارد کردن شماره تلفن ..."  autoComplete="somerandomstring"/>
-                                </span>
+                            {
+                              loggedIn==false &&  (
+                                
+                              
+                                isCodeReceived ? (
+
+                                  <span className="ec-login-wrap">
+                                  <label>کد ارسالی(1234)*</label>
+                                  <input value={code}  onChange={changeTextBox}  type="text" name="code" placeholder="کد ارسال شده به تلفن همراه..."  autoComplete="somerandomstring"/>
+                              </span>
+                              
+                                ):(
+                                  <span className="ec-login-wrap">
+                            
+                                  <label> تلفن همراه*</label>
+                                  
+                                  <input defaultValue={' '} value={mobile} onChange={changeTextBox} type="text" name="mobile" placeholder="وارد کردن شماره تلفن ..."  autoComplete="somerandomstring"/>
+                              </span>
+                                )
+                              )
+                                     
+                                    }
+                               
+                               
                                
                                
                                 <span className="ec-login-wrap ec-login-btn">
-                                    <button className="btn btn-primary" onClick={handleSubmit} type="submit">ورود</button>
+                                  {
+                                    
+                                    // when the showSuccessMessage state is true, it means the user had a success registering
+                                    loggedIn==true ?(
+ 
+                                      <button className="btn btn-primary" onClick={handleLogout} type="submit">خروج</button>
+                                    ):(
+                                      isCodeReceived ?(
+                                        <button className="btn btn-primary" onClick={handleSubmitCode} type="submit">ورود</button>
+                                      ):(
+                                        <button className="btn btn-primary" onClick={handleSubmitMobileNumber} type="submit">دریافت کد</button>
+                                      )
+                                    )
+                                  
+                                  }
+                                  
                                    
                                 </span>
                             </form>

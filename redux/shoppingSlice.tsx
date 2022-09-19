@@ -39,7 +39,8 @@ const initialState={
     error:"",
     customerLots:[],
     totalCount:0,
-    categories:[]
+    categories:[],
+    users:[]
 }
 
  //to add to customerLots (ordered by customer)
@@ -123,6 +124,13 @@ const shoppingSlice=createSlice({
             
             console.log(newCustomerLots)
             return {...state,customerLots:newCustomerLots}
+         },
+
+         //to add user
+         addUser(state:any,action:any){
+            const newUser=action.payload
+            const newUsers=[...state.users,newUser]
+            return {...state,users:newUsers}
          }
   },
    extraReducers:(builder)=>{
@@ -162,5 +170,5 @@ const shoppingSlice=createSlice({
 }
 })
    
-export const{ addToCustomerLots:addToCustomerLotsAction,removeFromCustomerLots:removeFromCustomerLotsAction,decrementCountofCustomerLot:decrementCountofCustomerLotAction,incrementCountofCustomerLot:incrementCountofCustomerLotAction,changeCountOfCustomerLot:changeCountOfCustomerLotAction }=shoppingSlice.actions
+export const{ addToCustomerLots:addToCustomerLotsAction,removeFromCustomerLots:removeFromCustomerLotsAction,decrementCountofCustomerLot:decrementCountofCustomerLotAction,incrementCountofCustomerLot:incrementCountofCustomerLotAction,changeCountOfCustomerLot:changeCountOfCustomerLotAction,addUser:addUserAction }=shoppingSlice.actions
    export default shoppingSlice.reducer
