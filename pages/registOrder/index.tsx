@@ -3,6 +3,8 @@ import axios from 'axios'
 import { useEffect,useRef,useState } from 'react'
 import { useSelector } from 'react-redux'
 import {RootState} from  "../../redux/store"
+import { useContext } from 'react';
+import  AppContext  from '../../public/components/context';
 import { Axios } from 'axios'
 //@ts-ignore
 // import NeshanMap from 'react-neshan-map-leaflet'
@@ -28,6 +30,9 @@ import { truncate } from 'fs/promises'
 
 
  const RegistOrder = () => {
+
+    const {changeOrderByUnloggedUsers}:any=useContext(AppContext)
+             
     const currentDate=new Date()
  const localCurrentDate=new Date().toLocaleDateString('fa-IR',{year:'numeric',month:'2-digit',day:'2-digit',formatMatcher:'basic'});
 
@@ -235,7 +240,7 @@ const changeTextBox=(e:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>)=
 }
 
 //to submit form informations
-const handleSubmit=async(e:React.MouseEvent<HTMLAnchorElement>)=>{
+const handleSubmit=async(e:React.MouseEvent<HTMLButtonElement>)=>{
 e.preventDefault();
    const isValid=await validate();
    if(isValid==true){
@@ -313,6 +318,7 @@ const validate=async()=>{
     }
     useEffect(()=>{
         
+   changeOrderByUnloggedUsers(false)
          calculateSendingCost('1')
     },[lots])
   return (
@@ -425,8 +431,8 @@ const validate=async()=>{
 
                             </div>
                             <span className="ec-check-order-btn">
-                                <a className="btn btn-primary" onClick={handleSubmit} href="#">سفارش</a>
-                            </span>
+                                <button  className="btn btn-primary" onClick={handleSubmit}  disabled={totalPrice>0 ? false : true }>سفارش</button>
+                            </span> 
                         </div>
                     </div>
                    

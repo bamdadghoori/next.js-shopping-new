@@ -41,11 +41,11 @@ function App({ Component, pageProps }) {
 
 
   const NewLayout=Component.Layout||Layout
-  
+  //to check if the user logged in
   const [loggedIn,setLoggedIn]=useState(false)
 
-
-
+// when orderByUnloggedUsers is true means the user ordered,but can't see the registOrder page. becuase he/she should login first.So orderByUnloggedUsers==true means the user should go directly to the registOrder page as soon as his/her login
+    const [orderByUnloggedUsers,setOrderByUnloggedUsers]=useState(false)
   useEffect(()=>{
     const token=localStorage.getItem("token")
     if(token){
@@ -59,6 +59,13 @@ setLoggedIn(true)
    
 
    //context area
+
+
+  const changeOrderByUnloggedUsers=(flag:boolean)=>{
+    setOrderByUnloggedUsers(flag)
+   }
+    
+
    //to determine if it's listStyle view or not
    const [listStyle,setListStyle]=useState(false);
    //to sort array and pass to context
@@ -135,11 +142,9 @@ const logOut=()=>{
           <Script src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js' />
        
      <Script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.5/umd/popper.min.js"/>
-     {/* <Provider store={store}>
-     <Test/>
-     </Provider> */}
+     
      <Provider store={store}>
-  <AppContext.Provider value={{loggedIn,login,logOut,sortArray,handleStyle,listStyle}}>
+  <AppContext.Provider value={{loggedIn,login,logOut,sortArray,handleStyle,listStyle,orderByUnloggedUsers,changeOrderByUnloggedUsers}}>
      <PersistGate loading={null} persistor={persistor}>
     
     

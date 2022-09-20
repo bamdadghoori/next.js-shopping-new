@@ -140,7 +140,12 @@ const Navbar = () => {
                         <div className="ec-header-bottons">
                           
                             <div className="ec-header-user dropdown">
-                                <button className="dropdown-toggle" data-bs-toggle="dropdown"><img src="/images/icons/user.svg" className="svg_img header_svg" alt=""/></button>
+                                <button className="dropdown-toggle" data-bs-toggle="dropdown" onClick={()=>{
+                                    setLoading(true)
+                                    router.push('/login/')
+                                }
+                                
+                                }><img src="/images/icons/user.svg" className="svg_img header_svg" alt=""/></button>
                                 <ul className="dropdown-menu dropdown-menu-right">
                                     <li><a className="dropdown-item" href="register.html">ثبت نام</a></li>
                                     <li><a className="dropdown-item" href="checkout.html">ادامه خرید</a></li>
@@ -194,7 +199,12 @@ const Navbar = () => {
 
                               
                                 <div className="ec-header-user dropdown">
-                                    <button className="dropdown-toggle" data-bs-toggle="dropdown"><img src="/images/icons/user.svg" className="svg_img header_svg" alt=""/></button>
+                                    <button className="dropdown-toggle" data-bs-toggle="dropdown"><img src="/images/icons/user.svg"   onClick={()=>{
+                                    setLoading(true)
+                                    router.push('/login/')
+                                }
+                                
+                                } className="svg_img header_svg" alt=""/></button>
                                     <ul className="dropdown-menu dropdown-menu-right">
                                         <li><a className="dropdown-item" href="register.html">ثبت نام</a></li>
                                         <li><a className="dropdown-item" href="checkout.html">ادامه خرید</a></li>

@@ -7,15 +7,17 @@ import { useContext } from 'react';
 import  AppContext  from '../public/components/context';
 import { addUserAction } from '../redux/shoppingSlice';
 import * as yup from "yup"
-
+import {useRouter} from 'next/router'
 const Login = () => {
+const router=useRouter();
+
 //get redux factors
 const dispatch:AppDispatch=useDispatch()
 const users=useSelector((state:RootState)=>state.persistedReducer.users)
 
 
 //connect to context
-const {loggedIn,login,logOut}:any=useContext(AppContext)
+const {loggedIn,login,logOut,orderByUnloggedUsers,changeOrderByUnloggedUsers}:any=useContext(AppContext)
 
 
 
@@ -27,7 +29,7 @@ const [refresh,setRefresh]=useState(false)
 
   const [mobile,setMobile]=useState('')
   const [code,setCode]=useState(' ')
-  const [showSuccessMessage,setShowSuccessMessage]=useState(false)
+
   const [errors,setErrors]=useState([])
 
   const [userId,setUserId]=useState(0)
@@ -86,9 +88,7 @@ const handleSubmitMobileNumber=async(e:React.MouseEvent<HTMLButtonElement>)=>{
       setIsCodeReceived(true)
       setErrors([])
     }
-    else{
-      setShowSuccessMessage(false)
-    }
+    
 
 }
 
@@ -112,7 +112,7 @@ const handleSubmitCode=async(e:React.MouseEvent<HTMLButtonElement>)=>{
   e.preventDefault()
   const isValid=await codeValidate();
     if(isValid==true){
-      setShowSuccessMessage(true)
+      
      
       setErrors([])
       
@@ -150,12 +150,15 @@ const handleSubmitCode=async(e:React.MouseEvent<HTMLButtonElement>)=>{
         }
       }
       await login()
+ 
+      //if orderByUnloggedUsers is true user should go to the regist order page
+      if(orderByUnloggedUsers==true){
+          router.push('/registOrder/')
+      }
           // refresh the page causes loggedIn state reload!
             // setRefresh(true)
     }
-    else{
-      setShowSuccessMessage(false)
-    }
+  
 
 }
 

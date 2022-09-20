@@ -16,7 +16,7 @@ import { useRouter } from 'next/router'
 const ShoppingCardModal = ({closeModal,shoppingModal}:{shoppingModal:boolean,closeModal:(...args:any[])=>void}) => {
  
 //@ts-ignore
- const {loggedIn}=useContext(AppContext);
+ const {loggedIn,changeOrderByUnloggedUsers}=useContext(AppContext);
   const dispatch=useDispatch();
     const [showError,setShowError]=useState(false)
     const [showSuccess,setShowSuccess]=useState(false)
@@ -87,16 +87,20 @@ const handleCountInputChange=(e:React.ChangeEvent<HTMLInputElement>,lot:any)=>{
   
 }
 
-const handleRegister=(e:React.MouseEvent<HTMLButtonElement>)=>{
+const handleRegistOrder=async(e:React.MouseEvent<HTMLButtonElement>)=>{
+
 e.preventDefault();
+
 if(loggedIn==true){
-  setShowSuccess(true)
-setShowError(false)
+  setLoading(true)
+  await router.push("/registOrder/")
+  closeModal()
 }
 else{
-  setShowError(true)
-  setShowSuccess(false)
-  
+  //the code below means the user should go to regist order page after login!
+await changeOrderByUnloggedUsers(true)
+ await router.push('/login/')
+  closeModal()
 }
 
 }
@@ -149,11 +153,7 @@ const removeItem=(id:number)=>{
                 </div>
                 <div className="cart_btn">
                     
-                    <a href="#" onClick={async(e)=>{e.preventDefault();
-                       setLoading(true)
-                       await router.push("/registOrder/")
-                       closeModal()
-                    }} className="btn btn-secondary">ادامه خرید</a>
+                    <button   onClick={handleRegistOrder} className="btn btn-secondary" disabled={customerLots.length>0 ? false : true}>ادامه خرید</button>
                 </div>
             </div>
         </div>
