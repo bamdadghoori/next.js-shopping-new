@@ -29,44 +29,47 @@ console.log(category)
     //initialize min and max price for range slider 
     let minPrice:number=0
     let maxPrice:number=0
-    if(lotsInCategory[0].price!=undefined){
-       minPrice=lotsInCategory[0].price;
-       maxPrice=lotsInCategory[0].price;
-    }
-    //some lots doesn't have price property and they have newPrice and oldPrice instead!
-    else{
-      minPrice=lotsInCategory[0].newPrice;
-       maxPrice=lotsInCategory[0].newPrice;
+    if(lotsInCategory.length>0){
+        if(lotsInCategory[0].price!=undefined){
+            minPrice=lotsInCategory[0].price;
+            maxPrice=lotsInCategory[0].price;
+         }
+         //some lots doesn't have price property and they have newPrice and oldPrice instead!
+         else{
+           minPrice=lotsInCategory[0].newPrice;
+            maxPrice=lotsInCategory[0].newPrice;
+         }
+       
+       
+       //calculate min and max price for range slider
+       for(let i=0;i<lotsInCategory.length;i++){
+         console.log(lotsInCategory[i])
+         if(i>0&&  lotsInCategory[i].price!=undefined){
+           console.log(lotsInCategory[i])
+           if(lotsInCategory[i].price<minPrice){
+             console.log(lotsInCategory[i])
+             minPrice=lotsInCategory[i].price
+           }
+           else if(lotsInCategory[i].price>maxPrice){
+       
+             console.log(lotsInCategory[i])
+             maxPrice=lotsInCategory[i].price
+           }
+         }
+         else if(i>0&&  lotsInCategory[i].newPrice!=undefined){
+           console.log(lotsInCategory[i])
+           if(lotsInCategory[i].newPrice<minPrice){
+             console.log(lotsInCategory[i])
+             minPrice=lotsInCategory[i].newPrice
+           }
+           else if(lotsInCategory[i].newPrice>maxPrice){
+             maxPrice=lotsInCategory[i].newPrice
+           }
+         }
+     }
+     
     }
   
-  
-  //calculate min and max price for range slider
-  for(let i=0;i<lotsInCategory.length;i++){
-    console.log(lotsInCategory[i])
-    if(i>0&&  lotsInCategory[i].price!=undefined){
-      console.log(lotsInCategory[i])
-      if(lotsInCategory[i].price<minPrice){
-        console.log(lotsInCategory[i])
-        minPrice=lotsInCategory[i].price
-      }
-      else if(lotsInCategory[i].price>maxPrice){
-  
-        console.log(lotsInCategory[i])
-        maxPrice=lotsInCategory[i].price
-      }
-    }
-    else if(i>0&&  lotsInCategory[i].newPrice!=undefined){
-      console.log(lotsInCategory[i])
-      if(lotsInCategory[i].newPrice<minPrice){
-        console.log(lotsInCategory[i])
-        minPrice=lotsInCategory[i].newPrice
-      }
-      else if(lotsInCategory[i].newPrice>maxPrice){
-        maxPrice=lotsInCategory[i].newPrice
-      }
-    }
-}
-
 
 
 minPrice=0.9*minPrice
@@ -123,7 +126,7 @@ useEffect(()=>{
             else{
                
                 newSubCategory=subCategory
-                router.push({pathname:`/category/${category.categoryTitle}`,query:{sort:query.sort,available:false}})
+                router.push({pathname:`/category/${category.categoryTitle}`})
             }
           
         }
@@ -140,7 +143,7 @@ useEffect(()=>{
    
 }
 
-//  using  changeCheckBoxForCategory when user is not not category page, instead user is in bestSelling or newLots
+//  using  changeCheckBoxForCategory when user is not not category page, instead user is in bestSelling or newLots or search
 
 
 const changeCheckBoxForCategory=(e:React.ChangeEvent<HTMLInputElement>,category:string)=>{
@@ -171,8 +174,15 @@ const changeCheckBoxForCategory=(e:React.ChangeEvent<HTMLInputElement>,category:
             console.log(newTitle)
         }
         else{
-            console.log(window.location.pathname)
-            router.push({pathname:window.location.pathname,query:{sort:query.sort,available:false}})
+
+            //check if we are in search page .if we are in the search page s= should be define
+              if(query.s!=undefined && query.s.length!=0){
+                router.push({pathname:window.location.pathname,query:{s:query.s,sort:query.sort}})
+              }
+              else{
+                router.push({pathname:window.location.pathname})
+              }
+            
         }
     }
     else{
@@ -184,7 +194,7 @@ const changeCheckBoxForCategory=(e:React.ChangeEvent<HTMLInputElement>,category:
 }
   return (
     <>
-    {console.log(lotsInCategory.every((el)=>el.soldOut>=50))}
+   
       <div className="ec-shop-leftside col-lg-3 order-lg-first col-md-12 order-md-last">
                     <div id="shop_sidebar">
                         <div className="ec-sidebar-heading">
@@ -218,7 +228,7 @@ const changeCheckBoxForCategory=(e:React.ChangeEvent<HTMLInputElement>,category:
                                           
                                     ):(
                                         <div className="ec-sidebar-block-item">
-                                        <input type="checkbox" checked={true} value={el} onChange={(e)=>changeCheckBoxForSubCategory(e,el)}/> <a href="#">{el}</a><span className="checked"></span>
+                                        <input type="checkbox" checked={false} value={el} onChange={(e)=>changeCheckBoxForSubCategory(e,el)}/> <a href="#">{el}</a><span className="checked"></span>
                                     </div>
                                     )
                                      )
@@ -232,8 +242,8 @@ const changeCheckBoxForCategory=(e:React.ChangeEvent<HTMLInputElement>,category:
                                 </div>
                                 </>
                             )):(
-// lotsInCategory.every((el)=>el.soldOut>=50)==true means the lots are best selling items and we are in the bestSelling page  and  lotsInCategory.every((el)=>el.isNew) means we are in newLots page
-(lotsInCategory.every((el)=>el.soldOut>=50)==true || lotsInCategory.every((el)=>el.isNew)==true) && (
+// lotsInCategory.every((el)=>el.soldOut>=50)==true means the lots are best selling items and we are in the bestSelling page  and  lotsInCategory.every((el)=>el.isNew) means we are in newLots page and  query.s!=undefind means we are in search page
+(lotsInCategory.every((el)=>el.soldOut>=50)==true || lotsInCategory.every((el)=>el.isNew)==true|| query.s!=undefined) && (
     <>
     <div className="ec-sidebar-block">
        <div className="ec-sb-title">

@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect,useState,useContext } from 'react';
 import { getBestSellings } from '../../utils/manualData';
 import { useRouter } from 'next/router';
-import ReactLoading from "react-loading"
+
 import Lot from '../../public/components/lot';
 import CategorySideBar from '../../public/components/categoryPage/categorySideBar';
 import AppContext from '../../public/components/context';
@@ -66,9 +66,7 @@ import CheckBoxError from '../../public/components/categoryPage/checkBoxError';
           if(el.price==undefined){
           return {...el,price:el.newPrice}
            
-        //    const newElement= Object.create(el)
-        //  newElement.price=el.newPrice
-        //        return newElement
+       
            }
            else{
             return el
@@ -137,7 +135,7 @@ import CheckBoxError from '../../public/components/categoryPage/checkBoxError';
    
 
     useEffect(()=>{
-       console.log("uf")
+       
       
         initializeLotsInBestSelling();
     

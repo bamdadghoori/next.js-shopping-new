@@ -20,9 +20,11 @@ const Navbar = () => {
   
   const [loading,setLoading]=useState(false)
   const [shoppingModal,setShoppingModal]=useState(false)
+  const [searchText,setSearchText]:any=useState()
+  
   const router=useRouter();
   const totalCount=useSelector((state:RootState)=>state.persistedReducer.totalCount)
-//   const customerLots=useSelector((state:RootState)=>state.persistedReducer.customerLots)
+
   let lots:any[]=useSelector(((state:RootState)=>state.persistedReducer.lots))
   const categories=useSelector(((state:RootState)=>state.persistedReducer.categories))
   const customerLots=useSelector(((state:RootState)=>state.persistedReducer.customerLots))
@@ -33,18 +35,9 @@ const Navbar = () => {
   
 
   
-//   lots=lots.map((el=>el.category))
-  
- 
-//   lots=lots.filter((el,i)=>{
-//     return lots.indexOf(el)==i
-//   })
 
-//    const handleCategoryLink=(e:React.MouseEvent<HTMLElement>,el:string)=>{
-//         e.preventDefault();
-//         setLoading(true)
-//        router.push(`/lotsInCategory/${el}`)
-//    }
+
+    
    const changeLoading=(flag:boolean)=>{
    console.log("cl")
     setLoading(flag)
@@ -54,14 +47,7 @@ const Navbar = () => {
    
 
 
-   const handleLogOut=(e:React.MouseEvent<HTMLElement>)=>{
-         e.preventDefault();
-        
-         localStorage.removeItem("token")
-         router.push("../../")
-        logOut();
-       
-   }
+ 
 
    //to open and close shoppingCardModal
    const openModal=(e:React.MouseEvent<HTMLAnchorElement>)=>{
@@ -72,11 +58,22 @@ const Navbar = () => {
     setShoppingModal(false)
    }
 
+// to set the search box controlled
+const changeSearchText=(e:React.ChangeEvent<HTMLInputElement>)=>{
+    const value=e.target.value;
+    setSearchText(value)
+}
 
- 
+// to handle search button
+const handleSearch=async(e:React.MouseEvent<HTMLButtonElement>)=>{
+    e.preventDefault();
+    setLoading(true)
+    await router.push({pathname:'/search/',query:{s:searchText}})
+}
+   
   return (
     <>
- {console.log(customerLots)}
+ {console.log(searchText)}
      {
        loading&& (
         <NextNProgress
@@ -188,8 +185,10 @@ const Navbar = () => {
                         <div className="align-self-center">
                             <div className="header-search">
                                 <form className="ec-btn-group-form" action="#">
-                                    <input className="form-control" placeholder="نام محصول خود را وارد کنید ..." type="text" />
-                                    <button className="submit" type="submit"><img src="/images/icons/search.svg" className="svg_img header_svg" alt="" /></button>
+                                    <input onChange={changeSearchText} className="form-control" placeholder="جستجو بر اساس نام محصول و یا دسته بندی" type="text"
+                                    
+                                    />
+                                    <button onClick={handleSearch} className="submit"><img src="/images/icons/search.svg" className="svg_img header_svg" alt="" /></button>
                                 </form>
                             </div>
                         </div>
@@ -243,7 +242,7 @@ const Navbar = () => {
                     <div className="col">
                         <div className="header-search">
                             <form className="ec-btn-group-form" action="#">
-                                <input className="form-control" placeholder="نام محصول خود را وارد کنید ..." type="text" />
+                                <input className="form-control" value={searchText} placeholder="نام محصول خود را وارد کنید ..." type="text" />
                                 <button className="submit" type="submit"><img src="/images/icons/search.svg" className="svg_img header_svg" alt="icon"/></button>
                             </form>
                         </div>
