@@ -4,38 +4,39 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Link from 'next/link'
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faUser } from '@fortawesome/free-regular-svg-icons'
-
-import SearchBox from './searchBox';
 import { useRouter } from 'next/router';
 import NextNProgress from "nextjs-progressbar" 
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import ShoppingCardModal from "./shoppingCardModal"
 import NavbarCategory from './navbarCategory';
 import { useContext } from 'react';
 import AppContext from './context';
+import SearchBox from './searchBox';
 
 const Navbar = () => {
   
+
+
   const [loading,setLoading]=useState(false)
   const [shoppingModal,setShoppingModal]=useState(false)
   const [searchText,setSearchText]:any=useState()
   
-  const router=useRouter();
-  const totalCount=useSelector((state:RootState)=>state.persistedReducer.totalCount)
 
-  let lots:any[]=useSelector(((state:RootState)=>state.persistedReducer.lots))
+  //lots that sould be shown in the search box modal
+  const [demoLots,setDemoLots]=useState([])
+  const router=useRouter();
+ 
+
+
   const categories=useSelector(((state:RootState)=>state.persistedReducer.categories))
   const customerLots=useSelector(((state:RootState)=>state.persistedReducer.customerLots))
-  //@ts-ignore
-  const {loggedIn}=useContext(AppContext)
-    //@ts-ignore
-    const {logOut}=useContext(AppContext)
-  
+  const lots=useSelector(((state:RootState)=>state.persistedReducer.lots))
 
+const {showSearchModal,changeShowSearchModal}:any=useContext(AppContext)
   
-
+useEffect(()=>{
+    
+},[showSearchModal])
 
     
    const changeLoading=(flag:boolean)=>{
@@ -62,6 +63,16 @@ const Navbar = () => {
 const changeSearchText=(e:React.ChangeEvent<HTMLInputElement>)=>{
     const value=e.target.value;
     setSearchText(value)
+    if(value.length>0){
+        const filteredLots=lots.filter((el:any)=>el.title.includes(value)||el.category.includes(value))
+        console.log(filteredLots)
+        setDemoLots(filteredLots)
+    }
+    else{
+        setDemoLots([])
+    }
+
+    
 }
 
 // to handle search button
@@ -73,7 +84,7 @@ const handleSearch=async(e:React.MouseEvent<HTMLButtonElement>)=>{
    
   return (
     <>
- {console.log(searchText)}
+ {console.log(showSearchModal)}
      {
        loading&& (
         <NextNProgress
@@ -185,12 +196,18 @@ const handleSearch=async(e:React.MouseEvent<HTMLButtonElement>)=>{
                         <div className="align-self-center">
                             <div className="header-search">
                                 <form className="ec-btn-group-form" action="#">
-                                    <input onChange={changeSearchText} className="form-control" placeholder="جستجو بر اساس نام محصول و یا دسته بندی" type="text"
-                                    
+                                    <input  value={searchText} onChange={changeSearchText} className="form-control" placeholder="جستجو بر اساس نام محصول و یا دسته بندی" type="text"
+                                    onClick={()=>{changeShowSearchModal(true)}}
+                                    // onBlur={()=>{changeShowSearchModal(false)}}
                                     />
                                     <button onClick={handleSearch} className="submit"><img src="/images/icons/search.svg" className="svg_img header_svg" alt="" /></button>
+                               
                                 </form>
                             </div>
+                            {/* {showSearchModal &&( */}
+                                   <SearchBox searchText={searchText} demoLots={demoLots} handleSearch={handleSearch} changeShowSearchModal={changeShowSearchModal} changeSearchText={changeSearchText}/>
+                                 {/* )
+                                 } */}
                         </div>
                        
                         <div className="align-self-center">

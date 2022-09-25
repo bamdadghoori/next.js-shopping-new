@@ -68,6 +68,13 @@ setLoggedIn(true)
 
    //to determine if it's listStyle view or not
    const [listStyle,setListStyle]=useState(false);
+
+   //to show and hide search modal
+   const [showSearchModal,setShowSearchModal]=useState(false)
+   const changeShowSearchModal=(flag:boolean)=>{
+    console.log(flag)
+     setShowSearchModal(flag)
+   }
    //to sort array and pass to context
    const sortArray=(array:any[],property:any,dec:boolean)=>{
     console.log('s')
@@ -144,18 +151,21 @@ const logOut=()=>{
      <Script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.5/umd/popper.min.js"/>
      
      <Provider store={store}>
-  <AppContext.Provider value={{loggedIn,login,logOut,sortArray,handleStyle,listStyle,orderByUnloggedUsers,changeOrderByUnloggedUsers}}>
+  <AppContext.Provider value={{loggedIn,login,logOut,sortArray,handleStyle,listStyle,orderByUnloggedUsers,changeOrderByUnloggedUsers,showSearchModal,changeShowSearchModal}}>
      <PersistGate loading={null} persistor={persistor}>
     
-    
+  
   <NewLayout>
+
   <Component {...pageProps} />
+  
   </NewLayout>
 
   
   </PersistGate>
   </AppContext.Provider>
   </Provider>
+
   </>
   ) 
 }

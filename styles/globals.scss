@@ -756,6 +756,52 @@ a{
   margin-top: 1vh;
 }
 
+
+
+//new 
+.search-box{
+  position: absolute;
+  border:  1px solid #e0e0e2;
+  border-radius: 8px;
+  background: #fff;
+  max-height: 80vh;
+
+  z-index: 3;
+   top: 0vh;
+   box-shadow: 0 1px 1px rgb(0 0 0 / 14%), 0 4px 4px rgb(0 0 0 / 10%);
+   input{
+    z-index: 3;
+    border-radius: 8px;
+   }
+   .lots-in-search-box{
+    width: 500px !important;
+    max-height: 30vh;
+    overflow-y: scroll;
+    .lot-in-search-box{
+      border: 1px solid #f0f0f1;
+      width: 200px;
+      height: 13vh;
+      border-radius: 8px;
+      margin-right: 1vw;
+      margin-top: 1vh;
+      padding: 10px;
+      .col-md-7{
+      padding: 1vh;
+      }
+      img{
+        height: 9vh;
+      }
+      .lot-title{
+ 
+        -webkit-line-clamp:1;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    }
+   }
+}
+
 // responsive
 @media(max-width:600px)
 {
