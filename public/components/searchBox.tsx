@@ -135,13 +135,32 @@ searchValue=="" ? (
                                     </div>
                               </div>
                             })}
-                             {includerCategories.map((el:any,i:number)=>{
-                              return <div>{el.categoryTitle}</div>
+                          
+                            </div>
+                            )}
+                            <div className="search-categories">
+
+                            
+                               {includerCategories.map((el:any,i:number)=>{
+                              return (
+                                <>
+                               
+                                <div className="search-category">
+                                  
+                                  <div className='img-container'>
+                                  
+                                  <img src="/images/icons/search.svg" className="svg_img header_svg" alt="" />
+                                  
+                                  </div>
+                                  <div >در دسته ی <span style={{'color':'#3474d4'}}>{el.categoryTitle}</span></div>
+                                </div>
+                                </>
+                              )
+                              
+                              
                              }
                             )}
                             </div>
-                            )}
-                            
 
 
                           
