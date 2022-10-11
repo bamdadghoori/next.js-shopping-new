@@ -120,6 +120,7 @@ const handleSubmitCode=async(e:React.MouseEvent<HTMLButtonElement>)=>{
 
 
       let id=1;
+      
       if(users.length!=0){
         console.log(users[users.length-1])
         id=users[users.length-1].id+1
@@ -133,12 +134,14 @@ const handleSubmitCode=async(e:React.MouseEvent<HTMLButtonElement>)=>{
             //convert currentUser from array to object
             currentUser=currentUser[0]
             const token=currentUser.jwt
+          
       localStorage.setItem('token',token)
         }
         else{
           //user registered just now
           const token=`assume this is jwt:${mobile}`
           localStorage.setItem('token',token)
+          console.log(token)
           const newUser={
             id:id,
             mobile:mobile,
@@ -148,6 +151,20 @@ const handleSubmitCode=async(e:React.MouseEvent<HTMLButtonElement>)=>{
          
           console.log(localStorage.getItem('token'))
         }
+      }
+      else{
+           //user registered just now
+           const token=`assume this is jwt:${mobile}`
+           localStorage.setItem('token',token)
+           console.log(token)
+           const newUser={
+             id:id,
+             mobile:mobile,
+             jwt:token
+           }
+           dispatch(addUserAction(newUser))
+          
+           console.log(localStorage.getItem('token'))
       }
       await login()
  

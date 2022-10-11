@@ -65,12 +65,12 @@ setErrors([])
   return (
    <>
  
-  
-  
     <div className="ec-ratting-content" ref={commentRef}>
         
                                             <h3>افزودن نظر</h3>
-                                            <div className="ec-ratting-form">
+                                            
+  {localStorage.getItem('token')!=undefined ? (
+    <div className="ec-ratting-form">
                                             <div className="section-title">
                      {isSubmitted==true && (errors.length!=0 ? 
                      (errors.map((el:any,i:number)=>{
@@ -105,6 +105,16 @@ setErrors([])
                                                     </div>
                                                 </form>
                                             </div>
+):(
+    <div className="ec-ratting-form">
+    <div className="section-title">
+    <p className="sub-title mb-3" style={{"textAlign":"center","color":"#b2001a"}}>برای ثبت نظر ابتدا باید ورود کاربری انجام دهید</p>
+    </div>
+    </div>
+
+)}
+
+                                            
                                         </div>
    </>
   )

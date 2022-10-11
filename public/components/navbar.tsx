@@ -1,6 +1,6 @@
 import React from 'react'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Link from 'next/link'
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
@@ -12,7 +12,7 @@ import NavbarCategory from './navbarCategory';
 import { useContext } from 'react';
 import AppContext from './context';
 import SearchBox from './searchBox';
-
+import MobileNavbar from './mobileNavbar';
 const Navbar = () => {
   
 
@@ -20,7 +20,7 @@ const Navbar = () => {
   const [loading,setLoading]=useState(false)
   const [shoppingModal,setShoppingModal]=useState(false)
   const [searchText,setSearchText]:any=useState()
-  
+  const [showMobileNavbar,setShowMobileNavbar]=useState(false)
 
   //lots that sould be shown in the search box modal
   const [demoLots,setDemoLots]=useState([])
@@ -81,7 +81,11 @@ const handleSearch=async(e:React.MouseEvent<HTMLButtonElement>)=>{
     setLoading(true)
     await router.push({pathname:'/search/',query:{s:searchText}})
 }
-   
+   //open and close mobile side bar
+ const changeMobileNavbar=(flag:boolean)=>{
+    console.log('cmn')
+    setShowMobileNavbar(flag)
+ }
   return (
     <>
  {console.log(showSearchModal)}
@@ -115,35 +119,6 @@ const handleSearch=async(e:React.MouseEvent<HTMLButtonElement>)=>{
                         </div>
                     </div>
               
-                    {/* <div className="col text-center header-top-center">
-                        <div className="header-top-message text-upper">
-                            <span> ارسال رایگان </span>این هفته برای سفارشات بالای 200 تومان
-                        </div>
-                    </div>
-                 
-                    <div className="col header-top-right d-none d-lg-block">
-                        <div className="header-top-lan-curr d-flex justify-content-end">
-                         
-                            <div className="header-top-curr dropdown">
-                                <button className="dropdown-toggle text-upper" data-bs-toggle="dropdown">ارز<i className="ecicon eci-caret-down" aria-hidden="true"></i></button>
-                                <ul className="dropdown-menu">
-                                    <li className="active"><a className="dropdown-item" href="#">دلار</a></li>
-                                    <li><a className="dropdown-item" href="#">یورو</a></li>
-                                </ul>
-                            </div>
-                            
-                            <div className="header-top-lan dropdown">
-                                <button className="dropdown-toggle text-upper" data-bs-toggle="dropdown">زبان<i className="ecicon eci-caret-down" aria-hidden="true"></i></button>
-                                <ul className="dropdown-menu">
-                                    <li className="active"><a className="dropdown-item" href="#">انگلیسی</a></li>
-                                    <li><a className="dropdown-item" href="#">ایتالیایی</a></li>
-                                </ul>
-                            </div>
-                          
-
-                        </div>
-                    </div> */}
-                   
                     <div className="col d-lg-none ">
                         <div className="ec-header-bottons">
                           
@@ -161,19 +136,16 @@ const handleSearch=async(e:React.MouseEvent<HTMLButtonElement>)=>{
                                 </ul>
                             </div>
                           
-                            <a href="wishlist.html" className="ec-header-btn ec-header-wishlist">
-                                <div className="header-icon"><img src="/images/icons/wishlist.svg" className="svg_img header_svg" alt="" /></div>
-                                <span className="ec-header-count">4</span>
-                            </a>
+                          
                             
                             <a href="#" onClick={openModal} className="ec-header-btn ec-side-toggle">
                                 <div className="header-icon"><img src="/images/icons/cart.svg" className="svg_img header_svg" alt="" /></div>
                                 <span className="ec-header-count cart-count-lable">{customerLots.length}</span>
                             </a>
                         
-                            <a href="#ec-mobile-menu" className="ec-header-btn ec-side-toggle d-lg-none">
+                        <span onClick={()=>changeMobileNavbar(true)} className="ec-header-btn ec-side-toggle d-lg-none">
                                 <img src="/images/icons/menu.svg" className="svg_img header_svg" alt="icon" />
-                            </a>
+                            </span>
                            
                         </div>
                     </div>
@@ -204,10 +176,10 @@ const handleSearch=async(e:React.MouseEvent<HTMLButtonElement>)=>{
                                
                                 </form>
                             </div>
-                            {/* {showSearchModal &&( */}
+                            {showSearchModal &&(
                                    <SearchBox searchText={searchText} demoLots={demoLots} handleSearch={handleSearch} changeShowSearchModal={changeShowSearchModal} changeSearchText={changeSearchText}/>
-                                 {/* )
-                                 } */}
+                                 )
+                                 } 
                         </div>
                        
                         <div className="align-self-center">
@@ -227,11 +199,7 @@ const handleSearch=async(e:React.MouseEvent<HTMLButtonElement>)=>{
                                         <li><a className="dropdown-item" href="login.html">ورود</a></li>
                                     </ul>
                                 </div>
-                              
-                                <a href="wishlist.html" className="ec-header-btn ec-header-wishlist">
-                                    <div className="header-icon"><img src="/images/icons/wishlist.svg" className="svg_img header_svg" alt="" /></div>
-                                    <span className="ec-header-count">4</span>
-                                </a>
+                             
                               
                                 <a href="#ec-side-cart" onClick={openModal}  className="ec-header-btn ec-side-toggle">
                                     <div className="header-icon"><img src="/images/icons/cart.svg" className="svg_img header_svg" alt="" /></div>
@@ -311,212 +279,7 @@ const handleSearch=async(e:React.MouseEvent<HTMLButtonElement>)=>{
             </div>
         </div>
        
-        <div id="ec-mobile-menu" className="ec-side-cart ec-mobile-menu">
-            <div className="ec-menu-title">
-                <span className="menu_title">منو</span>
-                <button className="ec-close">×</button>
-            </div>
-            <div className="ec-menu-inner">
-                <div className="ec-menu-content">
-                    <ul>
-                        <li className='dropdown'><a onClick={async()=>{
-                            changeLoading(true)
-                            router.push('/home/')
-                            changeLoading(false)
-                        }}>خانه</a></li>
-                        <li><a href="javascript:void(0)">دسته بندی ها</a>
-                            <ul className="sub-menu">
-                                <li>
-                                    <a href="javascript:void(0)">ورژن کلاسیک</a>
-                                    <ul className="sub-menu">
-                                        <li><a href="shop-left-sidebar-col-3.html">سایدبار چپ 3 ستونه</a></li>
-                                        <li><a href="shop-left-sidebar-col-4.html">سایدبار چپ 4 ستونه</a></li>
-                                        <li><a href="shop-right-sidebar-col-3.html">سایدبار راست 3 ستونه</a></li>
-                                        <li><a href="shop-right-sidebar-col-4.html">سایدبار راست 4 ستونه</a></li>
-                                        <li><a href="shop-full-width.html">تمام عرض 4 ستونه</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">ورژن کلاسیک</a>
-                                    <ul className="sub-menu">
-                                        <li><a href="shop-banner-left-sidebar-col-3.html"> بنر سایدبار چپ  3
-                                                column</a></li>
-                                        <li><a href="shop-banner-left-sidebar-col-4.html"> بنر سایدبار چپ  4
-                                                column</a></li>
-                                        <li><a href="shop-banner-right-sidebar-col-3.html"> بنر سایدبار راست  3
-                                                column</a></li>
-                                        <li><a href="shop-banner-right-sidebar-col-4.html"> بنر سایدبار راست  4
-                                                column</a></li>
-                                        <li><a href="shop-banner-full-width.html"> بنر تمام عرض 4 ستونه</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">ورژن ستونه</a>
-                                    <ul className="sub-menu">
-                                        <li><a href="shop-full-width-col-3.html">3 ستون تمام عرض</a></li>
-                                        <li><a href="shop-full-width-col-4.html">4 ستون تمام عرض</a></li>
-                                        <li><a href="shop-full-width-col-5.html">5 ستون تمام عرض</a></li>
-                                        <li><a href="shop-full-width-col-6.html">6 ستون تمام عرض</a></li>
-                                        <li><a href="shop-banner-full-width-col-3.html">بنر 3 ستونه</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">ورژن لیست</a>
-                                    <ul className="sub-menu">
-                                        <li><a href="shop-list-left-sidebar.html">فروشگاه با سایدبار چپ</a></li>
-                                        <li><a href="shop-list-right-sidebar.html">فروشگاه با سایدبار راست</a></li>
-                                        <li><a href="shop-list-banner-left-sidebar.html"> بنر سایدبار چپ </a></li>
-                                        <li><a href="shop-list-banner-right-sidebar.html"> بنر سایدبار راست </a></li>
-                                        <li><a href="shop-list-full-col-2.html">تمام عرض 2 ستونه</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a className="p-0" href="shop-left-sidebar-col-3.html"><img className="img-responsive" src="/images/menu-banner/1.jpg" alt=""/></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><Link href="#premiers">newLots</Link>
-                          
-                        </li>
-                        <li><a href="javascript:void(0)">دیگر</a>
-                            <ul className="sub-menu">
-                                <li><a href="javascript:void(0)">تاییده ایمیل </a>
-                                    <ul className="sub-menu">
-                                        <li><a href="email-template-confirm-1.html">تاییده ایمیل  1</a></li>
-                                        <li><a href="email-template-confirm-2.html">تاییده ایمیل  2</a></li>
-                                        <li><a href="email-template-confirm-3.html">تاییده ایمیل  3</a></li>
-                                        <li><a href="email-template-confirm-4.html">تاییده ایمیل  4</a></li>
-                                        <li><a href="email-template-confirm-5.html">تاییده ایمیل  5</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="javascript:void(0)">ایمیل فراموشی رمز عبور</a>
-                                    <ul className="sub-menu">
-                                        <li><a href="email-template-forgot-password-1.html">ایمیل ریست رمزعبور 1</a></li>
-                                        <li><a href="email-template-forgot-password-2.html">ایمیل ریست رمزعبور 2</a></li>
-                                        <li><a href="email-template-forgot-password-3.html">ایمیل ریست رمزعبور 3</a></li>
-                                        <li><a href="email-template-forgot-password-4.html">ایمیل ریست رمزعبور 4</a></li>
-                                        <li><a href="email-template-forgot-password-5.html">ایمیل ریست رمزعبور 5</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="javascript:void(0)">ایمیل تبلیغاتی</a>
-                                    <ul className="sub-menu">
-                                        <li><a href="email-template-offers-1.html">ایمیل تبلیغاتی  1</a></li>
-                                        <li><a href="email-template-offers-2.html">ایمیل تبلیغاتی  2</a></li>
-                                        <li><a href="email-template-offers-3.html">ایمیل تبلیغاتی  3</a></li>
-                                        <li><a href="email-template-offers-4.html">ایمیل تبلیغاتی  4</a></li>
-                                        <li><a href="email-template-offers-5.html">ایمیل تبلیغاتی  5</a></li>
-                                        <li><a href="email-template-offers-6.html">ایمیل تبلیغاتی  6</a></li>
-                                        <li><a href="email-template-offers-7.html">ایمیل تبلیغاتی  7</a></li>
-                                        <li><a href="email-template-offers-8.html">ایمیل تبلیغاتی  8</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="javascript:void(0)">صفحات اکانت فروشنده</a>
-                                    <ul className="sub-menu">
-                                        <li><a href="vendor-dashboard.html">داشبرد فروشنده</a></li>
-                                        <li><a href="vendor-profile.html">پروفایل فروشنده</a></li>
-                                        <li><a href="vendor-uploads.html">آپلودهای فروشنده</a></li>
-                                        <li><a href="vendor-settings.html">تنظیمات فروشنده</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="javascript:void(0)">صفحات اکانت کاربر</a>
-                                    <ul className="sub-menu">
-                                        <li><a href="user-profile.html">پروفایل کاربر</a></li>
-                                        <li><a href="user-history.html">تاریخچه کاربر</a></li>
-                                        <li><a href="wishlist.html">علاقه مندی ها</a></li>
-                                        <li><a href="track-order.html">پیگیری سفارش</a></li>
-                                        <li><a href="user-invoice.html">فاکتور کاربر</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="javascript:void(0)">صفحات ساخت و ساز</a>
-                                    <ul className="sub-menu">
-                                        <li><a href="404-error-page.html">404 صفحه خطا</a></li>
-                                        <li><a href="under-maintenance.html">صفحه در حال ساخت</a></li>
-                                        <li><a href="coming-soon.html">صفحه به زودی</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="javascript:void(0)">صفحات کاتالوگ فروشندگی</a>
-                                    <ul className="sub-menu">
-                                        <li><a href="catalog-single-vendor.html">کاتالوگ تک فروشنده </a></li>
-                                        <li><a href="catalog-multi-vendor.html">کاتالوگ چند فروشنده </a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="javascript:void(0)">صفحات</a>
-                            <ul className="sub-menu">
-                                <li><a href="about-us.html">درباره ما</a></li>
-                                <li><a href="contact-us.html">ارتباط با ما</a></li>
-                                <li><a href="cart.html">سبد خرید</a></li>
-                                <li><a href="checkout.html">ادامه خرید</a></li>
-                                <li><a href="compare.html">مقایسه</a></li>
-                                <li><a href="faq.html">سوالات متداول</a></li>
-                                <li><a href="login.html">ورود</a></li>
-                                <li><a href="register.html">ثبت نام</a></li>
-                                <li><a href="track-order.html">پیگیری سفارش</a></li>
-                                <li><a href="terms-condition.html">شرایط و ضوابط</a></li>
-                                <li><a href="privacy-policy.html">سیاست حفظ حریم خصوصی</a></li>
-                            </ul>
-                        </li>
-                        <li className="dropdown"><a href="javascript:void(0)">بلاگ</a>
-                            <ul className="sub-menu">
-                                <li><a href="blog-left-sidebar.html">بلاگ سایدبار چپ</a></li>
-                                <li><a href="blog-right-sidebar.html">بلاگ سایدبار راست</a></li>
-                                <li><a href="blog-detail-left-sidebar.html">جزییات بلاگ سایدبار چپ</a></li>
-                                <li><a href="blog-detail-right-sidebar.html">جزییات بلاگ سایدبار راست</a></li>
-                                <li><a href="blog-full-width.html">بلاگ تمام عرض</a></li>
-                                <li><a href="blog-detail-full-width.html">جزییات بلاگ تمام عرض</a></li>
-                            </ul>
-                        </li>
-                        <li className="dropdown"><a href="javascript:void(0)">عناصر</a>
-                            <ul className="sub-menu">
-                                <li><a href="elemets-products.html">محصولات</a></li>
-                                <li><a href="elemets-typography.html">تایپوگرافی</a></li>
-                                <li><a href="elemets-title.html">سرتیترها</a></li>
-                                <li><a href="elemets-categories.html">دسته بندی ها</a></li>
-                                <li><a href="elemets-buttons.html">دکمه ها</a></li>
-                                <li><a href="elemets-tabs.html">تب ها</a></li>
-                                <li><a href="elemets-accordions.html">آکاردیون</a></li>
-                                <li><a href="elemets-blog.html">بلاگ</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#premiers">پیشنهادات داغ</a></li>
-                    </ul>
-                </div>
-                <div className="header-res-lan-curr">
-                    <div className="header-top-lan-curr">
-                       
-                        <div className="header-top-lan dropdown">
-                            <button className="dropdown-toggle text-upper" data-bs-toggle="dropdown">زبان<i className="ecicon eci-caret-down" aria-hidden="true"></i></button>
-                            <ul className="dropdown-menu">
-                                <li className="active"><a className="dropdown-item" href="#">انگلیسی</a></li>
-                                <li><a className="dropdown-item" href="#">ایتالیایی</a></li>
-                            </ul>
-                        </div>
-                      
-                        <div className="header-top-curr dropdown">
-                            <button className="dropdown-toggle text-upper" data-bs-toggle="dropdown">ارز<i className="ecicon eci-caret-down" aria-hidden="true"></i></button>
-                            <ul className="dropdown-menu">
-                                <li className="active"><a className="dropdown-item" href="#">دلار</a></li>
-                                <li><a className="dropdown-item" href="#">یورو</a></li>
-                            </ul>
-                        </div>
-                       
-                    </div>
-                    
-                    <div className="header-res-social">
-                        <div className="header-top-social">
-                            <ul className="mb-0">
-                                <li className="list-inline-item"><a className="hdr-facebook" href="#"><i className="ecicon eci-facebook"></i></a></li>
-                                <li className="list-inline-item"><a className="hdr-twitter" href="#"><i className="ecicon eci-twitter"></i></a></li>
-                                <li className="list-inline-item"><a className="hdr-instagram" href="#"><i className="ecicon eci-instagram"></i></a></li>
-                                <li className="list-inline-item"><a className="hdr-linkedin" href="#"><i className="ecicon eci-linkedin"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                  
-                </div>
-            </div>
-        </div>
+       <MobileNavbar showMobileNavbar={showMobileNavbar} changeLoading={changeLoading} changeMobileNavbar={changeMobileNavbar} />
         
     </header>
    <ShoppingCardModal shoppingModal={shoppingModal} closeModal={closeModal}/> 

@@ -96,12 +96,12 @@ router.push(`/lotDetails/${lot.id}`)
                         <img className="main-image" src={lot.imgUrl} alt="Product"/>
                        
                     </a>
-                    <span className="percentage">20%</span>
-                    <a href="#" className="quickview" data-link-action="quickview" title="مشاهده" data-bs-toggle="modal" data-bs-target="#ec_quickview_modal"><img src="/images/icons/quickview.svg" className="svg_img pro_svg" alt=""/></a>
+                  
+                   
                     <div className="ec-pro-actions">
-                        <a href="compare.html" className="ec-btn-group compare" title="مقایسه"><img src="/images/icons/compare.svg" className="svg_img pro_svg" alt=""/></a>
+                       
                         <button title="افزودن به سبد خرید" onClick={addToCart} className=" add-to-cart"><img src="/images/icons/cart.svg" className="svg_img pro_svg" alt=""/> افزودن به کارت </button>
-                        <a className="ec-btn-group wishlist" title="علاقه مندی"><img src="/images/icons/wishlist.svg" className="svg_img pro_svg" alt=""/></a>
+                      
                     </div>
                 </div>
             </div>

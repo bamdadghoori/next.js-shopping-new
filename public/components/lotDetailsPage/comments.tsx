@@ -52,7 +52,7 @@ import Comment from './comment'
                                                             <i className="ecicon eci-star fill"></i>
                                                             <i className="ecicon eci-star fill"></i>
                                                             <i className="ecicon eci-star fill"></i>
-                                                            <i className="ecicon eci-star-o"></i>
+                                                            <i className="ecicon eci-star"></i>
                                                         </div>
                                                     </div>
                                                     <div className="ec-t-review-bottom">
@@ -71,8 +71,8 @@ import Comment from './comment'
                                                             <i className="ecicon eci-star fill"></i>
                                                             <i className="ecicon eci-star fill"></i>
                                                             <i className="ecicon eci-star fill"></i>
-                                                            <i className="ecicon eci-star-o"></i>
-                                                            <i className="ecicon eci-star-o"></i>
+                                                            <i className="ecicon eci-star"></i>
+                                                            <i className="ecicon eci-star"></i>
                                                         </div>
                                                     </div>
                                                     <div className="ec-t-review-bottom">
@@ -89,7 +89,7 @@ import Comment from './comment'
                                                 <div className="ec-t-review-content">
                                                     <div className="ec-t-review-top">
                                                         <div className="ec-t-review-name">{el.name}</div>
-                                                        <div className="ec-t-review-rating">
+                                                        <ul style={{'display':'flex'}} className="ec-t-review-rating">
                                                             
                                                            <li value={1}> <i className={`ecicon eci-star  ${el.rating>=1 ? 'fill':' '}`}></i></li>
                                                            <li value={2}> <i  className={`ecicon eci-star  ${el.rating>=2 ? 'fill':' '}`}></i></li>
@@ -97,7 +97,7 @@ import Comment from './comment'
                                                            <li value={4}> <i className={`ecicon eci-star  ${el.rating>=4 ? 'fill':' '}`}></i></li>
                                                            <li value={5}> <i  className={`ecicon eci-star  ${el.rating>=5 ? 'fill':' '}`}></i></li>
                                                             
-                                                        </div>
+                                                        </ul>
                                                     </div>
                                                     <div className="ec-t-review-bottom">
                                                       <p>

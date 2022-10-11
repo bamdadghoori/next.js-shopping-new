@@ -20,7 +20,7 @@ import React from 'react'
                         <div className="col-sm-12 col-lg-3 ec-footer-contact">
                             <div className="ec-footer-widget">
                                 <div className="ec-footer-logo">
-                                    <a href="#"><img src="assets/images/logo/footer-logo.png" alt=""/><img className="dark-footer-logo" src="assets/images/logo/dark-logo.png" alt="لوگو سایت" style={{"display": "none;"}}/></a>
+                                    <a href="#"><img src="/images/logo/footer-logo.png" alt=""/></a>
                                 </div>
                                 <h4 className="ec-footer-heading">ارتباط با ما</h4>
                                 <div className="ec-footer-links">
@@ -120,7 +120,7 @@ import React from 'react'
                         <div className="col footer-bottom-right">
                             <div className="footer-bottom-payment d-flex justify-content-end">
                                 <div className="payment-link">
-                                    <img src="assets/images/icons/payment.png" alt=""/>
+                                    <img src="/images/icons/payment.png" alt=""/>
                                 </div>
 
                             </div>

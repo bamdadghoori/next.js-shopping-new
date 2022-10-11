@@ -765,17 +765,33 @@ a{
   border-radius: 8px;
   background: #fff;
   max-height: 80vh;
-
-  z-index: 3;
+// opacity: 0;
+  z-index: 10;
    top: 0vh;
    box-shadow: 0 1px 1px rgb(0 0 0 / 14%), 0 4px 4px rgb(0 0 0 / 10%);
+  //  &.active-search-box{
+  //   opacity: 1;
+  //  }
+  .button-container{
+    margin-bottom: 5vh;
+  }
+  .ec-close{
+    position: absolute;
+   text-align: left;
+    font-size: 3vh;
+    left: 0vw;
+  }
+   &:focus-visible{
+    outline: unset;
+   }
    .search-categories{
-    padding: 20px;
+    padding: 12px;
    }
    .search-category{
     display: flex;
     font-size: 16px;
-    margin-top: 1vh;
+    width: fit-content;
+    z-index: 11 !important;
     cursor: pointer;
     .img-container{
       padding-left: 0.5vw;
@@ -802,6 +818,7 @@ a{
       margin-right: 1vw;
       margin-top: 1vh;
       padding: 10px;
+      cursor: pointer;
       .col-md-7{
       padding: 1vh;
       }
