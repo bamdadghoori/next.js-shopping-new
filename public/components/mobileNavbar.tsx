@@ -20,13 +20,18 @@ const router=useRouter();
             <div className="ec-menu-inner">
                 <div className="ec-menu-content">
                     <ul>
-                        <li className='dropdown'><a onClick={async()=>{
+                        <li ><a onClick={(e)=>{
+                            e.preventDefault();
                             changeLoading(true)
-                            router.push('/home/')
+                            if(window.location.pathname!='/'){
+                                router.push('/')
+                            }
+                           
                             changeLoading(false)
+                            changeMobileNavbar(false)
                         }}>خانه</a></li>
                         <li className={`${isActiveCategories==true && 'active'}`}>
-                        <span className="menu-toggle" onClick={()=>{setIsActiveCategories(!isActiveCategories)}}></span>
+                        <span className="menu-toggle" onClick={()=>{setIsActiveCategories (!isActiveCategories)}}></span>
                             <a href="javascript:void(0)">دسته بندی ها</a>
                             <ul className="sub-menu" style={isActiveCategories==true ?{display:'block'}:{display:'none'} }>
                             {categories.map((el:any,i:number)=>{

@@ -837,8 +837,15 @@ a{
 }
 
 // responsive
+
 @media(max-width:600px)
 {
+  .loader_img{
+   padding-top: 10vh;
+   padding-bottom: 20vh;
+   
+   
+  }
   .login-item{
     right:22vw;
     // .nav-link{
@@ -969,6 +976,12 @@ padding: 20px;
 
 // for tablets
 @media screen and (min-width:600px) and (max-width:900px) {
+  .loader_img{
+    padding-top: 10vh;
+    padding-bottom: 20vh;
+    
+    
+   }
   .navbar{
     .navbar-brand{
       left:14vw;

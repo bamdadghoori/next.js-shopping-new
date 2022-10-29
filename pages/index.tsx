@@ -92,12 +92,13 @@ const Premiers=React.lazy(()=>import('../public/components/premiers'))
   // lotsInSubCategory=lotsInCategory.filter((el:any)=>query.subCategory.includes(el.subCategory)==true)
  }
   useEffect(() => {
-  g();
+  // g();
+  console.log(window.location.pathname)
     dispatch(getShoppingLots());
     dispatch(getShoppingCategories());
-    dispatch
+    // Promise.all([getLotsList]).then(()=>{console.log('success')}).catch(()=>{console.log('error')})
 
-window.addEventListener("scroll",handleScroll)
+// window.addEventListener("scroll",handleScroll)
   }, [])
 
   return (

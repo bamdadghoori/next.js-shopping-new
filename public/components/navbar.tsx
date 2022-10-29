@@ -35,8 +35,8 @@ const Navbar = () => {
 const {showSearchModal,changeShowSearchModal}:any=useContext(AppContext)
   
 useEffect(()=>{
-    
-},[showSearchModal])
+
+},[])
 
     
    const changeLoading=(flag:boolean)=>{
@@ -129,11 +129,7 @@ const handleSearch=async(e:React.MouseEvent<HTMLButtonElement>)=>{
                                 }
                                 
                                 }><img src="/images/icons/user.svg" className="svg_img header_svg" alt=""/></button>
-                                <ul className="dropdown-menu dropdown-menu-right">
-                                    <li><a className="dropdown-item" href="register.html">ثبت نام</a></li>
-                                    <li><a className="dropdown-item" href="checkout.html">ادامه خرید</a></li>
-                                    <li><a className="dropdown-item" href="login.html">ورود</a></li>
-                                </ul>
+                               
                             </div>
                           
                           
@@ -193,11 +189,7 @@ const handleSearch=async(e:React.MouseEvent<HTMLButtonElement>)=>{
                                 }
                                 
                                 } className="svg_img header_svg" alt=""/></button>
-                                    <ul className="dropdown-menu dropdown-menu-right">
-                                        <li><a className="dropdown-item" href="register.html">ثبت نام</a></li>
-                                        <li><a className="dropdown-item" href="checkout.html">ادامه خرید</a></li>
-                                        <li><a className="dropdown-item" href="login.html">ورود</a></li>
-                                    </ul>
+                                    
                                 </div>
                              
                               
@@ -226,9 +218,9 @@ const handleSearch=async(e:React.MouseEvent<HTMLButtonElement>)=>{
                     
                     <div className="col">
                         <div className="header-search">
-                            <form className="ec-btn-group-form" action="#">
-                                <input className="form-control" value={searchText} placeholder="نام محصول خود را وارد کنید ..." type="text" />
-                                <button className="submit" type="submit"><img src="/images/icons/search.svg" className="svg_img header_svg" alt="icon"/></button>
+                            <form className="ec-btn-group-form" >
+                                <input className="form-control" value={searchText} onChange={changeSearchText} placeholder="نام محصول و یا دسته بندی ..." type="text" />
+                                <button className="submit" onClick={handleSearch}><img src="/images/icons/search.svg" className="svg_img header_svg" alt="icon"/></button>
                             </form>
                         </div>
                     </div>
@@ -243,7 +235,16 @@ const handleSearch=async(e:React.MouseEvent<HTMLButtonElement>)=>{
                     <div className="col-md-12 align-self-center">
                         <div className="ec-main-menu">
                             <ul>
-                                <li className="dropdown "><Link href={`/`}>خانه</Link></li>
+                                <li className="dropdown "><a onClick={()=>{
+                                    console.log(window.location)
+                                setLoading(true);
+                                {/* check if we are not in the home page */}
+                                if(window.location.pathname!='/'){
+                                    router.push('/')
+                                }
+                                
+                                setLoading(false)
+                                }}>خانه</a></li>
                                 <li className="dropdown "><a href="javascript:void(0)">دسته بندی ها</a>
                                     <ul className="sub-menu">
                                       
